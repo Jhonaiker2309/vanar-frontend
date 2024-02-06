@@ -4,13 +4,6 @@ import { Web3Reducer } from './reducer';
 import { providers, ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 
-// DETALLES, LEER Y BORRAR
-// 1. Al ser un archivo que regresa JSX, typescrip solo no puede hacer nada y por eso te explota en el return. Cambie la extension a tsx
-// 2. Ethereum fue removido de windows, por lo tanto hay que setearlo de nuevo, esto es mas web3 duro asi que JA es quien puede darte el full visto bueno, porque la declaracion deberia ir en un .env
-// 3. En el context provider deberia ir state, porque para eso lo estas definiendo en el "value", el estado de la Web3
-// 4. Hay un warning con setNetworkID y account, los coloque dentro de un callback para evitar que se re-renderizen infinitamente.
-
-// Declare window.ethereum to avoid TypeScript errors
 declare global {
   interface Window {
     ethereum?: MetaMaskInpageProvider;
@@ -22,6 +15,7 @@ interface Web3StateProps {
   networkId: number | null;
 }
 interface Web3ContextValue extends Web3StateProps {
+  connectWeb3: () => void;
   setAccount: (account: string) => void;
   setNetworkId: (networkId: number) => void;
 }
@@ -94,7 +88,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
   }, [connectWeb3]);
 
   return (
-    <Web3Context.Provider value={{ ...state, setAccount, setNetworkId }}>
+    <Web3Context.Provider value={{ ...state, setAccount, setNetworkId, connectWeb3 }}>
       {children}
     </Web3Context.Provider>
   );
