@@ -1,3 +1,5 @@
+import WeekCard from "../WeekCard/WeekCard";
+
 const ProgressPanel = () => {
     return (
       <div>
@@ -8,8 +10,15 @@ const ProgressPanel = () => {
                 Share
             </button>            
         </div>
-        <div className="bg-red-500">
-          asd
+        <div className="bg-zinc-900	grid grid-cols-7 gap-x-2 px-1 py-2">
+         {
+          [1,2,3,4,5,6,7].map((value, i) => (
+            <div key={i}>
+              <WeekCard value={value} />
+              <div className="h-4 bg-blue-500 mt-4"></div>
+            </div>
+          ))
+         }
         </div>
       </div>
     );
