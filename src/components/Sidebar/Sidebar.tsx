@@ -2,7 +2,7 @@ import React from 'react';
 
 const Sidebar = () => {
   return (
-    <div className="w-1/3 h-[95%] bg-[#1c1a23] opacity-80 fixed right-0 mt-[101px] flex flex-col items-center p-8 gap-8">
+    <div className="w-1/3 h-[95%] bg-[#1c1a23] opacity-80 absolute right-0 mt-[101px] flex flex-col items-center p-8 gap-8">
       <div className="w-full flex items-center justify-between  text-white text-4xl font-semibold">
         <p>Reward</p>
         <p>
