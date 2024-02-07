@@ -1,6 +1,6 @@
 const Sidebar = () => {
   return (
-    <div className="w-1/3 h-full flex flex-col justify-start bg-[#0b0b0b] opacity-95 absolute top-[101px] right-0 p-8 gap-6 border-l-2 border-l-[#4b4b4b]">
+    <div className="w-1/3 h-full flex flex-col justify-start bg-[#0b0b0b] opacity-95 fixed top-[101px] right-0 p-8 gap-6 border-l-2 border-l-[#4b4b4b]">
       <div className="w-full flex items-center justify-between text-white text-4xl font-semibold">
         <p>Reward</p>
         <div className="flex items-center gap-1">
