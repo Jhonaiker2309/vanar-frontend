@@ -4,9 +4,8 @@ import Sidebar from './components/Sidebar/Sidebar';
 
 const App = () => {
   return (
-    <div className="w-screen h-screen background relative overflow-hidden">
+    <div className="w-screen h-screen background overflow-scroll fixed">
       <Navbar />
-
       <Sidebar />
       <MainSection />
     </div>
