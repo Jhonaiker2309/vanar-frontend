@@ -1,12 +1,12 @@
 import MainSection from './components/MainSection/MainSection';
 import Navbar from './components/Navbar/Navbar';
-import Sidebar from './components/Sidebar/Sidebar';
+import SideImage from './components/SideImage/SideImage';
 
 const App = () => {
   return (
     <div className="w-screen h-screen background overflow-scroll fixed">
       <Navbar />
-      <Sidebar />
+      <SideImage />
       <MainSection />
     </div>
   );

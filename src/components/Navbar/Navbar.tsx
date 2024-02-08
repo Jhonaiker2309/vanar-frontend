@@ -4,7 +4,7 @@ import { Web3Context } from '../../web3';
 const Navbar = () => {
   const { account, connectWeb3 } = useContext(Web3Context);
   return (
-    <header className="w-screen h-[101px] bg-black opacity-95 fixed top-0 left-0 flex items-center justify-between px-14 z-50">
+    <header className="w-screen h-[101px] bg-black fixed top-0 left-0 flex items-center justify-between px-14 z-50">
       <div className="hidden md:flex items-center gap-1">
         <img src="images/vanar-logo-full.svg" alt="Logo" />
       </div>
