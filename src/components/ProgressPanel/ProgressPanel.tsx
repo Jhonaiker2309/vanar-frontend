@@ -2,9 +2,9 @@ import { Icon } from '../Icon/Icon';
 
 const ProgressPanel = () => {
   return (
-    <div className="w-full flex flex-col justify-start items-start">
+    <div className="w-full flex flex-col justify-start items-center md:items-start">
       <p className="text-lg text-[#A08CFF] font-semibold">19th Feb 2024 - 19th Apr 2024</p>
-      <div className="w-full flex items-end justify-between">
+      <div className="w-full flex flex-col md:flex-row items-center md:items-end justify-center md:justify-between gap-16 md:gap-0">
         <img src="/images/title-velocity.svg" />
         <button className="bg-[#0b0b0b] text-white font-bold text-lg px-6 py-6 border-[1.5px] border-[#4b4b4b] rounded-full h-10 flex items-center justify-center gap-2">
           <Icon name="share" size={24} color="white" />
