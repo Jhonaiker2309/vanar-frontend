@@ -5,7 +5,7 @@ const SideImage = () => {
         <img className="" src="images/user-avatar.svg" />
         <p className="text-2xl">Virtuans NFT</p>
         <p className="text-lg">70XP</p>
-        <button className="w-4/5 bg-[#a08cff] text-black text-lg font-bold rounded-full py-4 text-center">
+        <button className="w-4/5 bg-[#A08CFF] text-black text-lg font-bold rounded-full py-4 text-center">
           Claim Reward
         </button>
       </div>

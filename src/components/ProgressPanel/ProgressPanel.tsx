@@ -3,10 +3,10 @@ import { Icon } from '../Icon/Icon';
 const ProgressPanel = () => {
   return (
     <div className="w-full flex flex-col justify-start items-start">
-      <p className="text-lg text-[#a08cff] font-semibold">19th Feb 2024 - 19th Apr 2024</p>
-      <div className="w-full flex items-start justify-between">
-        <h1 className="text-white text-7xl font-semibold">Velocity</h1>
-        <button className="bg-[#0b0b0b] text-white font-bold text-sm px-4 py-0 border-2 border-[#4b4b4b] rounded-full h-10 flex items-center justify-center gap-4">
+      <p className="text-lg text-[#A08CFF] font-semibold">19th Feb 2024 - 19th Apr 2024</p>
+      <div className="w-full flex items-end justify-between">
+        <img src="/images/title-velocity.svg" />
+        <button className="bg-[#0b0b0b] text-white font-bold text-lg px-6 py-6 border-[1.5px] border-[#4b4b4b] rounded-full h-10 flex items-center justify-center gap-2">
           <Icon name="share" size={24} color="white" />
           Share
         </button>
@@ -17,7 +17,6 @@ const ProgressPanel = () => {
         <CreateCard status="Locked" week={3} />
         <CreateCard status="Locked" week={4} />
         <CreateCard status="Locked" week={5} />
-        <CreateCard status="Locked" week={6} />
         <CreateCard status="Locked" isFinal />
       </div>
     </div>
@@ -42,14 +41,14 @@ const CreateCard = ({ status, week, isFinal = false }: CreateCardProps) => {
         <Icon
           name={isFinal ? 'crown' : 'lock'}
           size={48}
-          color={isCompleted ? '#a08cff' : isInProgress ? '#ecaa00' : ''}
+          color={isCompleted ? '#A08CFF' : isInProgress ? '#ecaa00' : ''}
         />
         <div className="flex flex-col justify-end items-center gap-2 text-white text-xs">
           <p>{isFinal ? 'Congrats' : `Week 0${week}`}</p>
 
           <div
             className={`px-3 py-1 rounded-full  ${
-              isCompleted ? 'bg-[#a08cff]' : isInProgress ? 'bg-[#ecaa00]' : 'bg-[#4b4b4b]'
+              isCompleted ? 'bg-[#A08CFF]' : isInProgress ? 'bg-[#ecaa00]' : 'bg-[#4b4b4b]'
             }`}
           >
             {status}
@@ -58,7 +57,7 @@ const CreateCard = ({ status, week, isFinal = false }: CreateCardProps) => {
       </div>
       <div
         className={`w-full h-2 rounded-full bg- ${
-          isCompleted ? 'bg-[#a08cff]' : isInProgress ? 'bg-[#ecaa00]' : 'bg-[#4b4b4b]'
+          isCompleted ? 'bg-[#A08CFF]' : isInProgress ? 'bg-[#ecaa00]' : 'bg-[#4b4b4b]'
         }`}
       />
     </div>

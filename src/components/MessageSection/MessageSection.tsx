@@ -1,22 +1,21 @@
 export const MessageSection = () => {
   return (
-    <div className="w-full flex flex-col items-start gap-8 text-white">
-      <h1 className="text-5xl font-semibold">
-        Welcome to foundation Link at Vanar Chain Testnet:Vanguard
+    <div className="w-full flex flex-col items-start  gap-8 text-white">
+      <h1 className="text-[44px] font-semibold">
+        Welcome to Foundation Week at Vanar Chain Testnet: Vanguard
       </h1>
-      <p className="text-lg font-semibold py-1 px-3 bg-[#4d4d4d] rounded-full">
-        19th Feb 2024 - 19th Apr 2024
+      <p className="text-lg font-semibold py-2 px-4 bg-[#2b2b2b] rounded-full">
+        19th Feb 2024, 02:19 PM - 26th Feb 2024, 04:00 AM
       </p>
       <img
-        className="w-full h-[360px] rounded-[40px]"
-        src="/images/message-background.png"
+        className="w-full rounded-[40px]"
+        src="/images/message-background.svg"
         alt="week image"
       />
-      <p className="text-lg text-[#4a4a4a]">
-        Hurry to join the greatest Valorant tournament of all time. Fight till the end and get the
-        reward. Hurry to join the greatest Valorant tournament of all time. Fight till the end and
-        get the reward. Hurry to join the greatest Valorant tournament of all time. Fight till the
-        end and get the reward.
+      <p className="text-lg text-[#f6f6f6]">
+        Hurry to join in the greatest Valorant tournament of all time. Fight till the end and get
+        the reward. Hurry to join in the greatest Valorant tournament of all time. Fight till the
+        end and get the rewardHurry to join in the greatest Valorant tournament of all time.
       </p>
     </div>
   );
