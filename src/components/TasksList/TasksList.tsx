@@ -1,7 +1,13 @@
 import { Bar } from '../Bar/Bar';
 import { Icon } from '../Icon/Icon';
 
-const TasksList = () => {
+const TasksList = ({ tasks }: TasksProps) => {
+  const handleFillBar = () => {
+    const weekTasks = tasks.filter(task => !task.isBonus);
+    const weekTasksCompleted = weekTasks.filter(task => task.isCompleted);
+    return (weekTasksCompleted.length / weekTasks.length) * 100;
+  };
+
   return (
     <div className="w-full flex flex-col items-start justify-start text-white gap-8">
       <div className="w-full flex justify-between items-end">
@@ -14,17 +20,30 @@ const TasksList = () => {
           FAQs
         </button>
       </div>
-      <Bar percent={50} />
+      <Bar percent={handleFillBar()} />
       <div className="w-full flex flex-col gap-4">
-        <TaskCard icon="crown" task="Check documentation at Gitbook" reward={10} />
-        <TaskCard icon="share" task="Connect your wallet " reward={10} isCompleted />
+        {tasks.map(task => {
+          const { icon, text, reward, isCompleted, isBonus } = task;
+          return (
+            !isBonus && (
+              <TaskCard icon={icon} text={text} reward={reward} isCompleted={isCompleted} />
+            )
+          );
+        })}
       </div>
       <div className="w-full flex flex-col gap-4">
         <div className="flex items-center gap-2">
           <p className="text-[28px] md:text-[44px]">Bonus Task</p>
           <Icon name="fire" size={40} />
         </div>
-        <TaskCard icon="lock" task="Follow on Twitter" reward={10} />
+        {tasks.map(task => {
+          const { icon, text, reward, isCompleted, isBonus } = task;
+          return (
+            isBonus && (
+              <TaskCard icon={icon} text={text} reward={reward} isCompleted={isCompleted} />
+            )
+          );
+        })}
       </div>
     </div>
   );
@@ -32,19 +51,24 @@ const TasksList = () => {
 
 export default TasksList;
 
-interface TaskCardProps {
+interface Task {
   icon: string;
-  task: string;
+  text: string;
   reward: number;
   isCompleted?: boolean;
+  isBonus?: boolean;
 }
 
-const TaskCard = ({ icon, task, reward, isCompleted = false }: TaskCardProps) => {
+interface TasksProps {
+  tasks: Task[];
+}
+
+const TaskCard = ({ icon, text, reward, isCompleted = false }: Task) => {
   return (
     <div className="w-full ring-1 ring-[#4b4b4b] bg-[#1a1a1a] py-6 px-4 md:px-12 flex items-center justify-between rounded-[20px]">
       <div className="flex items-center justify-start gap-4">
         <Icon name={icon} size={24} color="white" />
-        <p className="text-sm md:text-lg">{task}</p>
+        <p className="text-sm md:text-lg">{text}</p>
       </div>
 
       <div
