@@ -20,8 +20,9 @@ const TasksList = () => {
         <TaskCard icon="share" task="Connect your wallet " reward={10} isCompleted />
       </div>
       <div className="w-full flex flex-col gap-4">
-        <div className="flex items center">
-          <p className="text-[44px]">Bonus Task</p>
+        <div className="flex items-center gap-2">
+          <p className="text-[28px] md:text-[44px]">Bonus Task</p>
+          <Icon name="fire" size={40} />
         </div>
         <TaskCard icon="lock" task="Follow on Twitter" reward={10} />
       </div>

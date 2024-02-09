@@ -3,7 +3,7 @@ import cls from 'classnames';
 export interface IconProps {
   color?: string;
   name: string;
-  size: number;
+  size?: number;
   className?: string;
   onClick?: () => void;
 }
@@ -29,7 +29,7 @@ export const Icon = (props: IconProps) => {
     >
       {color ? (
         <div
-          className="mask"
+          className="mask w-4 h-4"
           style={{
             WebkitMaskImage: `url('${url}')`,
             WebkitAlignItems: 'center',

@@ -1,4 +1,6 @@
+import { Bar } from '../Bar/Bar';
 import { Icon } from '../Icon/Icon';
+import { ReactNode } from 'react';
 
 const ProgressPanel = () => {
   return (
@@ -11,13 +13,30 @@ const ProgressPanel = () => {
           Share
         </button>
       </div>
-      <div className="w-full bg-[#0b0b0b] border-2 border-[#101010] rounded-xl mt-[74px] flex items-center justify-end gap-4 p-8">
-        <CreateCard status="Completed" week={1} />
-        <CreateCard status="In Progress" week={2} />
-        <CreateCard status="Locked" week={3} />
-        <CreateCard status="Locked" week={4} />
-        <CreateCard status="Locked" week={5} />
-        <CreateCard status="Locked" isFinal />
+      <div className="w-full items-center">
+        <div className="flex md:hidden w-full flex-wrap items-center justify-between py-4 gap-4">
+          <CreateCard status="Completed" week={1} isResponsive />
+          <CreateCard status="In Progress" week={2} isResponsive />
+          <CreateCard status="Locked" week={3} isResponsive />
+          <CreateCard status="Locked" week={3} isResponsive />
+          <CreateCard status="Locked" week={3} isResponsive />
+          <CreateCard status="Locked" week={3} isResponsive />
+        </div>
+        <QuestProgress />
+        <div className="hidden md:flex w-full items-center justify-between py-4 gap-4">
+          <CreatePhrase title="Phase 1">
+            <CreateCard status="Completed" week={1} />
+            <CreateCard status="In Progress" week={2} />
+          </CreatePhrase>
+          <CreatePhrase title="Phase 2">
+            <CreateCard status="Locked" week={3} />
+            <CreateCard status="Locked" week={3} />
+            <CreateCard status="Locked" week={3} />
+          </CreatePhrase>
+          <CreatePhrase title="Phase 3">
+            <CreateCard status="Locked" week={3} />
+          </CreatePhrase>
+        </div>
       </div>
     </div>
   );
@@ -25,41 +44,58 @@ const ProgressPanel = () => {
 
 export default ProgressPanel;
 
+interface CreatePhraseProps {
+  title: string;
+  children: ReactNode;
+}
 interface CreateCardProps {
   status: 'Completed' | 'Locked' | 'In Progress';
   week?: number;
   isFinal?: boolean;
+  isResponsive?: boolean;
 }
 
-const CreateCard = ({ status, week, isFinal = false }: CreateCardProps) => {
+const CreatePhrase = ({ title, children }: CreatePhraseProps) => {
+  return (
+    <div className="w-full flex flex-col items-center bg-[#0b0b0b] border-2 border-[#101010] rounded-xl py-6 px-3 gap-4">
+      <p className="text-xl text-white font-semibold">{title}</p>
+      <div className="w-fit flex gap-4 justify-between">{children}</div>
+    </div>
+  );
+};
+
+const CreateCard = ({ status, week, isFinal = false, isResponsive = false }: CreateCardProps) => {
   const isInProgress = status === 'In Progress';
   const isCompleted = status === 'Completed';
 
   return (
-    <div className="w-full flex flex-col justify-end items-center gap-8">
-      <div className="w-full p-4 rounded-xl flex flex-col justify-end items-center gap-4 bg-[#1a1a1a] ring-2 ring-[#4d4d4d] ">
-        <Icon
-          name={isFinal ? 'crown' : 'lock'}
-          size={48}
-          color={isCompleted ? '#A08CFF' : isInProgress ? '#ecaa00' : ''}
-        />
-        <div className="flex flex-col justify-end items-center gap-2 text-white text-xs">
-          <p>{isFinal ? 'Congrats' : `Week 0${week}`}</p>
+    <div className="w-[60px] md:w-[125px] py-4 rounded-xl flex flex-col justify-end items-center gap-4 bg-[#1a1a1a] ring-2 ring-[#F6F6F633] ">
+      <Icon
+        name={isFinal ? 'crown' : 'lock'}
+        size={isResponsive ? 16 : 48}
+        color={isCompleted ? '#A08CFF' : isInProgress ? '#ecaa00' : ''}
+      />
+      <div className="flex flex-col justify-end items-center gap-2 text-white text-[10px]  md:text-xs">
+        <p>{isFinal ? 'Congrats' : `Week 0${week}`}</p>
 
-          <div
-            className={`px-3 py-1 rounded-full  ${
-              isCompleted ? 'bg-[#A08CFF]' : isInProgress ? 'bg-[#ecaa00]' : 'bg-[#4b4b4b]'
-            }`}
-          >
-            {status}
-          </div>
+        <div
+          className={`text-[8px] md:text-base px-3 md:py-1 rounded md:rounded-full text-nowrap  ${
+            isCompleted ? 'bg-[#A08CFF]' : isInProgress ? 'bg-[#ecaa00]' : 'bg-[#4b4b4b]'
+          }`}
+        >
+          {status}
         </div>
       </div>
-      <div
-        className={`w-full h-2 rounded-full bg- ${
-          isCompleted ? 'bg-[#A08CFF]' : isInProgress ? 'bg-[#ecaa00]' : 'bg-[#4b4b4b]'
-        }`}
-      />
+    </div>
+  );
+};
+
+const QuestProgress = () => {
+  return (
+    <div className="w-full bg-[#0b0b0b] border-2 border-[#101010] rounded-xl mt-0  md:mt-[74px] flex items-center justify-end gap-1 py-4 px-1  md:gap-8 md:p-8">
+      <p className="min-w-fit text-base  md:text-xl text-white">Quest Progress</p>
+      <Bar percent={0} />
+      <Icon name="trophy" size={36} />
     </div>
   );
 };
