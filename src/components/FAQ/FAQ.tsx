@@ -1,6 +1,6 @@
 const FAQ = () => {
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col gap-8 bg-black">
       <div className="w-full relative flex justify-center items-center">
         <div className="absolute w-full h-full bg-black opacity-85 z-40" />
         <img src="/images/background-faq.svg" />
