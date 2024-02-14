@@ -42,7 +42,7 @@ const Modal = ({ show, onClose, children }: ModalProps) => {
   return (
     isOpen && (
       <div
-        className="fixed w-full h-fit pt-28 inset-0 flex items-center justify-start overflow-scroll pl-10 z-50"
+        className="fixed w-full h-fit pt-28 inset-0 flex items-center justify-start overflow-scroll md:pl-10 z-50"
         onClick={handleClose}
       >
         <div
