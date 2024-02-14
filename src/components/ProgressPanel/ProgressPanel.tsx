@@ -107,6 +107,12 @@ const QuestProgress = () => {
 };
 
 const ShareMenu = () => {
+  const currentURL = encodeURI(document.location.href);
+  const URLTitle = encodeURI('Welcome to Foundation Week at Vanar Chain Testnet: Vanguard');
+  const handleCopyURL = () => {
+    navigator.clipboard.writeText(currentURL);
+  };
+
   return (
     <div className="w-fit flex flex-col p-8 bg-[#fcfcfc] border-2 border-[#101010] rounded-xl gap-8">
       <p className="text-2xl text-[#101010] font-bold text-nowrap">Share on socials</p>
@@ -114,26 +120,42 @@ const ShareMenu = () => {
         If you don’t have a wallet yet, you can select a provider and create one now.
       </p>
       <div className="flex justify-between items-end">
-        <div className="flex flex-col items-center cursor-pointer">
+        <div className="flex flex-col items-center cursor-pointer" onClick={handleCopyURL}>
           <img src="/images/embed.svg" />
-          <p>Embed</p>
+          <p>Copy URL</p>
         </div>
-        <div className="flex flex-col items-center cursor-pointer">
+        <a
+          href={`https://api.whatsapp.com/send?text=${URLTitle} ${currentURL}`}
+          target="_blank"
+          className="flex flex-col items-center cursor-pointer"
+        >
           <img src="/images/whatsapp.svg" />
           <p>Whatsapp</p>
-        </div>
-        <div className="flex flex-col items-center cursor-pointer">
+        </a>
+        <a
+          href={`https://www.facebook.com/sharer.php?u=${currentURL}`}
+          target="_blank"
+          className="flex flex-col items-center cursor-pointer"
+        >
           <img src="/images/facebook.svg" />
           <p>Facebook</p>
-        </div>
-        <div className="flex flex-col items-center cursor-pointer">
+        </a>
+        <a
+          href={`https://twitter.com/share?url=${currentURL}&text=${URLTitle}&via=${'Vanarchain'}&hashtags=${'Vanar'}`}
+          target="_blank"
+          className="flex flex-col items-center cursor-pointer"
+        >
           <img src="/images/twitter.svg" />
           <p>Twitter</p>
-        </div>
-        <div className="flex flex-col items-center cursor-pointer">
+        </a>
+        <a
+          href={`https://mail.google.com/mail/?view=cm&fs=1&to=&su=${URLTitle}&body=Check%20out%20this%20link:%20${currentURL}`}
+          target="_blank"
+          className="flex flex-col items-center cursor-pointer"
+        >
           <img src="/images/email.svg" />
           <p>Email</p>
-        </div>
+        </a>
       </div>
     </div>
   );
