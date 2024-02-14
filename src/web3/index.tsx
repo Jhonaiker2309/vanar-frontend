@@ -8,7 +8,7 @@ import contractABI from "./abis/VanarNFTHandler.json"
 
 declare global {
   interface Window {
-    ethereum?: any;
+    ethereum: any;
   }
 }
 
