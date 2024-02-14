@@ -7,7 +7,12 @@ const App = () => {
     <div className="w-screen h-screen background overflow-scroll fixed">
       <Navbar />
       <div className="w-full h-full flex flex-col md:flex-row">
-        <MainSection /> <SideImage />
+        <div className="z-40">
+          <MainSection />
+        </div>
+        <div className="z-10">
+          <SideImage />
+        </div>
       </div>
     </div>
   );
