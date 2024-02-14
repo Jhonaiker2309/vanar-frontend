@@ -4,9 +4,11 @@ const FAQ = () => {
       <div className="w-full relative flex justify-center items-center">
         <div className="absolute w-full h-full bg-black opacity-85 z-40" />
         <img src="/images/background-faq.svg" />
-        <h1 className="text-[56px] text-white z-50 absolute">Frequently Asked Questions</h1>
+        <h1 className=" text-2xl md:text-[56px] text-white z-50 absolute">
+          Frequently Asked Questions
+        </h1>
       </div>
-      <div className="w-full flex flex-col bg-black px-20 gap-12 overflow-scroll">
+      <div className="w-full h-[60vh] flex flex-col bg-black px-8  md:px-20 gap-12 overflow-scroll">
         <CreateQuestion />
       </div>
     </div>
@@ -21,10 +23,10 @@ const CreateQuestion = () => {
         key={`question-${question}`}
         className="w-full text-white flex flex-col items-start gap-2"
       >
-        <h1 className="text-3xl">
-          {index + 1} {question}
+        <h1 className="text-lg md:text-3xl">
+          {index + 1 + '.'} {question}
         </h1>
-        <p className="text-lg">{answer}</p>
+        <p className="text-base md:text-lg">{answer}</p>
       </div>
     );
   });
