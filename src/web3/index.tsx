@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect, useCallback, createContext, ReactNode } from 'react';
-import { MetaMaskInpageProvider } from '@metamask/providers';
+//import { MetaMaskInpageProvider } from '@metamask/providers';
 import { Web3Reducer } from './reducer';
 import { providers, ethers } from 'ethers';
 import Web3Modal from 'web3modal';
@@ -8,7 +8,7 @@ import contractABI from "./abis/VanarNFTHandler.json"
 
 declare global {
   interface Window {
-    ethereum?: MetaMaskInpageProvider;
+    ethereum?: any;
   }
 }
 
@@ -121,7 +121,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
       const signature: string = data.signature
       const { contract } = state 
       
-      await contract.mint(1, "secretdsgsrtserser342134" ,signature)
+      await contract.mint(2, "secretdsgsrtserser342134" ,signature)
     }
     )
     .catch(error => console.error('Error en la solicitud:', error));

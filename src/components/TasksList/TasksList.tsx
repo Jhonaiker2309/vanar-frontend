@@ -34,11 +34,11 @@ const TasksList = ({ tasks }: TasksProps) => {
       </div>
       <Bar percent={handleFillBar()} />
       <div className="w-full flex flex-col gap-4">
-        {tasks.map(task => {
+        {tasks.map((task, i) => {
           const { icon, text, reward, isCompleted, isBonus } = task;
           return (
             !isBonus && (
-              <TaskCard icon={icon} text={text} reward={reward} isCompleted={isCompleted} />
+              <TaskCard icon={icon} text={text} reward={reward} isCompleted={isCompleted} key={i}/>
             )
           );
         })}
@@ -48,11 +48,11 @@ const TasksList = ({ tasks }: TasksProps) => {
           <p className="text-[28px] md:text-[44px]">Bonus Task</p>
           <Icon name="fire" size={40} />
         </div>
-        {tasks.map(task => {
+        {tasks.map((task, i) => {
           const { icon, text, reward, isCompleted, isBonus } = task;
           return (
             isBonus && (
-              <TaskCard icon={icon} text={text} reward={reward} isCompleted={isCompleted} />
+              <TaskCard icon={icon} text={text} reward={reward} isCompleted={isCompleted} key={i} />
             )
           );
         })}
