@@ -22,7 +22,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ icon, content }) => {
         {icon}
       </div>
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-fit bg-fndWhite rounded-2xl shadow-lg z-10 max-sm:-right-20">
+        <div className="absolute right-0 mt-2 w-fit rounded-2xl shadow-lg max-sm:-right-20">
           {content}
         </div>
       )}
