@@ -1,6 +1,7 @@
 import { Bar } from '../Bar/Bar';
 import { Icon } from '../Icon/Icon';
 import { ReactNode } from 'react';
+import DropdownMenu from '../DropdownMenu/DropdownMenu';
 
 const ProgressPanel = () => {
   return (
@@ -8,10 +9,15 @@ const ProgressPanel = () => {
       <p className="text-lg text-[#A08CFF] font-semibold">19th Feb 2024 - 19th Apr 2024</p>
       <div className="w-full flex flex-col md:flex-row items-center md:items-end justify-center md:justify-between gap-16 md:gap-0">
         <img src="/images/title-velocity.svg" />
-        <button className="bg-[#0b0b0b] text-white font-bold text-lg px-6 py-6 border-[1.5px] border-[#4b4b4b] rounded-full h-10 flex items-center justify-center gap-2">
-          <Icon name="share" size={24} color="white" />
-          Share
-        </button>
+        <DropdownMenu
+          icon={
+            <div className="bg-[#0b0b0b] text-white font-bold text-lg px-6 py-6 border-[1.5px] border-[#4b4b4b] rounded-full h-10 flex items-center justify-center gap-2">
+              <Icon name="share" size={24} color="white" />
+              Share
+            </div>
+          }
+          content={<ShareMenu />}
+        />
       </div>
       <div className="w-full items-center">
         <div className="flex md:hidden w-full flex-wrap items-center justify-between py-4 gap-4">
@@ -96,6 +102,39 @@ const QuestProgress = () => {
       <p className="min-w-fit text-base  md:text-xl text-white">Quest Progress</p>
       <Bar percent={0} />
       <Icon name="trophy" size={36} />
+    </div>
+  );
+};
+
+const ShareMenu = () => {
+  return (
+    <div className="w-fit flex flex-col p-8 bg-[#fcfcfc] border-2 border-[#101010] rounded-xl gap-8">
+      <p className="text-2xl text-[#101010] font-bold text-nowrap">Share on socials</p>
+      <p className="text-[#101010] text-nowrap">
+        If you don’t have a wallet yet, you can select a provider and create one now.
+      </p>
+      <div className="flex justify-between items-end">
+        <div className="flex flex-col items-center cursor-pointer">
+          <img src="/images/embed.svg" />
+          <p>Embed</p>
+        </div>
+        <div className="flex flex-col items-center cursor-pointer">
+          <img src="/images/whatsapp.svg" />
+          <p>Whatsapp</p>
+        </div>
+        <div className="flex flex-col items-center cursor-pointer">
+          <img src="/images/facebook.svg" />
+          <p>Facebook</p>
+        </div>
+        <div className="flex flex-col items-center cursor-pointer">
+          <img src="/images/twitter.svg" />
+          <p>Twitter</p>
+        </div>
+        <div className="flex flex-col items-center cursor-pointer">
+          <img src="/images/email.svg" />
+          <p>Email</p>
+        </div>
+      </div>
     </div>
   );
 };
