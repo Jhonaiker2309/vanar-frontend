@@ -4,20 +4,38 @@ import { ReactNode } from 'react';
 import DropdownMenu from '../DropdownMenu/DropdownMenu';
 
 const ProgressPanel = () => {
+  const currentURL = encodeURI(document.location.href);
+  const handleMobileShare = () => {
+    navigator.share({
+      title: 'Welcome to Foundation Week at Vanar Chain Testnet: Vanguard',
+      text: 'Hurry to join in the greatest Valorant tournament of all time. Fight till the end and get the reward.',
+      url: currentURL,
+    });
+  };
+
   return (
     <div className="w-full flex flex-col justify-start items-center md:items-start">
       <p className="text-lg text-[#A08CFF] font-semibold">19th Feb 2024 - 19th Apr 2024</p>
       <div className="w-full flex flex-col md:flex-row items-center md:items-end justify-center md:justify-between gap-16 md:gap-0">
         <img src="/images/title-velocity.svg" />
-        <DropdownMenu
-          icon={
-            <div className="bg-[#0b0b0b] text-white font-bold text-lg px-6 py-6 border-[1.5px] border-[#4b4b4b] rounded-full h-10 flex items-center justify-center gap-2">
-              <Icon name="share" size={24} color="white" />
-              Share
-            </div>
-          }
-          content={<ShareMenu />}
-        />
+        <div className="hidden md:flex">
+          <DropdownMenu
+            icon={
+              <div className="bg-[#0b0b0b] text-white font-bold text-lg px-6 py-6 border-[1.5px] border-[#4b4b4b] rounded-full h-10 flex items-center justify-center gap-2">
+                <Icon name="share" size={24} color="white" />
+                Share
+              </div>
+            }
+            content={<ShareMenu />}
+          />
+        </div>
+        <div
+          className="bg-[#0b0b0b] text-white font-bold text-lg px-6 py-6 mb-12 border-[1.5px] border-[#4b4b4b] rounded-full h-10 flex md:hidden items-center justify-center gap-2"
+          onClick={handleMobileShare}
+        >
+          <Icon name="share" size={24} color="white" />
+          Share
+        </div>
       </div>
       <div className="w-full items-center">
         <div className="flex md:hidden w-full flex-wrap items-center justify-between py-4 gap-4">
@@ -29,7 +47,7 @@ const ProgressPanel = () => {
           <CreateCard status="Locked" week={3} isResponsive />
         </div>
         <QuestProgress />
-        <div className="hidden md:flex w-full items-center justify-between py-4 gap-4">
+        <div className="hidden md:flex w-full flex-wrap items-center justify-between py-4 gap-4">
           <CreatePhrase title="Phase 1">
             <CreateCard status="Completed" week={1} />
             <CreateCard status="In Progress" week={2} />
@@ -63,7 +81,7 @@ interface CreateCardProps {
 
 const CreatePhrase = ({ title, children }: CreatePhraseProps) => {
   return (
-    <div className="w-full flex flex-col items-center bg-[#0b0b0b] border-2 border-[#101010] rounded-xl py-6 px-3 gap-4">
+    <div className="w-fit md:m-auto lg:m-0 flex flex-col items-center bg-[#0b0b0b] border-2 border-[#101010] rounded-xl py-6 px-3 gap-4">
       <p className="text-xl text-white font-semibold">{title}</p>
       <div className="w-fit flex gap-4 justify-between">{children}</div>
     </div>
@@ -75,7 +93,7 @@ const CreateCard = ({ status, week, isFinal = false, isResponsive = false }: Cre
   const isCompleted = status === 'Completed';
 
   return (
-    <div className="w-[60px] md:w-[125px] py-4 rounded-xl flex flex-col justify-end items-center gap-4 bg-[#1a1a1a] ring-2 ring-[#F6F6F633] ">
+    <div className="w-[80px] m-auto  md:w-[125px] py-4 rounded-xl flex flex-col justify-end items-center gap-4 bg-[#1a1a1a] ring-2 ring-[#F6F6F633] ">
       <Icon
         name={isFinal ? 'crown' : 'lock'}
         size={isResponsive ? 16 : 48}
@@ -98,7 +116,7 @@ const CreateCard = ({ status, week, isFinal = false, isResponsive = false }: Cre
 
 const QuestProgress = () => {
   return (
-    <div className="w-full bg-[#0b0b0b] border-2 border-[#101010] rounded-xl mt-0  md:mt-[74px] flex items-center justify-end gap-1 py-4 px-1  md:gap-8 md:p-8">
+    <div className="w-full bg-[#0b0b0b] border-2 border-[#101010] rounded-xl mt-0 md:mt-[74px] flex items-center justify-end gap-1 py-4 px-4 md:gap-8 md:p-8">
       <p className="min-w-fit text-base  md:text-xl text-white">Quest Progress</p>
       <Bar percent={0} />
       <Icon name="trophy" size={36} />
