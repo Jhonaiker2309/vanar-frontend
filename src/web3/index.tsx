@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, useCallback, createContext, ReactNode } from 'react';
+import React, { useReducer, useCallback, createContext, ReactNode } from 'react';
 //import { MetaMaskInpageProvider } from '@metamask/providers';
 import { Web3Reducer } from './reducer';
 import { providers, ethers } from 'ethers';
@@ -82,7 +82,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
       const userAddress = await ethersProvider.getSigner().getAddress();
       const network = await ethersProvider.getNetwork();
       const networkId = network.chainId;
-      const contractAddress: string = "0xF61119C1303bb6B085306906be8e30d38E2A03c7"
+      const contractAddress: string = "0xAc766cEf84cA7744914CA5A6dF09A5BDd54Dd44b"
       
       const contract = new ethers.Contract(contractAddress, contractABI, ethersProvider.getSigner());
 
@@ -110,7 +110,6 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // Puedes agregar más encabezados según sea necesario
       },
       body: JSON.stringify({account}),
     };    
@@ -121,14 +120,11 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
       const signature: string = data.signature
       const { contract } = state 
       
-      await contract.mint(2, "secretdsgsrtserser342134" ,signature)
+      await contract.mint(1, signature)
     }
     )
-    .catch(error => console.error('Error en la solicitud:', error));
+    .catch(error => console.error('Error: ', error));
   }
-  useEffect(() => {
-    connectWeb3();
-  }, [connectWeb3]);
 
   return (
     <Web3Context.Provider value={{ ...state, setAccount, setNetworkId, connectWeb3, mintNFT }}>

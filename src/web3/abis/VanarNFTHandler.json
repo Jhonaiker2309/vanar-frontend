@@ -224,11 +224,6 @@
         "internalType": "uint256",
         "name": "_timestampId",
         "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_nonce",
-        "type": "string"
       }
     ],
     "name": "getHash",
@@ -272,11 +267,6 @@
         "internalType": "uint256",
         "name": "_timestampId",
         "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_nonce",
-        "type": "string"
       },
       {
         "internalType": "bytes",
@@ -426,6 +416,19 @@
   {
     "inputs": [
       {
+        "internalType": "string",
+        "name": "newBaseURI",
+        "type": "string"
+      }
+    ],
+    "name": "setBaseURI",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bytes",
         "name": "signature",
         "type": "bytes"
@@ -501,11 +504,6 @@
         "internalType": "uint256",
         "name": "_timestampId",
         "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_nonce",
-        "type": "string"
       },
       {
         "internalType": "bytes",
