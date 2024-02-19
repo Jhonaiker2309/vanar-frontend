@@ -35,10 +35,16 @@ const TasksList = ({ tasks }: TasksProps) => {
       <Bar percent={handleFillBar()} />
       <div className="w-full flex flex-col gap-4">
         {tasks.map((task, i) => {
-          const { icon, text, reward, isCompleted, isBonus } = task;
+          const { logo, text, experience, isCompleted, isBonus } = task;
           return (
             !isBonus && (
-              <TaskCard icon={icon} text={text} reward={reward} isCompleted={isCompleted} key={i}/>
+              <TaskCard
+                logo={logo}
+                text={text}
+                experience={experience}
+                isCompleted={isCompleted}
+                key={i}
+              />
             )
           );
         })}
@@ -49,10 +55,16 @@ const TasksList = ({ tasks }: TasksProps) => {
           <Icon name="fire" size={40} />
         </div>
         {tasks.map((task, i) => {
-          const { icon, text, reward, isCompleted, isBonus } = task;
+          const { logo, text, experience, isCompleted, isBonus } = task;
           return (
             isBonus && (
-              <TaskCard icon={icon} text={text} reward={reward} isCompleted={isCompleted} key={i} />
+              <TaskCard
+                logo={logo}
+                text={text}
+                experience={experience}
+                isCompleted={isCompleted}
+                key={i}
+              />
             )
           );
         })}
@@ -67,10 +79,11 @@ const TasksList = ({ tasks }: TasksProps) => {
 export default TasksList;
 
 interface Task {
-  icon: string;
+  isCompleted: boolean;
+  experience: number;
+  link?: string;
+  logo: string;
   text: string;
-  reward: number;
-  isCompleted?: boolean;
   isBonus?: boolean;
 }
 
@@ -78,11 +91,11 @@ interface TasksProps {
   tasks: Task[];
 }
 
-const TaskCard = ({ icon, text, reward, isCompleted = false }: Task) => {
+const TaskCard = ({ logo, text, experience, isCompleted = false }: Task) => {
   return (
     <div className="w-full ring-1 ring-[#4b4b4b] bg-[#1a1a1a] py-6 px-4 md:px-12 flex items-center justify-between rounded-[20px]">
       <div className="flex items-center justify-start gap-4">
-        <Icon name={icon} size={24} color="white" />
+        <img src={logo} />
         <p className="text-sm md:text-lg">{text}</p>
       </div>
 
@@ -91,7 +104,7 @@ const TaskCard = ({ icon, text, reward, isCompleted = false }: Task) => {
           isCompleted ? 'ring-[#A08CFF] bg-[#A08CFF29]' : 'ring-[#4b4b4b] bg-[#2b2b2b]'
         }`}
       >
-        {isCompleted ? <p className="font-semibold">Completed</p> : <p>{reward}XP</p>}
+        {isCompleted ? <p className="font-semibold">Completed</p> : <p>{experience}XP</p>}
       </div>
     </div>
   );

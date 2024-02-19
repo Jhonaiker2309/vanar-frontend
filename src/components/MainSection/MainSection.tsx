@@ -24,6 +24,7 @@ interface MainSectionProps {
       link?: string;
       logo: string;
       text: string;
+      isBonus?: boolean;
     }[];
   };
 }

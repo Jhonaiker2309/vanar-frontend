@@ -14,12 +14,13 @@ const App = () => {
       link?: string;
       logo: string;
       text: string;
+      isBonus?: boolean;
     }[];
   }>({
     totalWeeks: 0,
     currentWeek: 0,
     isFinished: false,
-    tasks: [{ isCompleted: false, experience: 0, logo: '', text: '' }],
+    tasks: [{ isCompleted: false, experience: 0, logo: '', text: '', isBonus: false }],
   });
 
   const [nftVideo, setNftVideo] = useState<{ video: string; name: string }>({
