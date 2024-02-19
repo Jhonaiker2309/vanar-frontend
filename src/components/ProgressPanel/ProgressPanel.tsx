@@ -3,8 +3,10 @@ import { Icon } from '../Icon/Icon';
 import { ReactNode } from 'react';
 import DropdownMenu from '../DropdownMenu/DropdownMenu';
 
-const ProgressPanel = () => {
+const ProgressPanel = ({ panelData }: ProgressPanelProps) => {
   const currentURL = encodeURI(document.location.href);
+  console.log(panelData);
+
   const handleMobileShare = () => {
     navigator.share({
       title: 'Welcome to Foundation Week at Vanar Chain Testnet: Vanguard',
@@ -39,8 +41,8 @@ const ProgressPanel = () => {
       </div>
       <div className="w-full items-center">
         <div className="flex md:hidden w-full flex-wrap items-center justify-between py-4 gap-4">
-          <CreateCard status="Completed" week={1} isResponsive />
-          <CreateCard status="In Progress" week={2} isResponsive />
+          <CreateCard status="In Progress" week={1} isResponsive />
+          <CreateCard status="Locked" week={2} isResponsive />
           <CreateCard status="Locked" week={3} isResponsive />
           <CreateCard status="Locked" week={3} isResponsive />
           <CreateCard status="Locked" week={3} isResponsive />
@@ -49,8 +51,8 @@ const ProgressPanel = () => {
         <QuestProgress />
         <div className="hidden md:flex w-full flex-wrap items-center justify-between py-4 gap-4">
           <CreatePhrase title="Phase 1">
-            <CreateCard status="Completed" week={1} />
-            <CreateCard status="In Progress" week={2} />
+            <CreateCard status="In Progress" week={1} />
+            <CreateCard status="Locked" week={2} />
           </CreatePhrase>
           <CreatePhrase title="Phase 2">
             <CreateCard status="Locked" week={3} />
@@ -67,6 +69,10 @@ const ProgressPanel = () => {
 };
 
 export default ProgressPanel;
+
+interface ProgressPanelProps {
+  panelData: { totalWeeks: number; currentWeek: number; isFinished: boolean };
+}
 
 interface CreatePhraseProps {
   title: string;
