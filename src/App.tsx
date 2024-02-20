@@ -48,11 +48,10 @@ const App = () => {
           totalWeeks: data.numberOfWeeks,
           currentWeek: data.currentWeekData.week,
           isFinished: data.finished,
-          currentStatus: data.currentWeekData.status, // Corrected the property name
+          currentStatus: data.currentWeekData.status,
           tasks: data.currentWeekData.tasks,
         };
         setMainSectionData(mainData);
-
         const nftData = {
           video: data.currentVideo,
           name: data.currentNFT.name,
