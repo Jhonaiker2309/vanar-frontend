@@ -15,7 +15,7 @@ const TasksList = ({ tasks }: TasksProps) => {
 
   const handleFillBar = () => {
     const weekTasks = tasks.filter(task => !task.isBonus);
-    const weekTasksCompleted = weekTasks.filter(task => task.isCompleted);
+    const weekTasksCompleted = weekTasks.filter(task => task.completed);
     return (weekTasksCompleted.length / weekTasks.length) * 100;
   };
 
@@ -37,7 +37,7 @@ const TasksList = ({ tasks }: TasksProps) => {
       <Bar percent={handleFillBar()} />
       <div className="w-full flex flex-col gap-4">
         {tasks.map((task, i) => {
-          const { logo, text, experience, isCompleted, isBonus, link } = task;
+          const { logo, text, experience, completed, isBonus, link } = task;
           return (
             !isBonus && (
               <TaskCard
@@ -45,7 +45,7 @@ const TasksList = ({ tasks }: TasksProps) => {
                 text={text}
                 link={link}
                 experience={experience}
-                isCompleted={isCompleted}
+                completed={completed}
                 key={i}
               />
             )
@@ -58,7 +58,7 @@ const TasksList = ({ tasks }: TasksProps) => {
           <Icon name="fire" size={40} />
         </div>
         {tasks.map((task, i) => {
-          const { logo, text, experience, isCompleted, isBonus, link } = task;
+          const { logo, text, experience, completed, isBonus, link } = task;
           return (
             isBonus && (
               <TaskCard
@@ -66,7 +66,7 @@ const TasksList = ({ tasks }: TasksProps) => {
                 text={text}
                 link={link}
                 experience={experience}
-                isCompleted={isCompleted}
+                completed={completed}
                 key={i}
               />
             )
@@ -83,7 +83,7 @@ const TasksList = ({ tasks }: TasksProps) => {
 export default TasksList;
 
 interface Task {
-  isCompleted: boolean;
+  completed: boolean;
   experience: number;
   link?: string;
   logo: string;
@@ -95,7 +95,8 @@ interface TasksProps {
   tasks: Task[];
 }
 
-const TaskCard = ({ logo, text, experience, link, isCompleted = false }: Task) => {
+const TaskCard = ({ logo, text, experience, link, completed = false }: Task) => {
+  const [isCompleted, setIsCompleted] = useState(completed);
   const { account } = useContext(Web3Context);
   const handleClickTask = async () => {
     try {
@@ -106,6 +107,7 @@ const TaskCard = ({ logo, text, experience, link, isCompleted = false }: Task) =
 
       if (response.status === 200) {
         window.open(link, '_blank');
+        setIsCompleted(true);
       } else {
         throw new Error('Failed to visit link');
       }
@@ -114,8 +116,6 @@ const TaskCard = ({ logo, text, experience, link, isCompleted = false }: Task) =
       throw error;
     }
   };
-
-  useEffect(() => {}, [isCompleted]);
 
   return (
     <div
