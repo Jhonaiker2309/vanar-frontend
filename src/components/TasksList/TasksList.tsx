@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import { Bar } from '../Bar/Bar';
 import { Icon } from '../Icon/Icon';
 import Modal from '../Modal/Modal';
-import FAQ from '../FAQ/FAQ';
+import { FAQ } from '../FAQ/FAQ';
 import { Web3Context } from '../../web3';
 import { Task } from '../../utils/fetchData';
 import { handleClickTask } from '../../utils/handleClickTask';

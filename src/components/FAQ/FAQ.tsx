@@ -1,9 +1,13 @@
 import { QAndA } from '../../utils/faq';
-const FAQ = () => {
+export const FAQ = () => {
   return (
     <div className="w-full flex flex-col gap-8 bg-black">
       <Header />
-      <CreateQuestion />
+      <div className="w-full h-[60vh] flex flex-col bg-black px-8 md:px-20 gap-12 pb-8 overflow-scroll">
+        {QAndA.map((section, index) => (
+          <Question key={`question-${index}`} index={index} {...section} />
+        ))}
+      </div>
     </div>
   );
 };
@@ -16,16 +20,6 @@ const Header = () => {
       <h1 className="text-2xl md:text-[56px] text-white z-50 absolute">
         Frequently Asked Questions
       </h1>
-    </div>
-  );
-};
-
-const CreateQuestion = () => {
-  return (
-    <div className="w-full h-[60vh] flex flex-col bg-black px-8 md:px-20 gap-12 overflow-scroll">
-      {QAndA.map((section, index) => (
-        <Question key={`question-${index}`} index={index} {...section} />
-      ))}
     </div>
   );
 };
@@ -46,5 +40,3 @@ interface QuestionProps {
   question: string;
   answer: string;
 }
-
-export default FAQ;
