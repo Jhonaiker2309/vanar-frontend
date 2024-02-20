@@ -48,7 +48,6 @@ const App = () => {
       try {
         const response = await axios.get(apiUrl);
         const data = response.data;
-        console.log(data);
         const mainData = {
           totalWeeks: data.numberOfWeeks,
           currentWeek: data.currentWeekData.week,

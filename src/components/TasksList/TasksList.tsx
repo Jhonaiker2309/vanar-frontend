@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Bar } from '../Bar/Bar';
 import { Icon } from '../Icon/Icon';
 import Modal from '../Modal/Modal';
@@ -8,6 +8,7 @@ import { Web3Context } from '../../web3';
 
 const TasksList = ({ tasks }: TasksProps) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  console.log(tasks);
   const handleOpenModal = () => {
     setIsOpenModal(!isOpenModal);
   };
@@ -94,9 +95,15 @@ interface TasksProps {
   tasks: Task[];
 }
 
-const TaskCard = ({ logo, text, experience, link, completed = false }: Task) => {
+const TaskCard = ({ logo, text, experience, link, completed }: Task) => {
   const [isCompleted, setIsCompleted] = useState(completed);
+  console.log('Im completed:', completed);
   const { account } = useContext(Web3Context);
+
+  useEffect(() => {
+    setIsCompleted(completed);
+  }, [completed]);
+
   const handleClickTask = async () => {
     try {
       const response = await axios.post('https://vanar-backend.vercel.app/visitLink', {
