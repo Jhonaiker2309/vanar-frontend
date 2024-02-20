@@ -1,15 +1,13 @@
 import ProgressPanel from '../ProgressPanel/ProgressPanel';
 import { MessageSection } from '../MessageSection/MessageSection';
 import TasksList from '../TasksList/TasksList';
+import { MainSectionData } from '../../utils/fetchData';
 
-const MainSection = ({ data }: MainSectionProps) => {
-  const { tasks, totalWeeks, currentWeek, currentStatus, isFinished } = data;
-
+const MainSection = ({ totalWeeks, currentWeek, currentStatus, tasks }: MainSectionData) => {
   const panelData = {
     totalWeeks,
     currentWeek,
     currentStatus,
-    isFinished,
   };
 
   return (
@@ -20,22 +18,5 @@ const MainSection = ({ data }: MainSectionProps) => {
     </div>
   );
 };
-
-interface MainSectionProps {
-  data: {
-    totalWeeks: number;
-    currentWeek: number;
-    currentStatus: string;
-    isFinished: boolean;
-    tasks: {
-      completed: boolean;
-      experience: number;
-      link?: string;
-      logo: string;
-      text: string;
-      isBonus?: boolean;
-    }[];
-  };
-}
 
 export default MainSection;
