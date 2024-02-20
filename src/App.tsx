@@ -28,9 +28,14 @@ const App = () => {
     tasks: [{ isCompleted: false, experience: 0, logo: '', text: '', isBonus: false }],
   });
 
-  const [nftVideo, setNftVideo] = useState<{ video: string; name: string }>({
+  const [nftVideo, setNftVideo] = useState<{
+    video: string;
+    name: string;
+    experienceNeeded: number;
+  }>({
     video: '',
     name: '',
+    experienceNeeded: 0,
   });
 
   // This function fetch all the data for the page. It takes the account as param for display the correct data.
@@ -43,7 +48,7 @@ const App = () => {
       try {
         const response = await axios.get(apiUrl);
         const data = response.data;
-
+        console.log(data);
         const mainData = {
           totalWeeks: data.numberOfWeeks,
           currentWeek: data.currentWeekData.week,
@@ -55,6 +60,7 @@ const App = () => {
         const nftData = {
           video: data.currentVideo,
           name: data.currentNFT.name,
+          experienceNeeded: data.currentNFT.experienceNeeded,
         };
         setNftVideo(nftData);
       } catch (error) {

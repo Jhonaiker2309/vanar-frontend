@@ -4,7 +4,7 @@ import { Web3Context } from '../../web3';
 const SideImage = ({ nft }: SideImageProps) => {
   const { account, mintNFT } = useContext(Web3Context);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const { name, video } = nft;
+  const { name, video, experienceNeeded } = nft;
   const [nftVideo, setNftVideo] = useState<string>(video);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const SideImage = ({ nft }: SideImageProps) => {
       </video>
       <div className="w-4/5 -mt-24 md:-mt-36 flex flex-col items-center z-20">
         <p className="text-lg md:text-2xl text-white">{name}</p>
-        <p className="text-sm md:text-lg text-white">70XP</p>
+        <p className="text-sm md:text-lg text-white">{experienceNeeded}XP</p>
         <button
           className="w-4/5 bg-[#A08CFF] text-black text-sm md:text-lg font-bold rounded-full py-1  md:py-4 text-center z-20"
           onClick={() => mintNFT(account)}
@@ -46,7 +46,7 @@ const SideImage = ({ nft }: SideImageProps) => {
 };
 
 interface SideImageProps {
-  nft: { video: string; name: string };
+  nft: { video: string; name: string; experienceNeeded: number };
 }
 
 export default SideImage;
