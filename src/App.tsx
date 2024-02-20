@@ -13,7 +13,7 @@ const App = () => {
     currentStatus: string;
     isFinished: boolean;
     tasks: {
-      isCompleted: boolean;
+      completed: boolean;
       experience: number;
       link?: string;
       logo: string;
@@ -25,7 +25,7 @@ const App = () => {
     currentWeek: 0,
     currentStatus: 'Blocked',
     isFinished: false,
-    tasks: [{ isCompleted: false, experience: 0, logo: '', text: '', isBonus: false }],
+    tasks: [{ completed: false, experience: 0, logo: '', text: '', isBonus: false }],
   });
 
   const [nftVideo, setNftVideo] = useState<{

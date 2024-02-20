@@ -3,11 +3,12 @@ import { MessageSection } from '../MessageSection/MessageSection';
 import TasksList from '../TasksList/TasksList';
 
 const MainSection = ({ data }: MainSectionProps) => {
-  const { tasks, totalWeeks, currentWeek, isFinished } = data;
+  const { tasks, totalWeeks, currentWeek, currentStatus, isFinished } = data;
 
   const panelData = {
     totalWeeks,
     currentWeek,
+    currentStatus,
     isFinished,
   };
 
@@ -24,9 +25,10 @@ interface MainSectionProps {
   data: {
     totalWeeks: number;
     currentWeek: number;
+    currentStatus: string;
     isFinished: boolean;
     tasks: {
-      isCompleted: boolean;
+      completed: boolean;
       experience: number;
       link?: string;
       logo: string;

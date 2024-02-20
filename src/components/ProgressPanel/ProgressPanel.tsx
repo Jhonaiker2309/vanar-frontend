@@ -6,7 +6,6 @@ import DropdownMenu from '../DropdownMenu/DropdownMenu';
 const ProgressPanel = ({ panelData }: ProgressPanelProps) => {
   const currentURL = encodeURI(document.location.href);
   console.log(panelData);
-
   const handleMobileShare = () => {
     navigator.share({
       title: 'Welcome to Foundation Week at Vanar Chain Testnet: Vanguard',
