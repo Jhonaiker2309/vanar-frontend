@@ -1,23 +1,33 @@
-import { useState, useRef, ReactNode, RefObject, useEffect } from 'react';
-
-interface DropdownMenuProps {
-  icon: ReactNode;
-  content: ReactNode;
-}
+import { useState, useRef, ReactNode, useEffect } from 'react';
 
 const DropdownMenu: React.FC<DropdownMenuProps> = ({ icon, content }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  useHandleClickOutsideRef(dropdownRef, () => {
-    setIsOpen(false);
-  });
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    setIsOpen(prev => !prev);
   };
 
   return (
-    <div className="max-sm:static relative rounded-2xl " ref={dropdownRef}>
+    <div className="max-sm:static relative rounded-2xl" ref={dropdownRef}>
       <div className="cursor-pointer" onClick={toggleMenu}>
         {icon}
       </div>
@@ -32,17 +42,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ icon, content }) => {
 
 export default DropdownMenu;
 
-const useHandleClickOutsideRef = (ref: RefObject<HTMLDivElement>, handler: () => void) => {
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        handler();
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [handler, ref]);
-};
+interface DropdownMenuProps {
+  icon: ReactNode;
+  content: ReactNode;
+}
