@@ -26,7 +26,7 @@ interface MainSectionProps {
     currentWeek: number;
     isFinished: boolean;
     tasks: {
-      isCompleted: boolean;
+      completed: boolean;
       experience: number;
       link?: string;
       logo: string;
