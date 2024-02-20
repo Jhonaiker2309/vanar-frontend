@@ -3,12 +3,12 @@ import { Bar } from '../Bar/Bar';
 import { Icon } from '../Icon/Icon';
 import Modal from '../Modal/Modal';
 import FAQ from '../FAQ/FAQ';
-import axios from 'axios';
 import { Web3Context } from '../../web3';
+import { Task } from '../../utils/fetchData';
+import { handleClickTask } from '../../utils/handleClickTask';
 
 const TasksList = ({ tasks }: TasksProps) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  console.log(tasks);
   const handleOpenModal = () => {
     setIsOpenModal(!isOpenModal);
   };
@@ -17,6 +17,21 @@ const TasksList = ({ tasks }: TasksProps) => {
     const weekTasks = tasks.filter(task => !task.isBonus);
     const weekTasksCompleted = weekTasks.filter(task => task.completed);
     return (weekTasksCompleted.length / weekTasks.length) * 100;
+  };
+
+  const renderTaskCards = (isBonus: boolean) => {
+    return tasks
+      .filter(task => task.isBonus === isBonus)
+      .map((task, i) => (
+        <TaskCard
+          logo={task.logo}
+          text={task.text}
+          link={task.link}
+          experience={task.experience}
+          completed={task.completed}
+          key={i}
+        />
+      ));
   };
 
   return (
@@ -35,44 +50,16 @@ const TasksList = ({ tasks }: TasksProps) => {
         </button>
       </div>
       <Bar percent={handleFillBar()} />
-      <div className="w-full flex flex-col gap-4">
-        {tasks.map((task, i) => {
-          const { logo, text, experience, completed, isBonus, link } = task;
-          return (
-            !isBonus && (
-              <TaskCard
-                logo={logo}
-                text={text}
-                link={link}
-                experience={experience}
-                completed={completed}
-                key={i}
-              />
-            )
-          );
-        })}
-      </div>
-      <div className="w-full flex flex-col gap-4">
-        <div className="flex items-center gap-2">
-          <p className="text-[28px] md:text-[44px]">Bonus Task</p>
-          <Icon name="fire" size={40} />
+      <div className="w-full flex flex-col gap-4">{renderTaskCards(false)}</div>
+      {tasks.some(task => task.isBonus) && (
+        <div className="w-full flex flex-col gap-4">
+          <div className="flex items-center gap-2">
+            <p className="text-[28px] md:text-[44px]">Bonus Task</p>
+            <Icon name="fire" size={40} />
+          </div>
+          {renderTaskCards(true)}
         </div>
-        {tasks.map((task, i) => {
-          const { logo, text, experience, completed, isBonus, link } = task;
-          return (
-            isBonus && (
-              <TaskCard
-                logo={logo}
-                text={text}
-                link={link}
-                experience={experience}
-                completed={completed}
-                key={i}
-              />
-            )
-          );
-        })}
-      </div>
+      )}
       <Modal show={isOpenModal} onClose={handleOpenModal}>
         <FAQ />
       </Modal>
@@ -82,53 +69,20 @@ const TasksList = ({ tasks }: TasksProps) => {
 
 export default TasksList;
 
-interface Task {
-  completed: boolean;
-  experience: number;
-  link?: string;
-  logo: string;
-  text: string;
-  isBonus?: boolean;
-}
-
-interface TasksProps {
-  tasks: Task[];
-}
-
 const TaskCard = ({ logo, text, experience, link, completed }: Task) => {
   const [isCompleted, setIsCompleted] = useState(completed);
-  console.log('Im completed:', completed);
   const { account } = useContext(Web3Context);
 
   useEffect(() => {
     setIsCompleted(completed);
   }, [completed]);
 
-  const handleClickTask = async () => {
-    try {
-      const response = await axios.post('https://vanar-backend.vercel.app/visitLink', {
-        account: account,
-        link: link,
-      });
-
-      if (response.status === 200) {
-        window.open(link, '_blank');
-        setIsCompleted(true);
-      } else {
-        throw new Error('Failed to visit link');
-      }
-    } catch (error) {
-      console.error('Error visiting link:', error);
-      throw error;
-    }
-  };
-
   return (
     <div
       className={`w-full ring-1 ring-[#4b4b4b] bg-[#1a1a1a] py-6 px-4 md:px-12 flex items-center justify-between rounded-[20px] ${
         link && 'cursor-pointer'
       }`}
-      onClick={handleClickTask}
+      onClick={() => handleClickTask(account, setIsCompleted, link)}
     >
       <div className="flex items-center justify-start gap-4">
         <img src={logo} />
@@ -145,3 +99,7 @@ const TaskCard = ({ logo, text, experience, link, completed }: Task) => {
     </div>
   );
 };
+
+interface TasksProps {
+  tasks: Task[];
+}
