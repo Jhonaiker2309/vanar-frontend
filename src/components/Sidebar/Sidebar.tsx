@@ -15,9 +15,7 @@ const SideImage = ({ nft }: SideImageProps) => {
     const video = videoRef.current;
     if (video) {
       video.load();
-      video.play().catch(error => {
-        console.error('Autoplay was prevented: ', error);
-      });
+      video.play();
     }
   }, [nftVideo]);
 
