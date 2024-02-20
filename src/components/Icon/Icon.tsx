@@ -15,16 +15,9 @@ export const Icon = (props: IconProps) => {
 
   return (
     <div
-      className={cls(
-        'complib-icon',
-        'complib-border-box',
-        'complib-font-smoothing',
-        'shrink-0',
-        className,
-        {
-          pointer: !!onClick,
-        },
-      )}
+      className={cls(className, {
+        pointer: !!onClick,
+      })}
       onClick={onClick}
     >
       {color ? (
