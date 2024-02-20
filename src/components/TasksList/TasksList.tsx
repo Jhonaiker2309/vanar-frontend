@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { Bar } from '../Bar/Bar';
 import { Icon } from '../Icon/Icon';
 import Modal from '../Modal/Modal';
