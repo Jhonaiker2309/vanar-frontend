@@ -7,7 +7,6 @@ import axios from 'axios';
 import { Web3Context } from '../../web3';
 
 const TasksList = ({ tasks }: TasksProps) => {
-  console.log(tasks);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const handleOpenModal = () => {
     setIsOpenModal(!isOpenModal);
