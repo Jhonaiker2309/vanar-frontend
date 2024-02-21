@@ -3,11 +3,18 @@ import { MessageSection } from '../MessageSection/MessageSection';
 import TasksList from '../TasksList/TasksList';
 import { MainSectionData } from '../../utils/fetchData';
 
-const MainSection = ({ totalWeeks, currentWeek, currentStatus, tasks }: MainSectionData) => {
+const MainSection = ({
+  totalWeeks,
+  currentWeek,
+  currentStatus,
+  tasks,
+  eventPhases,
+}: MainSectionData) => {
   const panelData = {
     totalWeeks,
     currentWeek,
     currentStatus,
+    eventPhases,
   };
 
   return (

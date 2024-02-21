@@ -6,8 +6,8 @@ export const fetchData = async (
   setNftVideo: (value: NftData) => void,
 ) => {
   const apiUrl = account
-    ? `https://vanar-backend.vercel.app/${account}`
-    : 'https://vanar-backend.vercel.app';
+    ? `https://vanar-backend.vercel.app/getData/${account}`
+    : 'https://vanar-backend.vercel.app/getData';
 
   try {
     const response = await axios.get(apiUrl);
@@ -29,6 +29,7 @@ export const fetchData = async (
       name: currentNFT.name,
       experienceNeeded: currentNFT.experienceNeeded,
     };
+    console.log(nftData);
     setNftVideo(nftData);
   } catch (error) {
     console.error('There was a problem with the fetch operation:', error);
