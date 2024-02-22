@@ -3,7 +3,7 @@ export const FAQ = () => {
   return (
     <div className="w-full flex flex-col gap-8 bg-black">
       <Header />
-      <div className="w-full h-[60vh] flex flex-col bg-black px-8 md:px-20 gap-12 pb-8 overflow-scroll">
+      <div className="w-full flex flex-col bg-black px-8 md:px-20 gap-12 pb-8">
         {QAndA.map((section, index) => (
           <Question key={`question-${index}`} index={index} {...section} />
         ))}
