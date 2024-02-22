@@ -1,4 +1,6 @@
 import { QAndA } from '../../utils/faq';
+import { Accordion } from '../Accordion/Accordion';
+
 export const FAQ = () => {
   return (
     <div className="w-full flex flex-col gap-8 bg-black">
@@ -27,10 +29,15 @@ const Header = () => {
 const Question = ({ index, question, answer }: QuestionProps) => {
   return (
     <div className="w-full text-white flex flex-col items-start gap-2">
-      <h1 className="text-lg md:text-3xl">
-        {index + 1}. {question}
-      </h1>
-      <p className="text-base md:text-lg">{answer}</p>
+      <Accordion
+        title={
+          <h1 className="text-lg md:text-3xl">
+            {index + 1}. {question}
+          </h1>
+        }
+      >
+        <p className="text-base md:text-lg">{answer}</p>
+      </Accordion>
     </div>
   );
 };
