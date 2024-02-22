@@ -111,13 +111,10 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
       const axiosTimestamp = await axios.get(urlTimestampId)
       const timestampId = axiosTimestamp.data.timestampId
       
-      console.log(account, timestampId)
       const axiosSignature = await axios.post(urlSignature, {account, timestampId})
       const signature = axiosSignature.data.signature
       
       const { contract } = state 
-
-      console.log(timestampId, signature)
 
       await contract.mint(timestampId, signature)
 
