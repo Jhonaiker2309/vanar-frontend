@@ -1,18 +1,11 @@
 import { useState, useContext, useEffect } from 'react';
 import { Bar } from '../Bar/Bar';
 import { Icon } from '../Icon/Icon';
-import Modal from '../Modal/Modal';
-import { FAQ } from '../FAQ/FAQ';
 import { Web3Context } from '../../web3';
 import { Task } from '../../utils/fetchData';
 import { handleClickTask } from '../../utils/handleClickTask';
 
-const TasksList = ({ tasks }: TasksProps) => {
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const handleOpenModal = () => {
-    setIsOpenModal(!isOpenModal);
-  };
-
+export const TasksList = ({ tasks }: TasksProps) => {
   const handleFillBar = () => {
     const weekTasks = tasks.filter(task => !task.isBonus);
     const weekTasksCompleted = weekTasks.filter(task => task.completed);
@@ -41,13 +34,6 @@ const TasksList = ({ tasks }: TasksProps) => {
           <p className="text-[#A08CFF] text-lg font-bold">Listed Task</p>
           <p className="text-[28px] md:text-[44px]">Task to Complete</p>
         </div>
-        <button
-          className="bg-[#0b0b0b] text-white font-bold text-lg px-6 py-6 border-[1.5px] border-[#4b4b4b] rounded-full h-10 flex items-center justify-center gap-2"
-          onClick={handleOpenModal}
-        >
-          <Icon name="hint" size={24} />
-          FAQs
-        </button>
       </div>
       <Bar percent={handleFillBar()} />
       <div className="w-full flex flex-col gap-4">{renderTaskCards(false)}</div>
@@ -60,14 +46,9 @@ const TasksList = ({ tasks }: TasksProps) => {
           {renderTaskCards(true)}
         </div>
       )}
-      <Modal show={isOpenModal} onClose={handleOpenModal}>
-        <FAQ />
-      </Modal>
     </div>
   );
 };
-
-export default TasksList;
 
 const TaskCard = ({ logo, text, experience, link, completed }: Task) => {
   const [isCompleted, setIsCompleted] = useState(completed);

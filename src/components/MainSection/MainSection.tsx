@@ -1,7 +1,8 @@
 import ProgressPanel from '../ProgressPanel/ProgressPanel';
 import { MessageSection } from '../MessageSection/MessageSection';
-import TasksList from '../TasksList/TasksList';
+import { TasksList } from '../TasksList/TasksList';
 import { MainSectionData } from '../../utils/fetchData';
+import { FAQ } from '../FAQ/FAQ';
 
 const MainSection = ({
   totalWeeks,
@@ -22,6 +23,7 @@ const MainSection = ({
       <ProgressPanel panelData={panelData} />
       <MessageSection />
       <TasksList tasks={tasks} />
+      <FAQ />
     </div>
   );
 };
