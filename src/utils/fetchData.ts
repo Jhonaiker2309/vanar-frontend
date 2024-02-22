@@ -53,9 +53,11 @@ export interface NftData {
   experienceNeeded: number;
 }
 
-interface EventPhase {
+export interface EventPhase {
   phase: number;
-  weeks: Week[];
+  tasks: Task[];
+  week: number;
+  status: string;
 }
 
 export interface Task {
@@ -67,8 +69,9 @@ export interface Task {
   isBonus?: boolean;
 }
 
-interface Week {
+export interface Week {
   week: number;
   status: string;
   tasks: Task[];
+  phase: number;
 }
