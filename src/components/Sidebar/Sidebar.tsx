@@ -20,7 +20,7 @@ const SideImage = ({ nft }: SideImageProps) => {
   }, [nftVideo]);
 
   return (
-    <div className="w-full md:w-1/3 h-full flex flex-col justify-center md:justify-start items-center bg-black opacity-90 md:fixed md:top-[101px] md:right-0 p-8 gap-1">
+    <div className="w-full md:w-1/3 h-full flex flex-col justify-center md:justify-start items-center bg-black opacity-90 md:fixed md:top-[101px] md:right-0 mb-24 md:mb-8 p-0  md:p-8 gap-1">
       <video
         ref={videoRef}
         loop
