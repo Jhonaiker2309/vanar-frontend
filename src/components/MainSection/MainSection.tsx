@@ -23,7 +23,9 @@ const MainSection = ({
       <ProgressPanel panelData={panelData} />
       <MessageSection />
       <TasksList tasks={tasks} />
-      <FAQ />
+      <div className="hidden md:flex">
+        <FAQ />
+      </div>
     </div>
   );
 };

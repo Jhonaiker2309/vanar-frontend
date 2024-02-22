@@ -4,6 +4,7 @@ import Navbar from './components/Navbar/Navbar';
 import Sidebar from './components/Sidebar/Sidebar';
 import { Web3Context } from './web3';
 import { MainSectionData, NftData, fetchData } from './utils/fetchData';
+import { FAQ } from './components/FAQ/FAQ';
 
 const App = () => {
   const { account } = useContext(Web3Context);
@@ -41,6 +42,9 @@ const App = () => {
         </div>
         <div className="z-10">
           <Sidebar nft={nftVideo} />
+        </div>
+        <div className="display md:hidden">
+          <FAQ />
         </div>
       </div>
     </div>
