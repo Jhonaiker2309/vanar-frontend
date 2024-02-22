@@ -4,7 +4,7 @@ import { Web3Reducer } from './reducer';
 import { providers, ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 import contractABI from "./abis/VanarNFTHandler.json"
-
+import axios from "axios"
 
 declare global {
   interface Window {
@@ -82,7 +82,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
       const userAddress = await ethersProvider.getSigner().getAddress();
       const network = await ethersProvider.getNetwork();
       const networkId = network.chainId;
-      const contractAddress: string = "0xAc766cEf84cA7744914CA5A6dF09A5BDd54Dd44b"
+      const contractAddress: string = "0x113e98baA82C50647c5cd9F760984BCd61E762A1" /*process.env.REACT_APP_CONTRACT_ADDRESS*/
       
       const contract = new ethers.Contract(contractAddress, contractABI, ethersProvider.getSigner());
 
@@ -104,26 +104,26 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
 
   const mintNFT = async (account: string | null) => {
     
-    const url: string = "https://vanar-backend.vercel.app" + "/signature"
+    const urlTimestampId: string = /*process.env.REACT_APP_BACKEND_URL*/ "https://vanar-backend.vercel.app" + "/getTimestampId"
+    const urlSignature: string = /*process.env.REACT_APP_BACKEND_URL*/ "https://vanar-backend.vercel.app" + "/signature"
 
-    const requestOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({account}),
-    };    
-
-  fetch(url, requestOptions)
-    .then(response => response.json())
-    .then(async data => {
-      const signature: string = data.signature
-      const { contract } = state 
+    try {
+      const axiosTimestamp = await axios.get(urlTimestampId)
+      const timestampId = axiosTimestamp.data.timestampId
       
-      await contract.mint(1, signature)
+      console.log(account, timestampId)
+      const axiosSignature = await axios.post(urlSignature, {account, timestampId})
+      const signature = axiosSignature.data.signature
+      
+      const { contract } = state 
+
+      console.log(timestampId, signature)
+
+      await contract.mint(timestampId, signature)
+
+    } catch(e){
+      console.log(e)
     }
-    )
-    .catch(error => console.error('Error: ', error));
   }
 
   return (

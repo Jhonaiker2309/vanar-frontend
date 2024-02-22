@@ -29,7 +29,6 @@ export const fetchData = async (
       name: currentNFT.name,
       experienceNeeded: currentNFT.experienceNeeded,
     };
-    console.log(nftData);
     setNftVideo(nftData);
   } catch (error) {
     console.error('There was a problem with the fetch operation:', error);
