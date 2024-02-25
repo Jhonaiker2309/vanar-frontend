@@ -15,10 +15,10 @@ export const CreateCard = ({
     return 'Blocked';
   };
 
-  const getStatusColor = () => {
-    if (isCompleted) return '[#A08CFF]';
-    if (isInProgress) return '[#ecaa00]';
-    return '';
+  const getStatusColor: { [key: string]: string } = {
+    completed: 'bg-[#A08CFF]',
+    running: 'bg-[#ecaa00]',
+    blocked: '',
   };
 
   return (
@@ -31,7 +31,7 @@ export const CreateCard = ({
       <div className="flex flex-col justify-end items-center gap-2 text-white text-[10px] md:text-xs">
         <p>{isFinal ? 'Congrats' : `Week 0${week}`}</p>
         <div
-          className={`text-[8px] md:text-base px-3 md:py-1 rounded md:rounded-full text-nowrap bg-${getStatusColor()}`}
+          className={`text-[8px] md:text-base px-3 md:py-1 rounded md:rounded-full text-nowrap ${getStatusColor[status]}`}
         >
           {renderStatus()}
         </div>
