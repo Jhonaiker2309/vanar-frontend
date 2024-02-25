@@ -4,7 +4,6 @@ import { ShareMenu } from './ShareMenu';
 import { shareCurrentPage } from '../../utils/shareCurrentPage';
 import { QuestProgress } from './QuestProgress';
 import { CreateCard } from './CreateCard';
-import { CreatePhase } from './CreatePhases';
 import { EventPhase } from '../../utils/fetchData';
 
 const ProgressPanel = ({ panelData }: ProgressPanelProps) => {
@@ -14,7 +13,6 @@ const ProgressPanel = ({ panelData }: ProgressPanelProps) => {
   }, 0);
   const totalWeeks = eventPhases.length;
   const eventCompleted = (completedWeeks / totalWeeks) * 100;
-  const totalPhases = Math.max(...eventPhases.map(phase => phase.phase));
   const handleMobileShare = () => {
     shareCurrentPage();
   };
@@ -58,23 +56,9 @@ const ProgressPanel = ({ panelData }: ProgressPanelProps) => {
         <QuestProgress completed={eventCompleted} />
 
         <div className="hidden md:flex w-full flex-wrap items-center justify-between py-4 gap-4">
-          {Array.from({ length: totalPhases }, (_, index) => {
-            const phaseNumber = index + 1;
-            const phaseWeeks = eventPhases
-              .filter(phase => phase.phase === phaseNumber)
-              .map(({ week, status }) => ({ week, status }));
-
-            return (
-              <CreatePhase key={`phase-${phaseNumber}`} title={`Phase ${phaseNumber}`}>
-                {phaseWeeks.map(({ week, status }) => (
-                  <CreateCard
-                    key={`phase-${phaseNumber}-week-${week}`}
-                    status={status}
-                    week={week}
-                  />
-                ))}
-              </CreatePhase>
-            );
+          {eventPhases.map(eventWeek => {
+            const { week, status } = eventWeek;
+            return <CreateCard key={`week-${week}`} status={status} week={week} isResponsive />;
           })}
         </div>
       </div>
