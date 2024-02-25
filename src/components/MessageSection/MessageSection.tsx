@@ -9,7 +9,7 @@ export const MessageSection = () => {
       </p>
       <img
         className="w-full rounded-[40px]"
-        src="/images/message-background.svg"
+        src="/images/message-background.jpg"
         alt="week image"
       />
       <p className="text-lg text-[#f6f6f6]">
