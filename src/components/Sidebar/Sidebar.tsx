@@ -36,7 +36,7 @@ const SideImage = ({ nft }: SideImageProps) => {
           className="w-4/5 bg-[#A08CFF] text-black text-sm md:text-lg font-bold rounded-full py-1  md:py-4 text-center z-20"
           onClick={() => mintNFT(account)}
         >
-          {account ? 'Claim Reward' : 'Connect your account'}
+          {account ? 'Claim NFT' : 'Connect Wallet'}
         </button>
       </div>
     </div>
