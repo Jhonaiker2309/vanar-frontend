@@ -29,7 +29,7 @@ export const CreateCard = ({
         color={isCompleted ? '#A08CFF' : isInProgress ? '#ecaa00' : ''}
       />
       <div className="flex flex-col justify-end items-center gap-2 text-white text-[10px] md:text-xs">
-        <p>{isFinal ? 'Congrats' : `Week 0${week}`}</p>
+        <p>{isFinal ? 'Congrats' : `Phase 0${week}`}</p>
         <div
           className={`text-[8px] md:text-base px-3 md:py-1 rounded md:rounded-full text-nowrap ${getStatusColor[status]}`}
         >
