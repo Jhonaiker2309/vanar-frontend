@@ -3,7 +3,7 @@ import { Web3Context } from '../../web3';
 import Ranking from '../Ranking/Ranking';
 
 const SideImage = ({ nft }: SideImageProps) => {
-  const { account, mintNFT } = useContext(Web3Context);
+  const { account, mintNFT, connectWeb3 } = useContext(Web3Context);
   const videoRef = useRef<HTMLVideoElement>(null);
   const { name, video, experienceNeeded } = nft;
   const [nftVideo, setNftVideo] = useState<string>(video);
@@ -36,7 +36,7 @@ const SideImage = ({ nft }: SideImageProps) => {
           <p className="text-sm md:text-lg text-white">{experienceNeeded}XP</p>
           <button
             className="w-4/5 bg-[#A08CFF] text-black text-sm md:text-lg font-bold rounded-full py-1  md:py-4 text-center z-20"
-            onClick={() => mintNFT(account)}
+            onClick={() => {account ? mintNFT(account) : connectWeb3()}}
           >
             {account ? 'Claim Reward' : 'Connect your account'}
           </button>
