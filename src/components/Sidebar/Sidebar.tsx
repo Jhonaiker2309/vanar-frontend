@@ -31,7 +31,7 @@ const SideImage = ({ nft }: SideImageProps) => {
       </video>
       <div className="w-4/5 -mt-24 md:-mt-36 flex flex-col items-center z-20">
         <p className="text-lg md:text-2xl text-white">{name}</p>
-        <p className="text-sm md:text-lg text-white">{experienceNeeded}XP</p>
+        <p className="text-sm md:text-lg text-white">{experienceNeeded} VP</p>
         <button
           className="w-4/5 bg-[#A08CFF] text-black text-sm md:text-lg font-bold rounded-full py-1  md:py-4 text-center z-20"
           onClick={() => mintNFT(account)}

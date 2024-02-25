@@ -75,7 +75,7 @@ const TaskCard = ({ logo, text, experience, link, completed }: Task) => {
           isCompleted ? 'ring-[#A08CFF] bg-[#A08CFF29]' : 'ring-[#4b4b4b] bg-[#2b2b2b]'
         }`}
       >
-        {isCompleted ? <p className="font-semibold">Completed</p> : <p>{experience}XP</p>}
+        {isCompleted ? <p className="font-semibold">Completed</p> : <p>{experience} VP</p>}
       </div>
     </div>
   );
