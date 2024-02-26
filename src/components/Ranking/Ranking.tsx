@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
-import medal_gold from "/public/images/medal-gold.svg"
-import medal_silver from "/public/images/medal-silver.svg"
-import medal_bronze from "/public/images/medal-bronze.svg"
-
+import medal_gold from '/public/images/medal-gold.svg';
+import medal_silver from '/public/images/medal-silver.svg';
+import medal_bronze from '/public/images/medal-bronze.svg';
 
 const Ranking = ({ top }: RankingProps) => {
   const [usernames, setUsernames] = useState<string[]>([]);
+  console.log(top);
 
   useEffect(() => {
     const fetchUsernames = async () => {
@@ -23,7 +23,7 @@ const Ranking = ({ top }: RankingProps) => {
             const name = await ens.name(player.account);
             return name || formatWallet(player.account);
           } catch (error) {
-            return formatWallet(player.account)
+            return formatWallet(player.account);
           }
         }),
       );
@@ -62,7 +62,7 @@ const Ranking = ({ top }: RankingProps) => {
                 )}
               </div>
               <div className="w-full flex justify-start">
-                <p className='pl-5'>{usernames[index]}</p>
+                <p className="pl-5">{usernames[index]}</p>
               </div>
               <div className="w-1/6 flex justify-center items-center">{experience}VP</div>
             </div>

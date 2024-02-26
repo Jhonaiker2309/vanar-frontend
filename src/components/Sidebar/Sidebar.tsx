@@ -1,7 +1,7 @@
-import { useContext, useRef, useEffect, useState, useCallback } from 'react';
+import { useContext, useRef, useEffect, useState } from 'react';
 import { Web3Context } from '../../web3';
-import Ranking from '../Ranking/Ranking';
-import axios from 'axios';
+// import Ranking from '../Ranking/Ranking';
+// import axios from 'axios';
 
 const SideImage = ({ nft, currentWeek }: SideImageProps) => {
   const { account, mintNFT, connectWeb3, checkIfAlreadyMinted } = useContext(Web3Context);
@@ -9,7 +9,7 @@ const SideImage = ({ nft, currentWeek }: SideImageProps) => {
   const { name, video, experienceNeeded } = nft;
   const [nftVideo, setNftVideo] = useState<string>(video);
   const [isClaimed, setIsClaimed] = useState<boolean>(false);
-  const [rankedData, setRankedData] = useState<any[]>([]);
+  // const [rankedData, setRankedData] = useState<any[]>([]);
 
   useEffect(() => {
     setNftVideo(video);
@@ -23,20 +23,20 @@ const SideImage = ({ nft, currentWeek }: SideImageProps) => {
     }
   }, [nftVideo]);
 
-  const getRankedData = useCallback(async () => {
-    try {
-      const urlRankedData: string =
-        /*process.env.REACT_APP_BACKEND_URL*/ 'https://vanar-backend.vercel.app' + '/rankedList';
-      const axiosData = await axios.get(urlRankedData);
-      setRankedData(axiosData.data.sortedList.slice(0, 5));
-    } catch (e) {
-      setRankedData([]);
-    }
-  }, []);
+  // const getRankedData = useCallback(async () => {
+  //   try {
+  //     const urlRankedData: string =
+  //       /*process.env.REACT_APP_BACKEND_URL*/ 'https://vanar-backend.vercel.app' + '/rankedList';
+  //     const axiosData = await axios.get(urlRankedData);
+  //     setRankedData(axiosData.data.sortedList.slice(0, 5));
+  //   } catch (e) {
+  //     setRankedData([]);
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    getRankedData();
-  }, []);
+  // useEffect(() => {
+  //   getRankedData();
+  // }, []);
 
   useEffect(() => {
     const checkClaimed = async () => {
@@ -70,7 +70,7 @@ const SideImage = ({ nft, currentWeek }: SideImageProps) => {
           </button>
         </div>
       </div>
-      <Ranking top={rankedData} />
+      {/* <Ranking top={rankedData} /> */}
     </div>
   );
 };
