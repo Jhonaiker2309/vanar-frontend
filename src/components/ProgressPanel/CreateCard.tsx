@@ -22,7 +22,7 @@ export const CreateCard = ({
   };
 
   return (
-    <div className="w-[80px] m-auto md:w-[125px] py-4 rounded-xl flex flex-col justify-end items-center gap-4 bg-[#1a1a1a] ring-2 ring-[#F6F6F633]">
+    <div className="w-[80px] h-fit md:h-[150px] m-auto md:w-[125px] py-4 rounded-xl flex flex-col justify-end items-center gap-4 bg-[#1a1a1a] ring-2 ring-[#F6F6F633]">
       <Icon
         name={isFinal ? 'crown' : status === 'blocked' ? 'lock' : 'unlock'}
         size={isResponsive ? 16 : 48}
