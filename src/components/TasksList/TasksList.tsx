@@ -55,7 +55,7 @@ const TaskCard = ({ logo, text, experience, link, completed }: Task) => {
   const { account } = useContext(Web3Context);
 
   useEffect(() => {
-    setIsCompleted(completed);
+    if(account) setIsCompleted(completed);
   }, [completed]);
 
   return (
