@@ -14,7 +14,7 @@ const Ranking = ({ top }: RankingProps) => {
       );
 
       const fetchedUsernames = await Promise.all(
-        top.map(async player => {
+        top.slice(0, 5).map(async player => {
           try {
             const name = await ens.name(player.address);
             return name || formatWallet(player.address);
@@ -40,7 +40,7 @@ const Ranking = ({ top }: RankingProps) => {
           <div className="w-full flex justify-start">Account</div>
           <p className="w-1/6 text-nowrap">Total VP</p>
         </div>
-        {top.map((player, index) => {
+        {top.slice(0, 5).map((player, index) => {
           const { earnedVP } = player;
           return (
             <div
