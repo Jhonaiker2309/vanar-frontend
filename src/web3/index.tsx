@@ -94,7 +94,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
           params: [{
             chainId: "0x13308",
             rpcUrls: ["https://rpc-vanguard.vanarchain.com/"],
-            chainName: "Vanar",
+            chainName: "Vanguard Testnet",
             nativeCurrency: {
               name: "VG",
               symbol: "VG",
