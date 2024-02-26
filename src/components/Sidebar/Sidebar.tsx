@@ -42,7 +42,7 @@ const SideImage = ({ nft, currentWeek }: SideImageProps) => {
     const checkClaimed = async () => {
       setIsClaimed(await checkIfAlreadyMinted(currentWeek));
     };
-    checkClaimed;
+    checkClaimed();
   }, [account, checkIfAlreadyMinted, currentWeek]);
   console.log('is claimed ', isClaimed);
   return (
