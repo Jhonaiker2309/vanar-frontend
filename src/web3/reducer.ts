@@ -2,13 +2,15 @@ interface Web3State {
     networkId: number | null;
     account: string | null;
     contract: any;
+    mintError: string | null
   }
   
 
   type Web3Action =
   | { type: "SET_ACCOUNT"; payload: string }
   | { type: "SET_NETWORK_ID"; payload: number }
-  | { type: "SET_CONTRACT"; payload: any };
+  | { type: "SET_CONTRACT"; payload: any }
+  | { type: "SET_MINT_ERROR"; payload: string }
   
   export const Web3Reducer = (state: Web3State, action: Web3Action): Web3State => {
     switch (action.type) {
@@ -27,6 +29,11 @@ interface Web3State {
           ...state,
           contract: action.payload,
         }; 
+        case "SET_MINT_ERROR":
+          return {
+            ...state,
+            mintError: action.payload,
+          };         
       default:
         return state;
     }

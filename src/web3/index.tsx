@@ -16,11 +16,13 @@ interface Web3StateProps {
   account: string | null;
   networkId: number | null;
   contract: any | null;
+  mintError: string | null
 }
 interface Web3ContextValue extends Web3StateProps {
   connectWeb3: () => void;
   setAccount: (account: string) => void;
   setNetworkId: (networkId: number) => void;
+  setMintError: (mintError: string) => void;
   mintNFT: (account: string | null) => void;
 }
 
@@ -31,7 +33,8 @@ interface AppProviderProps {
 const initialState: Web3StateProps = {
   account: null,
   networkId: null,
-  contract: null
+  contract: null,
+  mintError: null
 };
 
 export const Web3Context = createContext<Web3ContextValue>({} as Web3ContextValue);
@@ -68,6 +71,16 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
     },
     [dispatch],
   );
+
+  const setMintError = useCallback(
+    (mintError: string): void => {
+      dispatch({
+        type: 'SET_MINT_ERROR',
+        payload: mintError,
+      });
+    },
+    [dispatch],
+  );  
 
   const connectWeb3 = useCallback(async () => {
     try {
@@ -109,14 +122,20 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
 
     try {
       const axiosTimestamp = await axios.get(urlTimestampId)
-      const timestampId = axiosTimestamp.data.timestampId
-      
-      const axiosSignature = await axios.post(urlSignature, {account, timestampId})
-      const signature = axiosSignature.data.signature
-      
-      const { contract } = state 
+      const timestampId = axiosTimestamp.data.timestampId 
 
-      await contract.mint(timestampId, signature)
+      const axiosResponse = await axios.get(urlSignature + "?account=" + account)
+      const data = axiosResponse.data 
+
+      if(data.signature){
+        const signature = data.signature 
+        const { contract } = state 
+        setMintError("")
+        await contract.mint(timestampId, signature)
+      } else if(data.message){
+        setMintError(data.message)
+      }
+      console.log(axiosResponse)
 
     } catch(e){
       console.log(e)
@@ -124,7 +143,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
   }
 
   return (
-    <Web3Context.Provider value={{ ...state, setAccount, setNetworkId, connectWeb3, mintNFT }}>
+    <Web3Context.Provider value={{ ...state, setAccount, setNetworkId, connectWeb3, mintNFT, setMintError }}>
       {children}
     </Web3Context.Provider>
   );
