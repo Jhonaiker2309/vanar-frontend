@@ -1,6 +1,6 @@
 const Ranking = ({ top }: RankingProps) => {
   return (
-    <div className="w-full flex flex-col justify-center items-center p-8 text-white">
+    <div className="w-full flex flex-col justify-center items-center p-8 md:pb-40 text-white">
       <h1 className="text-[28px] md:text-[44px] font-semibold">Top VP earned</h1>
       <div className="w-full flex flex-col">
         <div className="w-full flex justify-between items-center text-[18px] md:text-[24px] font-semibold gap-8">
