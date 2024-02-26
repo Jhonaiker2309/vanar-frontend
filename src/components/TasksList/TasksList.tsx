@@ -68,7 +68,7 @@ const TaskCard = ({ logo, text, experience, link, completed, externalEndpoint }:
         <img src={logo} />
         <p className="text-sm md:text-lg">{text}</p>
       </div>
-
+ 
       <div
         className={`flex items-center justify-center py-2 px-6 gap-1 ring-1 rounded-full text-xs  md:text-xl ${
           isCompleted ? 'ring-[#A08CFF] bg-[#A08CFF29]' : 'ring-[#4b4b4b] bg-[#2b2b2b]'
