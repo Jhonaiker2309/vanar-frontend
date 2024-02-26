@@ -17,10 +17,9 @@ const Ranking = ({ top }: RankingProps) => {
         top.map(async player => {
           try {
             const name = await ens.name(player.address);
-            return name || 'Unknown'; // Use 'Unknown' if name is not found
+            return name || formatWallet(player.address);
           } catch (error) {
             console.error('Error fetching username:', error);
-            return 'Unknown';
           }
         }),
       );
@@ -77,3 +76,11 @@ interface RankingProps {
 }
 
 export default Ranking;
+
+const formatWallet = (wallet: string) => {
+  if (wallet.length < 7) {
+    return wallet;
+  }
+  const formattedWallet = `${wallet.slice(0, 5)}...${wallet.slice(-4)}`;
+  return formattedWallet;
+};
