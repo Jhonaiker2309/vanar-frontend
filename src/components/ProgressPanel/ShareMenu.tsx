@@ -25,7 +25,7 @@ export const ShareMenu = () => {
 };
 
 const currentURL = encodeURI(document.location.href);
-const URLTitle = encodeURI('Welcome to Foundation Week at Vanar Chain Testnet: Vanguard');
+const URLTitle = encodeURI('Welcome to Foundation week for Vanguard');
 
 const ShareOptions = [
   {
