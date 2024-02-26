@@ -1,8 +1,7 @@
-import React, { useReducer, useCallback, createContext, ReactNode, useEffect } from 'react';
+import React, { useReducer, useCallback, createContext, ReactNode } from 'react';
 //import { MetaMaskInpageProvider } from '@metamask/providers';
 import { Web3Reducer } from './reducer';
-import { providers, ethers } from 'ethers';
-import Web3Modal from 'web3modal';
+import { ethers } from 'ethers';
 import contractABI from "./abis/VanarNFTHandler.json"
 import axios from "axios"
 import toastr from 'toastr';

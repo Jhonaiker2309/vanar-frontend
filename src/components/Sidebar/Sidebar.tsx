@@ -69,26 +69,3 @@ interface SideImageProps {
 
 export default SideImage;
 
-const dummyData = [
-  {
-    address: 'a1b2c3d4',
-    earnedVP: 100,
-  },
-
-  {
-    address: 'b2c3d4e5',
-    earnedVP: 90,
-  },
-  {
-    address: 'c3d4e5f6',
-    earnedVP: 50,
-  },
-  {
-    address: 'd4e5f6g7',
-    earnedVP: 20,
-  },
-  {
-    address: 'e5f6g7h8',
-    earnedVP: 0,
-  },
-];
