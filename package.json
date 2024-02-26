@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@metamask/providers": "^14.0.2",
+    "@types/alertify": "^0.3.33",
+    "alertifyjs": "^1.13.1",
     "axxios": "^0.1.0",
     "classnames": "^2.5.1",
     "dotenv": "^16.4.4",

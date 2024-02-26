@@ -5,6 +5,7 @@ import { providers, ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 import contractABI from "./abis/VanarNFTHandler.json"
 import axios from "axios"
+import alertify from "alertifyjs"
 
 declare global {
   interface Window {
