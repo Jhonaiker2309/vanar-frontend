@@ -19,7 +19,7 @@ const Header = () => {
     <div className="w-full relative flex justify-center items-center">
       <div className="absolute w-full h-full bg-black opacity-85 z-40" />
       <img src="/images/background-faq.svg" />
-      <h1 className="text-2xl md:text-[56px] text-white z-50 absolute">
+      <h1 className="text-2xl md:text-[56px] text-white z-50 absolute leading-10	">
         Frequently Asked Questions
       </h1>
     </div>

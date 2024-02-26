@@ -86,24 +86,33 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
 
   const connectWeb3 = useCallback(async () => {
     try {
-      const web3Modal = new Web3Modal({
-        network: 'mainnet',
-        cacheProvider: true,
-        theme: 'light',
-      });
+      const ethersProvider = new ethers.providers.Web3Provider(window.ethereum)
+   
+      if((await ethersProvider.getNetwork()).chainId !== 78600){
+        window.ethereum.request({    
+          method: "wallet_addEthereumChain",
+          params: [{
+            chainId: "0x13308",
+            rpcUrls: ["https://rpc-vanguard.vanarchain.com/"],
+            chainName: "Vanar",
+            nativeCurrency: {
+              name: "VG",
+              symbol: "VG",
+              decimals: 18
+          },
+            blockExplorerUrls: ["https://explorer-vanguard.vanarchain.com/"]
+          }]
+        });        
+      }     
 
-      const provider = await web3Modal.connect();
-      const ethersProvider = new providers.Web3Provider(provider);
       const userAddress = await ethersProvider.getSigner().getAddress();
-      const network = await ethersProvider.getNetwork();
-      const networkId = network.chainId;
-      const contractAddress: string = "0x113e98baA82C50647c5cd9F760984BCd61E762A1"
+      const contractAddress: string = "0xD80EA7A095d8c73187AD0FDe5e9be7f805C0e450"
       
       const contract = new ethers.Contract(contractAddress, contractABI, ethersProvider.getSigner());
 
       setContract(contract)
       setAccount(userAddress);
-      setNetworkId(networkId);
+      setNetworkId(78600);
 
       window.ethereum?.on('chainChanged', () => {
         document.location.reload();

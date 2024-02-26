@@ -12,11 +12,6 @@ export const MessageSection = () => {
         src="/images/message-background.jpg"
         alt="week image"
       />
-      <p className="text-lg text-[#f6f6f6]">
-        Hurry to join in the greatest Valorant tournament of all time. Fight till the end and get
-        the reward. Hurry to join in the greatest Valorant tournament of all time. Fight till the
-        end and get the rewardHurry to join in the greatest Valorant tournament of all time.
-      </p>
     </div>
   );
 };
