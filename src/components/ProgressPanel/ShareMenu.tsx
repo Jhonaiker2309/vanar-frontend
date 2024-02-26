@@ -1,6 +1,6 @@
 export const ShareMenu = () => {
   return (
-    <div className="w-fit flex flex-col p-8 bg-[#fcfcfc] border-2 border-[#101010] rounded-xl gap-8">
+    <div className="w-fit flex flex-col p-8 bg-[#fcfcfc] border-2 border-[#101010] rounded-xl gap-8 z-50">
       <p className="text-2xl text-[#101010] font-bold text-nowrap">Share on socials</p>
       <p className="text-[#101010] text-nowrap">
         If you don’t have a wallet yet, you can select a provider and create one now.
@@ -11,11 +11,11 @@ export const ShareMenu = () => {
           return (
             <div
               key={`option-${serviceName}`}
-              className="flex flex-col items-center cursor-pointer"
+              className="w-[100px] flex flex-col items-center cursor-pointer"
               onClick={() => (action ? action() : window.open(url, '_blank'))}
             >
-              <img src={`/images/${icon}.svg`} />
-              <p>{serviceName}</p>
+              <img className="w-[92px] aspect-square" src={`/images/${icon}.svg`} />
+              <p className="text-nowrap">{serviceName}</p>
             </div>
           );
         })}
