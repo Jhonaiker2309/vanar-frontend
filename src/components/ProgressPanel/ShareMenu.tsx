@@ -14,8 +14,8 @@ export const ShareMenu = () => {
               className="flex flex-col items-center cursor-pointer"
               onClick={() => (action ? action() : window.open(url, '_blank'))}
             >
-              <img src={`/images/${icon}.svg`} />
-              <p>{serviceName}</p>
+              <img className="w-[92px] aspect-square" src={`/images/${icon}.svg`} />
+              <p className="text-nowrap">{serviceName}</p>
             </div>
           );
         })}
