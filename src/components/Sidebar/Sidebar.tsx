@@ -1,14 +1,15 @@
 import { useContext, useRef, useEffect, useState, useCallback } from 'react';
 import { Web3Context } from '../../web3';
 import Ranking from '../Ranking/Ranking';
-import axios from "axios"
+import axios from 'axios';
 
-const SideImage = ({ nft }: SideImageProps) => {
-  const { account,mintNFT, connectWeb3 } = useContext(Web3Context);
+const SideImage = ({ nft, currentWeek }: SideImageProps) => {
+  const { account, mintNFT, connectWeb3, checkIfAlreadyMinted } = useContext(Web3Context);
   const videoRef = useRef<HTMLVideoElement>(null);
   const { name, video, experienceNeeded } = nft;
   const [nftVideo, setNftVideo] = useState<string>(video);
-  const [rankedData, setRankedData] = useState<any[]>([])
+  const [isClaimed, setIsClaimed] = useState<boolean>(false);
+  const [rankedData, setRankedData] = useState<any[]>([]);
 
   useEffect(() => {
     setNftVideo(video);
@@ -23,18 +24,26 @@ const SideImage = ({ nft }: SideImageProps) => {
   }, [nftVideo]);
 
   const getRankedData = useCallback(async () => {
-    try{
-    const urlRankedData: string = /*process.env.REACT_APP_BACKEND_URL*/ "https://vanar-backend.vercel.app" + "/rankedList"
-    const axiosData = await axios.get(urlRankedData)
-    setRankedData(axiosData.data.sortedList.slice(0,5))
-  }  catch(e){
-    setRankedData([])
-  }
-  }, [])
+    try {
+      const urlRankedData: string =
+        /*process.env.REACT_APP_BACKEND_URL*/ 'https://vanar-backend.vercel.app' + '/rankedList';
+      const axiosData = await axios.get(urlRankedData);
+      setRankedData(axiosData.data.sortedList.slice(0, 5));
+    } catch (e) {
+      setRankedData([]);
+    }
+  }, []);
 
-  useEffect(()=> {
-    getRankedData()
-  },[])
+  useEffect(() => {
+    getRankedData();
+  }, []);
+
+  useEffect(() => {
+    const checkClaimed = async () => {
+      setIsClaimed(await checkIfAlreadyMinted(currentWeek));
+    };
+    checkClaimed;
+  }, [account]);
 
   return (
     <div className="w-full md:w-1/3 h-full flex flex-col justify-center md:justify-start items-center bg-black opacity-90 md:fixed md:top-[101px] md:right-0 mb-24 md:mb-8 p-0 md:p-8 gap-1 overflow-scroll">
@@ -52,9 +61,12 @@ const SideImage = ({ nft }: SideImageProps) => {
           <p className="text-sm md:text-lg text-white">{experienceNeeded}XP</p>
           <button
             className="w-4/5 bg-[#A08CFF] text-black text-sm md:text-lg font-bold rounded-full py-1  md:py-4 text-center z-20"
-            onClick={() => {account ? mintNFT(account) : connectWeb3()}}
+            onClick={() => {
+              account && !isClaimed ? mintNFT(account) : connectWeb3();
+            }}
           >
-            { account ? 'Claim Reward' : 'Connect Wallet'}
+            {account && !isClaimed ? 'Claim Reward' : 'Connect Wallet'}
+            {account && isClaimed && 'Reward Claimed'}
           </button>
         </div>
       </div>
@@ -65,7 +77,7 @@ const SideImage = ({ nft }: SideImageProps) => {
 
 interface SideImageProps {
   nft: { video: string; name: string; experienceNeeded: number };
+  currentWeek: number;
 }
 
 export default SideImage;
-

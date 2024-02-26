@@ -26,6 +26,7 @@ interface Web3ContextValue extends Web3StateProps {
   setNetworkId: (networkId: number) => void;
   setMintError: (mintError: string) => void;
   mintNFT: (account: string | null) => void;
+  checkIfAlreadyMinted: (timestamp: number) => Promise<boolean>;
 }
 
 interface AppProviderProps {
@@ -83,6 +84,13 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
     },
     [dispatch],
   );
+
+  const checkIfAlreadyMinted = useCallback(async (timestamp: number) => {
+    if (!state.account || !state.contract) {
+      return false;
+    }
+    return await state.contract.getAlreadyMintedTimestampNFT(state.account, timestamp);
+  }, []);
 
   const connectWeb3 = useCallback(async () => {
     try {
@@ -176,6 +184,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
         mintNFT,
         setMintError,
         disconnectWeb3,
+        checkIfAlreadyMinted,
       }}
     >
       {children}

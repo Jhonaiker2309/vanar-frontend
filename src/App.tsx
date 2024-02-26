@@ -41,7 +41,7 @@ const App = () => {
           />
         </div>
         <div className="z-10">
-          <Sidebar nft={nftVideo} />
+          <Sidebar nft={nftVideo} currentWeek={mainSectionData.currentWeek} />
         </div>
         <div className="display md:hidden z-0">
           <FAQ />
