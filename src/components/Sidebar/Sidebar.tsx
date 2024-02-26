@@ -21,7 +21,7 @@ const SideImage = ({ nft }: SideImageProps) => {
   }, [nftVideo]);
 
   return (
-    <div className="w-full md:w-1/3 h-full flex flex-col justify-center md:justify-start items-center bg-black opacity-90 md:fixed md:top-[101px] md:right-0 mb-24 md:mb-8 p-0  md:p-8 gap-1">
+    <div className="w-full md:w-1/3 h-full flex flex-col justify-center md:justify-start items-center bg-black opacity-90 md:fixed md:top-[101px] md:right-0 mb-24 md:mb-8 p-0 md:p-8 gap-1 overflow-scroll">
       <div className="w-full flex flex-col justify-center items-center md:mb-24">
         <video
           ref={videoRef}
@@ -38,7 +38,7 @@ const SideImage = ({ nft }: SideImageProps) => {
             className="w-4/5 bg-[#A08CFF] text-black text-sm md:text-lg font-bold rounded-full py-1  md:py-4 text-center z-20"
             onClick={() => mintNFT(account)}
           >
-            {account ? 'Claim Reward' : 'Connect your account'}
+            {account ? 'Claim Reward' : 'Connect Wallet'}
           </button>
         </div>
       </div>
