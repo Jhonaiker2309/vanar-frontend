@@ -85,19 +85,22 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
     [dispatch],
   );
 
-  const checkIfAlreadyMinted = useCallback(async (timestamp: number) => {
-    console.log({
-      acc: state.account,
-      timestamp,
-    });
+  const checkIfAlreadyMinted = useCallback(
+    async (timestamp: number) => {
+      console.log({
+        acc: state.account,
+        timestamp,
+      });
 
-    if (!state.account || !state.contract) {
-      return false;
-    }
-    console.log('checking if minted');
+      if (!state.account || !state.contract) {
+        return false;
+      }
+      console.log('checking if minted');
 
-    return await state.contract.getAlreadyMintedTimestampNFT(state.account, timestamp);
-  }, []);
+      return await state.contract.getAlreadyMintedTimestampNFT(state.account, timestamp);
+    },
+    [state.account, state.contract],
+  );
 
   const connectWeb3 = useCallback(async () => {
     try {
