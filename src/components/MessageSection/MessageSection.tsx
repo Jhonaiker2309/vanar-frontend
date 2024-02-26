@@ -5,7 +5,7 @@ export const MessageSection = () => {
         Welcome to Foundation Week at Vanar Chain Testnet: Vanguard
       </h1>
       <p className="text-sm md:text-lg font-semibold py-2 px-4 bg-[#2b2b2b] rounded-full -mt-6 md:mt-0">
-        19th Feb 2024, 02:19 PM - 26th Feb 2024, 04:00 AM
+        26th Feb 2024, 12:00 PM - 4th March 2024, 12:00 AM
       </p>
       <img
         className="w-full rounded-[40px]"

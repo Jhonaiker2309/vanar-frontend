@@ -19,7 +19,7 @@ const ProgressPanel = ({ panelData }: ProgressPanelProps) => {
 
   return (
     <div className="w-full flex flex-col justify-start items-center md:items-start">
-      <p className="text-lg text-[#A08CFF] font-semibold">19th Feb 2024 - 19th Apr 2024</p>
+      <p className="text-lg text-[#A08CFF] font-semibold">26th Feb 2024 - 26th Apr 2024</p>
 
       <div className="w-full flex flex-col md:flex-row items-center md:items-end justify-center md:justify-between gap-16 md:gap-0">
         <img src="/images/title-velocity.svg" alt="Velocity Title" />
@@ -58,7 +58,7 @@ const ProgressPanel = ({ panelData }: ProgressPanelProps) => {
         <div className="hidden md:flex w-full flex-wrap items-center justify-between py-4 gap-4">
           {eventPhases.map(eventWeek => {
             const { week, status } = eventWeek;
-            return <CreateCard key={`week-${week}`} status={status} week={week} isResponsive />;
+            return <CreateCard key={`week-${week}`} status={status} week={week} />;
           })}
         </div>
       </div>
