@@ -8,14 +8,13 @@ const Navbar = () => {
       <div className="flex items-center gap-1">
         <img src="images/vanar-logo-full.svg" alt="Logo" className="w-4/5" />
       </div>
-      {!account && (
-        <button
-          className=" text-xs md:text-[18px] min-w-fit w-fit bg-white text-black font-semibold py-2 md:py-3 px-2 md:px-6 rounded-full opacity-100 "
-          onClick={() => connectWeb3()}
-        >
-          Connect Wallet
-        </button>
-      )}
+
+      <button
+        className=" text-xs md:text-[18px] min-w-fit w-fit bg-white text-black font-semibold py-2 md:py-3 px-2 md:px-6 rounded-full opacity-100 "
+        onClick={() => connectWeb3()}
+      >
+        {!account ? 'Connect Wallet' : 'Disconnect'}
+      </button>
     </header>
   );
 };
