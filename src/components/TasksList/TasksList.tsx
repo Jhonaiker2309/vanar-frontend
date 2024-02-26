@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { Bar } from '../Bar/Bar';
 import { Icon } from '../Icon/Icon';
 import { Web3Context } from '../../web3';
@@ -22,6 +22,7 @@ export const TasksList = ({ tasks }: TasksProps) => {
           link={task.link}
           experience={task.experience}
           completed={task.completed}
+          externalEndpoint={task.externalEndpoint}
           key={i}
         />
       ));
@@ -50,20 +51,18 @@ export const TasksList = ({ tasks }: TasksProps) => {
   );
 };
 
-const TaskCard = ({ logo, text, experience, link, completed }: Task) => {
+const TaskCard = ({ logo, text, experience, link, completed, externalEndpoint }: Task) => {
   const [isCompleted, setIsCompleted] = useState(completed);
   const { account } = useContext(Web3Context);
 
-  useEffect(() => {
-    if(account) setIsCompleted(completed);
-  }, [completed]);
+
 
   return (
     <div
       className={`w-full ring-1 ring-[#4b4b4b] bg-[#1a1a1a] py-6 px-4 md:px-12 flex items-center justify-between rounded-[20px] ${
         link && 'cursor-pointer'
       }`}
-      onClick={() => handleClickTask(account, setIsCompleted, link)}
+      onClick={() => handleClickTask(account, setIsCompleted, externalEndpoint,link)}
     >
       <div className="flex items-center justify-start gap-4">
         <img src={logo} />
@@ -75,7 +74,7 @@ const TaskCard = ({ logo, text, experience, link, completed }: Task) => {
           isCompleted ? 'ring-[#A08CFF] bg-[#A08CFF29]' : 'ring-[#4b4b4b] bg-[#2b2b2b]'
         }`}
       >
-        {isCompleted ? <p className="font-semibold">Completed</p> : <p>{experience} VP</p>}
+        {(isCompleted || completed)? <p className="font-semibold">Completed</p> : <p>{experience} VP</p>}
       </div>
     </div>
   );

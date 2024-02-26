@@ -24,7 +24,7 @@ export const fetchData = async (
       currentStatus: currentWeekData.status,
       isFinished: finished,
       tasks: currentWeekData.tasks,
-      eventPhases: totalData,
+      eventPhases: totalData
     };
     setMainSectionData(mainData);
 
@@ -70,6 +70,7 @@ export interface Task {
   logo: string;
   text: string;
   isBonus?: boolean;
+  externalEndpoint: boolean;
 }
 
 export interface Week {

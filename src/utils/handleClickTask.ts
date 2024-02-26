@@ -3,7 +3,8 @@ import axios from 'axios';
 export const handleClickTask = async (
   account: string | null,
   setIsCompleted: (value: boolean) => void,
-  link?: string,
+  externalEndpoint: boolean,
+  link?: string
 ) => {
   try {
     const response = await axios.post('https://vanar-backend.vercel.app/visitLink', {
@@ -11,9 +12,13 @@ export const handleClickTask = async (
       link: link,
     });
 
+
     if (response.status === 200) {
       window.open(link, '_blank');
-      setIsCompleted(true);
+
+      if(!externalEndpoint && account) 
+        {setIsCompleted(true)
+      };
     } else {
       throw new Error('Failed to visit link');
     }
