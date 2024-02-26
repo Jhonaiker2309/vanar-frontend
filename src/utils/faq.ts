@@ -27,7 +27,7 @@ export const QAndA = [
   {
     question: 'What is the schedule for the phases?',
     answer:
-      'More details for upcoming phases will be revealed as the phases go live. Week 1 is the foundational phase for Vanars Vanguard testnet launch. ',
+      'More details for upcoming phases will be revealed as the phases go live. Phase 1 is the foundational phase for Vanars Vanguard testnet launch. ',
   },
   {
     question:
