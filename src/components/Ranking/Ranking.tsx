@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
+import medal_gold from "/public/images/medal-gold.svg"
+import medal_silver from "/public/images/medal-silver.svg"
+import medal_bronze from "/public/images/medal-bronze.svg"
+
 
 const Ranking = ({ top }: RankingProps) => {
   const [usernames, setUsernames] = useState<string[]>([]);
@@ -51,9 +55,7 @@ const Ranking = ({ top }: RankingProps) => {
                 {index < 3 ? (
                   <img
                     className="w-14"
-                    src={`/public/images/medal-${
-                      index === 0 ? 'gold' : index === 1 ? 'silver' : 'bronze'
-                    }.svg`}
+                    src={index === 0 ? medal_gold : index === 1 ? medal_silver : medal_bronze}
                   />
                 ) : (
                   <p className=" text-3xl">{index + 1}</p>
