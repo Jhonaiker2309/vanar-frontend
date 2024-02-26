@@ -5,6 +5,8 @@ import { providers, ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 import contractABI from "./abis/VanarNFTHandler.json"
 import axios from "axios"
+import toastr from 'toastr';
+import 'toastr/build/toastr.min.css';
 
 declare global {
   interface Window {
@@ -133,11 +135,12 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
         setMintError("")
         await contract.mint(timestampId, signature)
       } else if(data.message){
+        toastr.error(data.message)
         setMintError(data.message)
       }
-      console.log(axiosResponse)
 
     } catch(e){
+      toastr.error("Unkown error")
       console.log(e)
     }
   }
