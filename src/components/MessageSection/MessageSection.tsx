@@ -5,17 +5,17 @@ export const MessageSection = () => {
         Welcome to Foundation week for Vanguard
       </h1>
       <p className="text-sm md:text-lg font-semibold py-2 px-4 bg-[#2b2b2b] rounded-full -mt-6 md:mt-0">
-        26th Feb 2024, 12:00 PM - 4th March 2024, 12:00 AM
+        Feb 2024 - March 2024
       </p>
       <img
         className="w-full rounded-[40px] hidden md:flex "
         src="/images/message-background.jpg"
-        alt="week image"
+        alt="phase image"
       />
       <img
         className="w-full rounded-[40px] md:hidden flex "
         src="/images/message-background-mobile.jpg"
-        alt="week image"
+        alt="phase image"
       />
     </div>
   );
