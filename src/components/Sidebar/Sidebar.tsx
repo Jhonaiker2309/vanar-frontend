@@ -65,7 +65,7 @@ const SideImage = ({ nft, currentWeek }: SideImageProps) => {
               account && !isClaimed ? mintNFT(account) : connectWeb3();
             }}
           >
-            {account && !isClaimed ? 'Claim Reward' : 'Connect Wallet'}
+            {!isClaimed && (account ? 'Claim Reward' : 'Connect Wallet')}
             {account && isClaimed && 'Reward Claimed'}
           </button>
         </div>
