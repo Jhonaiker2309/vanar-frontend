@@ -43,7 +43,7 @@ const App = () => {
         <div className="z-10">
           <Sidebar nft={nftVideo} />
         </div>
-        <div className="display md:hidden">
+        <div className="display md:hidden z-0">
           <FAQ />
         </div>
       </div>
