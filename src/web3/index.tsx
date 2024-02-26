@@ -86,6 +86,11 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
   );
 
   const checkIfAlreadyMinted = useCallback(async (timestamp: number) => {
+    console.log({
+      acc: state.account,
+      timestamp,
+    });
+
     if (!state.account || !state.contract) {
       return false;
     }
