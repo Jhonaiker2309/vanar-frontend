@@ -14,13 +14,12 @@ const Ranking = ({ top }: RankingProps) => {
       );
 
       const fetchedUsernames = await Promise.all(
-        top.map(async player => {
+        top.slice(0, 5).map(async player => {
           try {
             const name = await ens.name(player.account);
-            return name || player.account.slice(0,4) + "..." + player.account.slice(-4); 
+            return name || formatWallet(player.account);
           } catch (error) {
-            console.error('Error fetching username:', error);
-            return player.account.slice(0,4) + "..." + player.account.slice(-4);
+            return formatWallet(player.account)
           }
         }),
       );
@@ -77,3 +76,11 @@ interface RankingProps {
 }
 
 export default Ranking;
+
+const formatWallet = (wallet: string) => {
+  if (wallet.length < 7) {
+    return wallet;
+  }
+  const formattedWallet = `${wallet.slice(0, 5)}...${wallet.slice(-4)}`;
+  return formattedWallet;
+};

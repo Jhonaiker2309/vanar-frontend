@@ -10,8 +10,8 @@ export const fetchData = async (
     : 'https://vanar-backend.vercel.app/getData';*/
 
   const apiUrl = account
-    ? `http://localhost:5000/getData/${account}`
-    : 'http://localhost:5000/getData';    
+    ? `https://vanar-backend.vercel.app/getData/${account}`
+    : 'https://vanar-backend.vercel.app/getData';    
 
   try {
     const response = await axios.get(apiUrl);

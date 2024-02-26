@@ -119,8 +119,8 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
 
   const mintNFT = async (account: string | null) => {
     
-    const urlTimestampId: string = /*process.env.REACT_APP_BACKEND_URL*/ /*"https://vanar-backend.vercel.app"*/ "http://localhost:5000" + "/getTimestampId"
-    const urlSignature: string = /*process.env.REACT_APP_BACKEND_URL*/ "http://localhost:5000" + "/signature"
+    const urlTimestampId: string = /*process.env.REACT_APP_BACKEND_URL*/ /*"https://vanar-backend.vercel.app"*/ "https://vanar-backend.vercel.app" + "/getTimestampId"
+    const urlSignature: string = /*process.env.REACT_APP_BACKEND_URL*/ "https://vanar-backend.vercel.app" + "/signature"
 
     try {
       const axiosTimestamp = await axios.get(urlTimestampId)

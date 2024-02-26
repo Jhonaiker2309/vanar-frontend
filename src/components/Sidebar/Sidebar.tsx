@@ -24,7 +24,7 @@ const SideImage = ({ nft }: SideImageProps) => {
 
   const getRankedData = useCallback(async () => {
     try{
-    const urlRankedData: string = /*process.env.REACT_APP_BACKEND_URL*/ "http://localhost:5000" + "/rankedList"
+    const urlRankedData: string = /*process.env.REACT_APP_BACKEND_URL*/ "https://vanar-backend.vercel.app" + "/rankedList"
     const axiosData = await axios.get(urlRankedData)
     setRankedData(axiosData.data.sortedList.slice(0,5))
   }  catch(e){
