@@ -2,7 +2,7 @@ export const QAndA = [
   {
     question: 'What is velocity?',
     answer:
-      "The VELOCITY Campaign is an immersive testnet experience on the Vanar Chain, starting with foundational knowledge and expanding into areas like DeFi, NFTs, and gaming. It combines learning with action through weekly quests and challenges, offering rewards for participation and engagement. This initiative aims to deepen users' blockchain understanding while fostering innovation within the Vanar ecosystem.",
+      "The VELOCITY Campaign is an immersive testnet experience on the Vanar Chain, starting with foundational knowledge and expanding into areas like DeFi, NFTs, and gaming. It combines learning with action through phases quests and challenges, offering rewards for participation and engagement. This initiative aims to deepen users' blockchain understanding while fostering innovation within the Vanar ecosystem.",
   },
   {
     question: 'What is VP?',
@@ -10,9 +10,9 @@ export const QAndA = [
       'VP is velocity points, partake in tasks and bonus tasks to rank up in the leader boards and for the chance to win goodies across select campaigns.',
   },
   {
-    question: 'How do I get the NFT for each week?',
+    question: 'How do I get the NFT for each phase?',
     answer:
-      'By completing all the tasks for the week you become eligible for minting the NFT for the specific week. Once the week is over the NFT will no longer be mintable. ',
+      'By completing all the tasks for the phase you become eligible for minting the NFT for the specific phases. Once the phase is over the NFT will no longer be mintable. ',
   },
   {
     question: 'What are phases?',
@@ -22,12 +22,12 @@ export const QAndA = [
   {
     question: 'What are bonus tasks?',
     answer:
-      'These are additional ways you can earn VP each week to help you get to the top of the leaderboards.',
+      'These are additional ways you can earn VP each phase to help you get to the top of the leaderboards.',
   },
   {
-    question: 'What is the schedule for the weeks?',
+    question: 'What is the schedule for the phases?',
     answer:
-      'More details for upcoming weeks will be revealed as the weeks go live. Week 1 is the foundational week for Vanars Vanguard testnet launch. ',
+      'More details for upcoming phases will be revealed as the phases go live. Week 1 is the foundational phase for Vanars Vanguard testnet launch. ',
   },
   {
     question:
