@@ -1,12 +1,14 @@
-import { useContext, useRef, useEffect, useState } from 'react'; // Import useState
+import { useContext, useRef, useEffect, useState, useCallback } from 'react';
 import { Web3Context } from '../../web3';
 import Ranking from '../Ranking/Ranking';
+import axios from "axios"
 
 const SideImage = ({ nft }: SideImageProps) => {
   const { account,mintNFT, connectWeb3 } = useContext(Web3Context);
   const videoRef = useRef<HTMLVideoElement>(null);
   const { name, video, experienceNeeded } = nft;
   const [nftVideo, setNftVideo] = useState<string>(video);
+  const [rankedData, setRankedData] = useState<any[]>([])
 
   useEffect(() => {
     setNftVideo(video);
@@ -19,6 +21,20 @@ const SideImage = ({ nft }: SideImageProps) => {
       video.play();
     }
   }, [nftVideo]);
+
+  const getRankedData = useCallback(async () => {
+    try{
+    const urlRankedData: string = /*process.env.REACT_APP_BACKEND_URL*/ "http://localhost:5000" + "/rankedList"
+    const axiosData = await axios.get(urlRankedData)
+    setRankedData(axiosData.data.sortedList.slice(0,5))
+  }  catch(e){
+    setRankedData([])
+  }
+  }, [])
+
+  useEffect(()=> {
+    getRankedData()
+  },[])
 
   return (
     <div className="w-full md:w-1/3 h-full flex flex-col justify-center md:justify-start items-center bg-black opacity-90 md:fixed md:top-[101px] md:right-0 mb-24 md:mb-8 p-0 md:p-8 gap-1 overflow-scroll">
@@ -42,7 +58,7 @@ const SideImage = ({ nft }: SideImageProps) => {
           </button>
         </div>
       </div>
-      <Ranking top={dummyData} />
+      <Ranking top={rankedData} />
     </div>
   );
 };

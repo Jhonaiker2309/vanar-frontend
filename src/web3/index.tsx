@@ -1,4 +1,4 @@
-import React, { useReducer, useCallback, createContext, ReactNode } from 'react';
+import React, { useReducer, useCallback, createContext, ReactNode, useEffect } from 'react';
 //import { MetaMaskInpageProvider } from '@metamask/providers';
 import { Web3Reducer } from './reducer';
 import { providers, ethers } from 'ethers';
@@ -97,7 +97,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
       const userAddress = await ethersProvider.getSigner().getAddress();
       const network = await ethersProvider.getNetwork();
       const networkId = network.chainId;
-      const contractAddress: string = "0x113e98baA82C50647c5cd9F760984BCd61E762A1" /*process.env.REACT_APP_CONTRACT_ADDRESS*/
+      const contractAddress: string = "0x113e98baA82C50647c5cd9F760984BCd61E762A1"
       
       const contract = new ethers.Contract(contractAddress, contractABI, ethersProvider.getSigner());
 
@@ -119,8 +119,8 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
 
   const mintNFT = async (account: string | null) => {
     
-    const urlTimestampId: string = /*process.env.REACT_APP_BACKEND_URL*/ "https://vanar-backend.vercel.app" + "/getTimestampId"
-    const urlSignature: string = /*process.env.REACT_APP_BACKEND_URL*/ "https://vanar-backend.vercel.app" + "/signature"
+    const urlTimestampId: string = /*process.env.REACT_APP_BACKEND_URL*/ /*"https://vanar-backend.vercel.app"*/ "http://localhost:5000" + "/getTimestampId"
+    const urlSignature: string = /*process.env.REACT_APP_BACKEND_URL*/ "http://localhost:5000" + "/signature"
 
     try {
       const axiosTimestamp = await axios.get(urlTimestampId)

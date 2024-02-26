@@ -16,11 +16,11 @@ const Ranking = ({ top }: RankingProps) => {
       const fetchedUsernames = await Promise.all(
         top.map(async player => {
           try {
-            const name = await ens.name(player.address);
-            return name || 'Unknown'; // Use 'Unknown' if name is not found
+            const name = await ens.name(player.account);
+            return name || player.account.slice(0,4) + "..." + player.account.slice(-4); 
           } catch (error) {
             console.error('Error fetching username:', error);
-            return 'Unknown';
+            return player.account.slice(0,4) + "..." + player.account.slice(-4);
           }
         }),
       );
@@ -42,7 +42,7 @@ const Ranking = ({ top }: RankingProps) => {
           <p className="w-1/6 text-nowrap">Total VP</p>
         </div>
         {top.map((player, index) => {
-          const { earnedVP } = player;
+          const { experience } = player;
           return (
             <div
               key={`top-player-${index + 1}`}
@@ -61,9 +61,9 @@ const Ranking = ({ top }: RankingProps) => {
                 )}
               </div>
               <div className="w-full flex justify-start">
-                <p>{usernames[index]}</p>
+                <p className='pl-5'>{usernames[index]}</p>
               </div>
-              <div className="w-1/6 flex justify-center items-center">{earnedVP}VP</div>
+              <div className="w-1/6 flex justify-center items-center">{experience}VP</div>
             </div>
           );
         })}
@@ -73,7 +73,7 @@ const Ranking = ({ top }: RankingProps) => {
 };
 
 interface RankingProps {
-  top: { address: string; earnedVP: number }[];
+  top: { account: string; experience: number }[];
 }
 
 export default Ranking;
