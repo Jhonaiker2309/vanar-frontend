@@ -6,7 +6,7 @@ import { Web3Context } from '../../web3';
 const SideImage = ({ nft, currentWeek }: SideImageProps) => {
   const { account, mintNFT, connectWeb3, checkIfAlreadyMinted } = useContext(Web3Context);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const { name, video, experienceNeeded } = nft;
+  const { name, video } = nft;
   const [nftVideo, setNftVideo] = useState<string>(video);
   const [isClaimed, setIsClaimed] = useState<boolean>(false);
   // const [rankedData, setRankedData] = useState<any[]>([]);
@@ -58,7 +58,6 @@ const SideImage = ({ nft, currentWeek }: SideImageProps) => {
         </video>
         <div className="w-4/5 -mt-24 md:-mt-36 flex flex-col items-center z-20">
           <p className="text-lg md:text-2xl text-white">{name}</p>
-          <p className="text-sm md:text-lg text-white">{experienceNeeded}XP</p>
           <button
             className="w-4/5 bg-[#A08CFF] text-black text-sm md:text-lg font-bold rounded-full py-1  md:py-4 text-center z-20"
             onClick={() => {

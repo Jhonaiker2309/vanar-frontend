@@ -179,7 +179,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
         setMintError(data.message);
       }
     } catch (e) {
-      toastr.error('Unkown error');
+      toastr.error('Unknown error');
       console.log(e);
     }
   };
