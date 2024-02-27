@@ -5,6 +5,8 @@ import Sidebar from './components/Sidebar/Sidebar';
 import { Web3Context } from './web3';
 import { MainSectionData, NftData, fetchData } from './utils/fetchData';
 import { FAQ } from './components/FAQ/FAQ';
+import Modal from './components/Modal/Modal';
+import Input from './components/Input/Input';
 
 const App = () => {
   const { account } = useContext(Web3Context);
@@ -16,6 +18,7 @@ const App = () => {
     tasks: [],
     eventPhases: [],
   });
+  const [openModal, setOpenModal] = useState(true);
 
   const [nftVideo, setNftVideo] = useState<NftData>({
     video: '',
@@ -47,6 +50,20 @@ const App = () => {
           <FAQ />
         </div>
       </div>
+      <Modal show={openModal}>
+        <>
+          <div className="w-full relative flex justify-center items-center">
+            <div className="absolute w-full h-full bg-black opacity-85 z-40" />
+            <img src="/images/background-faq.svg" />
+            <h1 className="text-2xl md:text-[56px] text-white text-center z-50 absolute leading-10 pt-20 md:pt-0  px-20">
+              Time to select your Nickname
+            </h1>
+          </div>
+          <div className="flex justify-center pt-28 md:pt-20 px-4">
+            <Input />
+          </div>
+        </>
+      </Modal>
     </div>
   );
 };
