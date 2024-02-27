@@ -19,7 +19,7 @@ const ProgressPanel = ({ panelData }: ProgressPanelProps) => {
 
   return (
     <div className="w-full flex flex-col justify-start items-center md:items-start mt-16 md:mt-0">
-      <p className="text-lg text-[#A08CFF] font-semibold">Zeb 2024 - Apr 2024</p>
+      <p className="text-lg text-[#A08CFF] font-semibold">Feb 2024 - Apr 2024</p>
 
       <div className="w-full flex flex-col md:flex-row items-center md:items-end justify-center md:justify-between gap-16 md:gap-0">
         <img src="/images/title-velocity.svg" alt="Velocity Title" />
