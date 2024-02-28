@@ -7,8 +7,8 @@ export const fetchData = async (
 ) => {
 
   const apiUrl = account
-    ? `${process.env.REACT_APP_BACKEND_URL}/getData/${account}`
-    : `${process.env.REACT_APP_BACKEND_URL}/getData`;    
+    ? `${import.meta.env.VITE_BACKEND_URL}/getData/${account}`
+    : `${import.meta.env.VITE_BACKEND_URL}/getData`;    
 
   try {
     const response = await axios.get(apiUrl);

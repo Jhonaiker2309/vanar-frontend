@@ -127,7 +127,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
       }
 
       const userAddress = await ethersProvider.getSigner().getAddress();
-      const contractAddress: string = process.env.REACT_APP_CONTRACT_ADDRESS || "";
+      const contractAddress: string = import.meta.env.VITE_CONTRACT_ADDRESS || "";
 
       const contract = new ethers.Contract(
         contractAddress,
@@ -156,8 +156,8 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
   }, [setAccount, setNetworkId]);
 
   const mintNFT = async (account: string | null) => {
-    const urlTimestampId: string = `${process.env.REACT_APP_BACKEND_URL}/getTimestampId`;
-    const urlSignature: string = `${process.env.REACT_APP_BACKEND_URL}/signature`
+    const urlTimestampId: string = `${import.meta.env.VITE_BACKEND_URL}/getTimestampId`;
+    const urlSignature: string = `${import.meta.env.VITE_BACKEND_URL }/signature`
 
     console.log(urlSignature)
 

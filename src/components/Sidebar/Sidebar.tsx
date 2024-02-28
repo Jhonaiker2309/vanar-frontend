@@ -25,7 +25,7 @@ const SideImage = ({ nft, currentWeek }: SideImageProps) => {
 
   // const getRankedData = useCallback(async () => {
   //   try {
-  //     const urlRankedData: string = process.env.REACT_APP_BACKEND_URL + '/rankedList';
+  //     const urlRankedData: string = import.meta.env.VITE_BACKEND_URL + '/rankedList';
   //     const axiosData = await axios.get(urlRankedData);
   //     setRankedData(axiosData.data.sortedList.slice(0, 5));
   //   } catch (e) {
