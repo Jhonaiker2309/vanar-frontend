@@ -127,7 +127,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
       }
 
       const userAddress = await ethersProvider.getSigner().getAddress();
-      const contractAddress: string = import.meta.env.VITE_CONTRACT_ADDRESS || "";
+      const contractAddress: string = import.meta.env.VITE_CONTRACT_ADDRESS || '';
 
       const contract = new ethers.Contract(
         contractAddress,
@@ -153,13 +153,22 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
 
   const disconnectWeb3 = useCallback(async () => {
     setAccount(null);
+    // disconnect via Metamask
+    await window.ethereum.request({
+      method: 'wallet_requestPermissions',
+      params: [
+        {
+          eth_accounts: {},
+        },
+      ],
+    });
   }, [setAccount, setNetworkId]);
 
   const mintNFT = async (account: string | null) => {
     const urlTimestampId: string = `${import.meta.env.VITE_BACKEND_URL}/getTimestampId`;
-    const urlSignature: string = `${import.meta.env.VITE_BACKEND_URL }/signature`
+    const urlSignature: string = `${import.meta.env.VITE_BACKEND_URL}/signature`;
 
-    console.log(urlSignature)
+    console.log(urlSignature);
 
     try {
       const axiosTimestamp = await axios.get(urlTimestampId);
