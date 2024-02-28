@@ -5,13 +5,10 @@ export const fetchData = async (
   setMainSectionData: (value: MainSectionData) => void,
   setNftVideo: (value: NftData) => void,
 ) => {
-  /*const apiUrl = account
-    ? `https://vanar-backend.vercel.app/getData/${account}`
-    : 'https://vanar-backend.vercel.app/getData';*/
 
   const apiUrl = account
-    ? `https://vanar-backend.vercel.app/getData/${account}`
-    : 'https://vanar-backend.vercel.app/getData';    
+    ? `${import.meta.env.VITE_BACKEND_URL}/getData/${account}`
+    : `${import.meta.env.VITE_BACKEND_URL}/getData`;    
 
   try {
     const response = await axios.get(apiUrl);

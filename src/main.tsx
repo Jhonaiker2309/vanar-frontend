@@ -4,6 +4,7 @@ import App from './App.tsx'
 import './index.css'
 import { Web3Provider } from './web3/index.tsx'
 
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
       <Web3Provider>

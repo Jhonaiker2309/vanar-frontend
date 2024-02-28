@@ -127,7 +127,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
       }
 
       const userAddress = await ethersProvider.getSigner().getAddress();
-      const contractAddress: string = '0xD80EA7A095d8c73187AD0FDe5e9be7f805C0e450';
+      const contractAddress: string = import.meta.env.VITE_CONTRACT_ADDRESS || "";
 
       const contract = new ethers.Contract(
         contractAddress,
@@ -156,11 +156,10 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
   }, [setAccount, setNetworkId]);
 
   const mintNFT = async (account: string | null) => {
-    const urlTimestampId: string =
-      /*process.env.REACT_APP_BACKEND_URL*/ /*"https://vanar-backend.vercel.app"*/ 'https://vanar-backend.vercel.app' +
-      '/getTimestampId';
-    const urlSignature: string =
-      /*process.env.REACT_APP_BACKEND_URL*/ 'https://vanar-backend.vercel.app' + '/signature';
+    const urlTimestampId: string = `${import.meta.env.VITE_BACKEND_URL}/getTimestampId`;
+    const urlSignature: string = `${import.meta.env.VITE_BACKEND_URL }/signature`
+
+    console.log(urlSignature)
 
     try {
       const axiosTimestamp = await axios.get(urlTimestampId);

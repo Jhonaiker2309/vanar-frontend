@@ -7,7 +7,7 @@ export const handleClickTask = async (
   link?: string
 ) => {
   try {
-    const response = await axios.post('https://vanar-backend.vercel.app/visitLink', {
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/visitLink`, {
       account: account,
       link: link,
     });
