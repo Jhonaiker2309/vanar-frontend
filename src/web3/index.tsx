@@ -9,6 +9,7 @@ import 'toastr/build/toastr.min.css';
 
 declare global {
   interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ethereum: any;
   }
 }
@@ -16,7 +17,7 @@ declare global {
 interface Web3StateProps {
   account: string | null;
   networkId: number | null;
-  contract: any | null;
+  contract: ethers.Contract | null;
   mintError: string | null;
 }
 interface Web3ContextValue extends Web3StateProps {
@@ -66,7 +67,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
   );
 
   const setContract = useCallback(
-    (contract: any): void => {
+    (contract: ethers.Contract): void => {
       dispatch({
         type: 'SET_CONTRACT',
         payload: contract,
@@ -153,15 +154,6 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
 
   const disconnectWeb3 = useCallback(async () => {
     setAccount(null);
-    // disconnect via Metamask
-    await window.ethereum.request({
-      method: 'wallet_requestPermissions',
-      params: [
-        {
-          eth_accounts: {},
-        },
-      ],
-    });
   }, [setAccount, setNetworkId]);
 
   const mintNFT = async (account: string | null) => {
