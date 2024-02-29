@@ -17,7 +17,7 @@ export const TasksList = ({ tasks }: TasksProps) => {
       .filter(task => task.isBonus === isBonus)
       .map((task, i) => (
         <TaskCard
-          logo={task.logo}
+          logo={collectionIcons[i]}
           text={task.text}
           link={task.link}
           experience={task.experience}
@@ -63,7 +63,7 @@ const TaskCard = ({ logo, text, experience, link, completed, externalEndpoint }:
       onClick={() => handleClickTask(account, setIsCompleted, externalEndpoint, link)}
     >
       <div className="flex items-center justify-start gap-4">
-        <img src={logo} />
+        <img src={`/images/${logo}.svg`} alt="task-logo" />
         <p className="text-sm md:text-lg">{text}</p>
       </div>
 
@@ -85,3 +85,5 @@ const TaskCard = ({ logo, text, experience, link, completed, externalEndpoint }:
 interface TasksProps {
   tasks: Task[];
 }
+
+const collectionIcons = ['file', 'world', 'thunder', 'world', 'interact'];
