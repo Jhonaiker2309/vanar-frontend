@@ -106,7 +106,15 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
   const connectWeb3 = useCallback(async () => {
     try {
       const ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
-      await ethersProvider.send('eth_requestAccounts', []);
+      // await ethersProvider.send('eth_requestAccounts', []);
+      await window.ethereum.request({
+        method: 'wallet_requestPermissions',
+        params: [
+          {
+            eth_accounts: {},
+          },
+        ],
+      });
 
       if ((await ethersProvider.getNetwork()).chainId !== 78600) {
         window.ethereum.request({
