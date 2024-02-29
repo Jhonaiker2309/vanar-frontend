@@ -13,6 +13,7 @@ const App = () => {
   const { account } = useContext(Web3Context);
   const [userName, setUserName] = useState('');
   const [openModal, setOpenModal] = useState(false);
+
   const [mainSectionData, setMainSectionData] = useState<MainSectionData>({
     totalWeeks: 0,
     currentWeek: 0,
@@ -33,12 +34,16 @@ const App = () => {
         .get(`https://staging-vanar-backend.vercel.app/getUsername/${account}`)
         .then(response => {
           setUserName(response.data);
+          if (!userName) {
+            setOpenModal(true);
+          }
         })
         .catch(error => {
           console.error('Error fetching username:', error);
         });
     }
   }, [account]);
+
   useEffect(() => {
     fetchData(account, setMainSectionData, setNftVideo);
   }, [account]);
@@ -63,22 +68,21 @@ const App = () => {
           <FAQ />
         </div>
       </div>
-      {account && !userName && (
-        <Modal show={openModal} onClose={setOpenModal}>
-          <>
-            <div className="w-full relative flex justify-center items-center">
-              <div className="absolute w-full h-full bg-black opacity-85 z-40" />
-              <img src="/images/background-faq.svg" />
-              <h1 className="text-2xl md:text-[56px] text-white text-center z-50 absolute leading-10 pt-20 md:pt-0  px-20">
-                Create your username
-              </h1>
-            </div>
-            <div className="flex justify-center pt-28 md:pt-20 px-4">
-              <Input />
-            </div>
-          </>
-        </Modal>
-      )}
+
+      <Modal show={openModal} onClose={setOpenModal}>
+        <>
+          <div className="w-full relative flex justify-center items-center">
+            <div className="absolute w-full h-full bg-black opacity-85 z-40" />
+            <img src="/images/background-faq.svg" />
+            <h1 className="text-2xl md:text-[56px] text-white text-center z-50 absolute leading-10 pt-20 md:pt-0  px-20">
+              Create your username
+            </h1>
+          </div>
+          <div className="flex justify-center pt-28 md:pt-20 px-4">
+            <Input />
+          </div>
+        </>
+      </Modal>
     </div>
   );
 };

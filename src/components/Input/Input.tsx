@@ -38,7 +38,6 @@ const Input = () => {
 
   return (
     <>
-      a
       <form onSubmit={handleSubmit} className="flex flex-col items-center gap-6">
         <label>
           <input

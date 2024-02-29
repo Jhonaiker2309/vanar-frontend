@@ -6,7 +6,6 @@ import medal_bronze from '/public/images/medal-bronze.svg';
 
 const Ranking = ({ top }: RankingProps) => {
   const [usernames, setUsernames] = useState<string[]>([]);
-  console.log(top);
 
   useEffect(() => {
     const fetchUsernames = async () => {
