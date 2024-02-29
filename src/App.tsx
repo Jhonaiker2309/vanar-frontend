@@ -33,8 +33,10 @@ const App = () => {
       axios
         .get(`https://staging-vanar-backend.vercel.app/getUsername/${account}`)
         .then(response => {
-          setUserName(response.data);
-          if (!userName) {
+          const fetchedUsername = response?.data?.username;
+          if (fetchedUsername) {
+            setUserName(fetchedUsername);
+          } else {
             setOpenModal(true);
           }
         })
@@ -50,7 +52,7 @@ const App = () => {
 
   return (
     <div className="w-screen h-screen background overflow-scroll fixed">
-      <Navbar />
+      <Navbar username={userName} />
       <div className="w-full h-full flex flex-col md:flex-row">
         <div className="z-40">
           <MainSection
@@ -79,7 +81,7 @@ const App = () => {
             </h1>
           </div>
           <div className="flex justify-center pt-28 md:pt-20 px-4">
-            <Input />
+            <Input setOpenModal={setOpenModal} />
           </div>
         </>
       </Modal>

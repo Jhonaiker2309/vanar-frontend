@@ -1,8 +1,11 @@
 import { useState, FormEvent } from 'react';
 import { ethers } from 'ethers';
 import axios from 'axios';
+import toastr from 'toastr';
 
-const Input = () => {
+const allowedCharacters = '1234567890qwertyuiopasdfghjklzxcvbnm_';
+
+const Input = ({ setOpenModal }: { setOpenModal: (value: boolean) => void }) => {
   const [username, setUsername] = useState('');
 
   const handleSubmit = async (event: FormEvent) => {
@@ -30,12 +33,22 @@ const Input = () => {
             username,
           )}&signature=${encodeURIComponent(signature)}&from=${encodeURIComponent(address)}`,
         );
+        setOpenModal(false);
+        toastr.success('Your username has been updated @' + username);
       } catch (error) {
         console.error('Metamask signature request failed:', error);
       }
     }
   };
-
+  const handleChange = (value: string) => {
+    setUsername(
+      value
+        .split('')
+        .filter(c => allowedCharacters.includes(c))
+        .join('')
+        .slice(0, 18),
+    );
+  };
   return (
     <>
       <form onSubmit={handleSubmit} className="flex flex-col items-center gap-6">
@@ -44,7 +57,7 @@ const Input = () => {
             className="w-full rounded-full py-2 px-4 md:px-12 ring-4 ring-[#A08CFF] focus:border-transparent focus:outline-none bg-slate-900 text-[#A08CFF] md:text-3xl text-center"
             type="text"
             value={username}
-            onChange={e => setUsername(e.target.value)}
+            onChange={e => handleChange(e.target.value)}
             placeholder="Enter your username"
             required
           />
