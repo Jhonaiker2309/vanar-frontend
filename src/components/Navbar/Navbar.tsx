@@ -4,7 +4,9 @@ import { Web3Context } from '../../web3';
 const Navbar = ({ username }: { username?: string }) => {
   const { account, connectWeb3, disconnectWeb3 } = useContext(Web3Context);
   useEffect(() => {
-    connectWeb3();
+    if (localStorage.getItem('logged') === 'yes') {
+      connectWeb3();
+    }
   }, []);
   return (
     <header className="w-screen h-[101px] bg-[#0a0810] fixed top-0 left-0 flex items-center justify-between px-8  md:px-14 z-50">

@@ -99,6 +99,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
 
   const connectWeb3 = useCallback(async () => {
     try {
+      localStorage.setItem('logged', 'yes');
       const ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
       await ethersProvider.send('eth_requestAccounts', []);
       // await window.ethereum.request({
@@ -155,6 +156,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
   }, [setAccount, setNetworkId]);
 
   const disconnectWeb3 = useCallback(async () => {
+    localStorage.setItem('logged', 'no');
     setAccount(null);
   }, [setAccount, setNetworkId]);
 
