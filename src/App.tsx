@@ -45,6 +45,10 @@ const App = () => {
   }, [account]);
 
   useEffect(() => {
+    setOpenModal(false);
+  }, [userName]);
+
+  useEffect(() => {
     fetchData(account, setMainSectionData, setNftVideo);
   }, [account]);
 
