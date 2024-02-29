@@ -188,6 +188,8 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
         setTimeout(() => {
           mintNFT(account, counter + 1);
         }, 500);
+        console.log(`Retrying # ${counter} `, e);
+
         return;
       }
       toastr.error('Unknown error');
