@@ -9,6 +9,7 @@ import 'toastr/build/toastr.min.css';
 
 declare global {
   interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ethereum: any;
   }
 }
@@ -16,7 +17,7 @@ declare global {
 interface Web3StateProps {
   account: string | null;
   networkId: number | null;
-  contract: any | null;
+  contract: ethers.Contract | null;
   mintError: string | null;
 }
 interface Web3ContextValue extends Web3StateProps {
@@ -66,7 +67,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
   );
 
   const setContract = useCallback(
-    (contract: any): void => {
+    (contract: ethers.Contract): void => {
       dispatch({
         type: 'SET_CONTRACT',
         payload: contract,
@@ -87,7 +88,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
 
   const checkIfAlreadyMinted = useCallback(
     async (timestamp: number) => {
-      console.log({
+      console.log('data', {
         acc: state.account,
         timestamp,
       });
@@ -127,7 +128,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
       }
 
       const userAddress = await ethersProvider.getSigner().getAddress();
-      const contractAddress: string = '0xD80EA7A095d8c73187AD0FDe5e9be7f805C0e450';
+      const contractAddress: string = import.meta.env.VITE_CONTRACT_ADDRESS || '';
 
       const contract = new ethers.Contract(
         contractAddress,
@@ -156,11 +157,10 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
   }, [setAccount, setNetworkId]);
 
   const mintNFT = async (account: string | null) => {
-    const urlTimestampId: string =
-      /*process.env.REACT_APP_BACKEND_URL*/ /*"https://vanar-backend.vercel.app"*/ 'https://vanar-backend.vercel.app' +
-      '/getTimestampId';
-    const urlSignature: string =
-      /*process.env.REACT_APP_BACKEND_URL*/ 'https://vanar-backend.vercel.app' + '/signature';
+    const urlTimestampId: string = `${import.meta.env.VITE_BACKEND_URL}/getTimestampId`;
+    const urlSignature: string = `${import.meta.env.VITE_BACKEND_URL}/signature`;
+
+    console.log(urlSignature);
 
     try {
       const axiosTimestamp = await axios.get(urlTimestampId);
@@ -179,7 +179,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
         setMintError(data.message);
       }
     } catch (e) {
-      toastr.error('Unkown error');
+      toastr.error('Unknown error');
       console.log(e);
     }
   };

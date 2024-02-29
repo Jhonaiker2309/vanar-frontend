@@ -1,15 +1,16 @@
-import { useContext, useRef, useEffect, useState } from 'react';
+import { useContext, useRef, useEffect, useState, useCallback } from 'react';
 import { Web3Context } from '../../web3';
-// import Ranking from '../Ranking/Ranking';
-// import axios from 'axios';
+import Ranking from '../Ranking/Ranking';
+import axios from 'axios';
 
 const SideImage = ({ nft, currentWeek }: SideImageProps) => {
   const { account, mintNFT, connectWeb3, checkIfAlreadyMinted } = useContext(Web3Context);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const { name, video, experienceNeeded } = nft;
+  const { name, video } = nft;
   const [nftVideo, setNftVideo] = useState<string>(video);
   const [isClaimed, setIsClaimed] = useState<boolean>(false);
-  // const [rankedData, setRankedData] = useState<any[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [rankedData, setRankedData] = useState<any[]>([]);
 
   useEffect(() => {
     setNftVideo(video);
@@ -23,26 +24,25 @@ const SideImage = ({ nft, currentWeek }: SideImageProps) => {
     }
   }, [nftVideo]);
 
-  // const getRankedData = useCallback(async () => {
-  //   try {
-  //     const urlRankedData: string =
-  //       /*process.env.REACT_APP_BACKEND_URL*/ 'https://vanar-backend.vercel.app' + '/rankedList';
-  //     const axiosData = await axios.get(urlRankedData);
-  //     setRankedData(axiosData.data.sortedList.slice(0, 5));
-  //   } catch (e) {
-  //     setRankedData([]);
-  //   }
-  // }, []);
+  const getRankedData = useCallback(async () => {
+    try {
+      const urlRankedData: string = import.meta.env.VITE_BACKEND_URL + '/rankedList';
+      const axiosData = await axios.get(urlRankedData);
+      setRankedData(axiosData.data.sortedList.slice(0, 5));
+    } catch (e) {
+      setRankedData([]);
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   getRankedData();
-  // }, []);
+  useEffect(() => {
+    getRankedData();
+  }, []);
 
   useEffect(() => {
     const checkClaimed = async () => {
       setIsClaimed(await checkIfAlreadyMinted(currentWeek));
     };
-    checkClaimed;
+    checkClaimed();
   }, [account, checkIfAlreadyMinted, currentWeek]);
   console.log('is claimed ', isClaimed);
   return (
@@ -58,19 +58,18 @@ const SideImage = ({ nft, currentWeek }: SideImageProps) => {
         </video>
         <div className="w-4/5 -mt-24 md:-mt-36 flex flex-col items-center z-20">
           <p className="text-lg md:text-2xl text-white">{name}</p>
-          <p className="text-sm md:text-lg text-white">{experienceNeeded}XP</p>
           <button
             className="w-4/5 bg-[#A08CFF] text-black text-sm md:text-lg font-bold rounded-full py-1  md:py-4 text-center z-20"
             onClick={() => {
               account && !isClaimed ? mintNFT(account) : connectWeb3();
             }}
           >
-            {account && !isClaimed ? 'Claim Reward' : 'Connect Wallet'}
+            {!isClaimed && (account ? 'Claim Reward' : 'Connect Wallet')}
             {account && isClaimed && 'Reward Claimed'}
           </button>
         </div>
       </div>
-      {/* <Ranking top={rankedData} /> */}
+      <Ranking top={rankedData} />
     </div>
   );
 };

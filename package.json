@@ -15,7 +15,6 @@
     "alertifyjs": "^1.13.1",
     "axxios": "^0.1.0",
     "classnames": "^2.5.1",
-    "dotenv": "^16.4.4",
     "ethers": "^5.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -25,6 +24,8 @@
     "web3modal": "^1.9.12"
   },
   "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/node": "^20.11.21",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@types/toastr": "^2.1.43",
@@ -32,6 +33,7 @@
     "@typescript-eslint/parser": "^6.14.0",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.17",
+    "dotenv": "^16.4.5",
     "eslint": "^8.55.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
