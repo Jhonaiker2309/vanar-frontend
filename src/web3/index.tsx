@@ -164,19 +164,16 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
     setAccount(null);
   }, [setAccount, setNetworkId]);
 
-  const mintNFT = async (account: string | null) => {
+  const mintNFT = async (account: string | null, counter: number | undefined = 0) => {
     const urlTimestampId: string = `${import.meta.env.VITE_BACKEND_URL}/getTimestampId`;
     const urlSignature: string = `${import.meta.env.VITE_BACKEND_URL}/signature`;
 
-    console.log(urlSignature);
+    const axiosTimestamp = await axios.get(urlTimestampId);
+    const timestampId = axiosTimestamp.data.timestampId;
 
+    const axiosResponse = await axios.get(urlSignature + '?account=' + account);
+    const data = axiosResponse.data;
     try {
-      const axiosTimestamp = await axios.get(urlTimestampId);
-      const timestampId = axiosTimestamp.data.timestampId;
-
-      const axiosResponse = await axios.get(urlSignature + '?account=' + account);
-      const data = axiosResponse.data;
-
       if (data.signature) {
         const signature = data.signature;
         const { contract } = state;
@@ -187,6 +184,12 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
         setMintError(data.message);
       }
     } catch (e) {
+      if (counter < 9) {
+        setTimeout(() => {
+          mintNFT(account, counter + 1);
+        }, 500);
+        return;
+      }
       toastr.error('Unknown error');
       console.log(e);
     }
