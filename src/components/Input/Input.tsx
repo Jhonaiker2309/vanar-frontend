@@ -1,17 +1,45 @@
 import { useState, FormEvent } from 'react';
+import { ethers } from 'ethers';
+import axios from 'axios';
 
 const Input = () => {
   const [username, setUsername] = useState('');
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     if (username.trim() !== '') {
-      console.log(username.trim());
+      try {
+        if (!window.ethereum) {
+          console.error('MetaMask is not installed');
+          return;
+        }
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const address = accounts[0].toLowerCase();
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const signature = await signer.signMessage(username);
+        const signerAddress = (await ethers.utils.verifyMessage(username, signature)).toLowerCase();
+
+        if (signerAddress !== address) {
+          console.error('Connected account does not match the account used for signing.');
+          return;
+        }
+
+        await axios.post('https://staging-vanar-backend.vercel.app/setUsername', {
+          mode: 'no-cors',
+          username: username,
+          signature: signature,
+          from: address,
+        });
+      } catch (error) {
+        console.error('Metamask signature request failed:', error);
+      }
     }
   };
 
   return (
     <>
+      a
       <form onSubmit={handleSubmit} className="flex flex-col items-center gap-6">
         <label>
           <input

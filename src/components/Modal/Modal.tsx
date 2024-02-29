@@ -11,7 +11,7 @@ const Modal = ({ show, onClose, children }: ModalProps) => {
   useEffect(() => {
     const handleCloseOnEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && isOpen && onClose) {
-        onClose();
+        onClose(false);
       }
     };
 
@@ -25,7 +25,7 @@ const Modal = ({ show, onClose, children }: ModalProps) => {
   const handleClose = () => {
     setIsOpen(false);
     if (onClose) {
-      onClose();
+      onClose(false);
     }
   };
 
@@ -58,6 +58,6 @@ export default Modal;
 
 interface ModalProps {
   show: boolean;
-  onClose?: () => void;
+  onClose?: (state: boolean) => void;
   children: ReactNode;
 }

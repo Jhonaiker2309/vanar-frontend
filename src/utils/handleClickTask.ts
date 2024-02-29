@@ -4,7 +4,7 @@ export const handleClickTask = async (
   account: string | null,
   setIsCompleted: (value: boolean) => void,
   externalEndpoint: boolean,
-  link?: string
+  link?: string,
 ) => {
   try {
     const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/visitLink`, {
@@ -12,13 +12,12 @@ export const handleClickTask = async (
       link: link,
     });
 
-
     if (response.status === 200) {
       window.open(link, '_blank');
 
-      if(!externalEndpoint && account) 
-        {setIsCompleted(true)
-      };
+      if (!externalEndpoint && account) {
+        setIsCompleted(true);
+      }
     } else {
       throw new Error('Failed to visit link');
     }
