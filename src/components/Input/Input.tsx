@@ -28,7 +28,7 @@ const Input = () => {
         await axios.get(
           `${import.meta.env.VITE_BACKEND_URL}/setUsername?username=${encodeURIComponent(
             username,
-          )}&signature=${encodeURIComponent(signature)}&from=${address}`,
+          )}&signature=${encodeURIComponent(signature)}&from=${encodeURIComponent(address)}`,
         );
       } catch (error) {
         console.error('Metamask signature request failed:', error);
