@@ -31,7 +31,7 @@ const Input = ({ setOpenModal }: { setOpenModal: (value: boolean) => void }) => 
         await axios.get(
           `${import.meta.env.VITE_BACKEND_URL}/setUsername?username=${encodeURIComponent(
             username,
-          )}&signature=${encodeURIComponent(signature)}&from=${encodeURIComponent(address)}`,
+          )}&signature=${encodeURIComponent(signature)}&from=${encodeURIComponent(accounts[0])}`,
         );
         setOpenModal(false);
         toastr.success('Your username has been updated @' + username);
