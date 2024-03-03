@@ -17,7 +17,7 @@ export const TasksList = ({ tasks }: TasksProps) => {
       .filter(task => task.isBonus === isBonus)
       .map((task, i) => (
         <TaskCard
-          logo={collectionIcons[i]}
+          logo={collectionIcons[1][i]}
           text={task.text}
           link={task.link}
           experience={task.experience}
@@ -86,4 +86,7 @@ interface TasksProps {
   tasks: Task[];
 }
 
-const collectionIcons = ['file', 'world', 'thunder', 'world', 'interact'];
+const collectionIcons = [
+  ['file', 'world', 'thunder', 'world', 'interact'],
+  ['thunder', 'world', 'thunder', 'world', 'wallet', 'wallet'],
+];
