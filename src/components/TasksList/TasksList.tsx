@@ -5,7 +5,8 @@ import { Web3Context } from '../../web3';
 import { Task } from '../../utils/fetchData';
 import { handleClickTask } from '../../utils/handleClickTask';
 
-export const TasksList = ({ tasks }: TasksProps) => {
+export const TasksList = ({ tasks, currentWeek }: TasksProps) => {
+  const taskIcons = currentWeek - 1;
   const handleFillBar = () => {
     const weekTasks = tasks.filter(task => !task.isBonus);
     const weekTasksCompleted = weekTasks.filter(task => task.completed);
@@ -17,7 +18,7 @@ export const TasksList = ({ tasks }: TasksProps) => {
       .filter(task => task.isBonus === isBonus)
       .map((task, i) => (
         <TaskCard
-          logo={collectionIcons[i]}
+          logo={collectionIcons[taskIcons][i]}
           text={task.text}
           link={task.link}
           experience={task.experience}
@@ -84,6 +85,10 @@ const TaskCard = ({ logo, text, experience, link, completed, externalEndpoint }:
 
 interface TasksProps {
   tasks: Task[];
+  currentWeek: number;
 }
 
-const collectionIcons = ['file', 'world', 'thunder', 'world', 'interact'];
+const collectionIcons = [
+  ['file', 'world', 'thunder', 'world', 'interact'],
+  ['thunder', 'world', 'thunder', 'world', 'wallet', 'wallet'],
+];
