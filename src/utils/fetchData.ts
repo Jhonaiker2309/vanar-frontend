@@ -5,10 +5,9 @@ export const fetchData = async (
   setMainSectionData: (value: MainSectionData) => void,
   setNftVideo: (value: NftData) => void,
 ) => {
-
   const apiUrl = account
     ? `${import.meta.env.VITE_BACKEND_URL}/getData/${account}`
-    : `${import.meta.env.VITE_BACKEND_URL}/getData`;    
+    : `${import.meta.env.VITE_BACKEND_URL}/getData`;
 
   try {
     const response = await axios.get(apiUrl);
@@ -21,12 +20,12 @@ export const fetchData = async (
       currentStatus: currentWeekData.status,
       isFinished: finished,
       tasks: currentWeekData.tasks,
-      eventPhases: totalData
+      eventPhases: totalData,
     };
     setMainSectionData(mainData);
 
     const nftData = {
-      video: currentVideo,
+      video: response.data?.currentNFT?.animation_url || currentVideo,
       name: currentNFT.name,
       experienceNeeded: currentNFT.experienceNeeded,
     };
