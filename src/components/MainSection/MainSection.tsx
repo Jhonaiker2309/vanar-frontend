@@ -22,7 +22,7 @@ const MainSection = ({
     <div className="w-full md:w-2/3 h-fit bg-black opacity-90 md:absolute md:top-[101px] px-12 md:px-36 pt-8 pb-6 flex flex-col items-start gap-12">
       <ProgressPanel panelData={panelData} />
       <MessageSection />
-      <TasksList tasks={tasks} />
+      <TasksList tasks={tasks} currentWeek={panelData.currentWeek} />
       <div className="hidden md:flex">
         <FAQ />
       </div>
