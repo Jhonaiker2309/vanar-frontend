@@ -76,7 +76,7 @@ const TaskCard = ({ logo, text, experience, link, completed, externalEndpoint }:
         {isCompleted || completed ? (
           <p className="font-semibold">Completed</p>
         ) : (
-          <p>{experience} VP</p>
+          <p className="text-nowrap">{experience} VP</p>
         )}
       </div>
     </div>
