@@ -90,5 +90,5 @@ interface TasksProps {
 
 const collectionIcons = [
   ['file', 'world', 'thunder', 'world', 'interact'],
-  ['thunder', 'world', 'thunder', 'world', 'wallet', 'wallet'],
+  ['thunder', 'world', 'wallet', 'wallet','thunder', 'world']
 ];
