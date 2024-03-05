@@ -7,11 +7,19 @@ const App = () => {
     <main>
       <Router>
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/claim" element={<p>Claim</p>} />
-          <Route path="/Leaderboard" element={'Leaderboard'} />
-        </Routes>
+        <div className="w-screen h-screen background overflow-scroll fixed">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/claim"
+              element={<div className="w-full h-full bg-black opacity-95">Claim</div>}
+            />
+            <Route
+              path="/Leaderboard"
+              element={<div className="w-full h-full bg-black opacity-95">Leaderboard</div>}
+            />
+          </Routes>
+        </div>
       </Router>
     </main>
   );
