@@ -1,12 +1,12 @@
 import { useState, useEffect, useContext } from 'react';
-import MainSection from './components/MainSection/MainSection';
-import Navbar from './components/Navbar/Navbar';
-import Sidebar from './components/Sidebar/Sidebar';
-import { Web3Context } from './web3';
-import { MainSectionData, NftData, fetchData } from './utils/fetchData';
-import { FAQ } from './components/FAQ/FAQ';
-import Modal from './components/Modal/Modal';
-import Input from './components/Input/Input';
+import MainSection from '../components/MainSection/MainSection';
+import Navbar from '../components/Navbar/Navbar';
+import Sidebar from '../components/Sidebar/Sidebar';
+import { Web3Context } from '../web3';
+import { MainSectionData, NftData, fetchData } from '../utils/fetchData';
+import { FAQ } from '../components/FAQ/FAQ';
+import Modal from '../components/Modal/Modal';
+import Input from '../components/Input/Input';
 import axios from 'axios';
 
 const Home = () => {
