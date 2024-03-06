@@ -34,3 +34,8 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.button-light {
+  box-shadow: inset;
+  box-shadow: 1px 0px 5px 1px #a08cff;
+}

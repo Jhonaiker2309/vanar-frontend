@@ -36,11 +36,11 @@ const Navbar = ({ username }: { username?: string }) => {
         </NavLink>
       </div>
       <div className="flex items-center gap-4">
-        <div className="h-12 flex justify-center items-center text-xs md:text-[18px] min-w-fit w-fit bg-[#A08CFF] bg-opacity-20  text-white ring-1 ring-[#A08CFF] font-semibold py-2 md:py-3 px-2 md:px-6 rounded-full gap-2">
+        <div className="h-12 flex justify-center items-center text-xs md:text-[18px] min-w-fit w-fit bg-[#A08CFF] bg-opacity-20  text-white ring-1 ring-[#A08CFF] font-semibold py-2 md:py-3 px-2 md:px-6 rounded-full gap-2 button-light shadow-[#A08CFF]">
           <Icon name="thunder" size={24} color="white" />
           <p className="text-nowrap">10VP</p>{' '}
         </div>
-        <div className="h-12 flex justify-center items-center text-xs md:text-[18px] min-w-fit w-fit bg-[#A08CFF] bg-opacity-20  text-white ring-1 ring-[#A08CFF] font-semibold py-2 md:py-3 px-2 md:px-6 rounded-full gap-2">
+        <div className="h-12 flex justify-center items-center text-xs md:text-[18px] min-w-fit w-fit bg-[#A08CFF] bg-opacity-20  text-white ring-1 ring-[#A08CFF] font-semibold py-2 md:py-3 px-2 md:px-6 rounded-full gap-2 button-light shadow-[#A08CFF]">
           <p className="text-nowrap">100 VG Staked</p>{' '}
         </div>
         {username && !!account && <div className="text-white mx-10">@{username}</div>}
