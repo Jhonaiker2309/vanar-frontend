@@ -1,6 +1,9 @@
+import { useContext } from 'react';
+import { Web3Context } from '../web3';
 import SearchBar from '../components/SearchBar/SearchBar';
 
 const Leaderboard = () => {
+  const { account } = useContext(Web3Context);
   return (
     <div className="p-8 bg-[#A08CFF] bg-opacity-10 rounded-[25px] w-2/3 h-2/3 overflow-hidden">
       <div className="flex justify-between items-center pb-4 gap-10 ">
@@ -21,8 +24,13 @@ const Leaderboard = () => {
         </div>
         {ranking.map(rank => {
           const { position, points, wallet } = rank;
+          const myRaking = wallet.toLowerCase() === account?.toLowerCase();
           return (
-            <div className="w-full flex justify-evenly bg-[#A08CFF] font-semibold bg-opacity-5 text-white py-5 rounded-xl">
+            <div
+              className={`w-full flex justify-evenly  font-semibold  text-white py-5 rounded-xl ${
+                myRaking ? 'bg-[#A08CFF] bg-opacity-40' : 'bg-[#A08CFF] bg-opacity-5'
+              } `}
+            >
               <p className="w-full text-center">{position}</p>
               <p className="w-full text-center">{points}</p>
               <p className="w-full text-center">{formatWallet(wallet)}</p>
