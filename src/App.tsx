@@ -1,6 +1,7 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Home from './pages/Home';
+import Leaderboard from './pages/Leaderboard';
 
 const App = () => {
   return (
@@ -16,7 +17,11 @@ const App = () => {
             />
             <Route
               path="/Leaderboard"
-              element={<div className="w-full h-full bg-black opacity-95">Leaderboard</div>}
+              element={
+                <div className="w-full h-full bg-black opacity-95 flex justify-center items-center">
+                  <Leaderboard />
+                </div>
+              }
             />
           </Routes>
         </div>
