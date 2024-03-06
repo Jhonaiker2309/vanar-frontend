@@ -36,6 +36,9 @@ body {
 }
 
 .button-light {
-  box-shadow: inset;
   box-shadow: 1px 0px 5px 1px #a08cff;
+}
+
+.box-light {
+  box-shadow: inset 0px 0px 10px 2px #a08cff;
 }
