@@ -7,6 +7,7 @@ import { handleClickTask } from '../../utils/handleClickTask';
 
 export const TasksList = ({ tasks, currentWeek }: TasksProps) => {
   const taskIcons = currentWeek - 1;
+
   const handleFillBar = () => {
     const weekTasks = tasks.filter(task => !task.isBonus);
     const weekTasksCompleted = weekTasks.filter(task => task.completed);
@@ -90,5 +91,5 @@ interface TasksProps {
 
 const collectionIcons = [
   ['file', 'world', 'thunder', 'world', 'interact'],
-  ['thunder', 'world', 'wallet', 'wallet','thunder', 'world']
+  ['thunder', 'world', 'wallet', 'wallet', 'thunder', 'world'],
 ];
