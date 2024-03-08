@@ -7,19 +7,23 @@ export const handleClickTask = async (
   link?: string,
 ) => {
   try {
-    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/visitLink`, {
-      account: account,
-      link: link,
-    });
+    if (!externalEndpoint) {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/visitLink`, {
+        account: account,
+        link: link,
+      });
 
-    if (response.status === 200) {
-      window.open(link, '_blank');
+      if (response.status === 200) {
+        window.open(link, '_blank');
 
-      if (!externalEndpoint && account) {
-        setIsCompleted(true);
+        if (!externalEndpoint && account) {
+          setIsCompleted(true);
+        }
+      } else {
+        throw new Error('Failed to visit link');
       }
     } else {
-      throw new Error('Failed to visit link');
+      window.open(link, '_blank');
     }
   } catch (error) {
     console.error('Error visiting link:', error);
