@@ -22,12 +22,12 @@ const Navbar = ({ username }: { username?: string }) => {
         >
           <h1>Campaign</h1>
         </NavLink>
-        <NavLink
+        {/* <NavLink
           to="/claim"
           className={({ isActive }) => (isActive ? 'text-[#A08CFF] font-bold' : 'text-[#39383a]')}
         >
           <h1>Claim Reward</h1>
-        </NavLink>
+        </NavLink> */}
         <NavLink
           to="/leaderboard"
           className={({ isActive }) => (isActive ? 'text-[#A08CFF] font-bold' : 'text-[#39383a]')}
