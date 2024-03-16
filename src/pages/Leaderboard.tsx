@@ -119,4 +119,54 @@ const ranking = [
     points: 0,
     wallet: '0xeEFBbce954c10278bBE926B06bd5c1cF91661433',
   },
+  {
+    position: 11,
+    points: 0,
+    wallet: '0xeEFBbce954c10278bBE926B06bd5c1cF91661433',
+  },
+  {
+    position: 12,
+    points: 0,
+    wallet: '0xeEFBbce954c10278bBE926B06bd5c1cF91661433',
+  },
+  {
+    position: 13,
+    points: 0,
+    wallet: '0xeEFBbce954c10278bBE926B06bd5c1cF91661433',
+  },
+  {
+    position: 14,
+    points: 0,
+    wallet: '0xeEFBbce954c10278bBE926B06bd5c1cF91661433',
+  },
+  {
+    position: 15,
+    points: 0,
+    wallet: '0xeEFBbce954c10278bBE926B06bd5c1cF91661433',
+  },
+  {
+    position: 16,
+    points: 0,
+    wallet: '0xeEFBbce954c10278bBE926B06bd5c1cF91661433',
+  },
+  {
+    position: 17,
+    points: 0,
+    wallet: '0xeEFBbce954c10278bBE926B06bd5c1cF91661433',
+  },
+  {
+    position: 18,
+    points: 0,
+    wallet: '0xeEFBbce954c10278bBE926B06bd5c1cF91661433',
+  },
+  {
+    position: 19,
+    points: 0,
+    wallet: '0xeEFBbce954c10278bBE926B06bd5c1cF91661433',
+  },
+  {
+    position: 20,
+    points: 0,
+    wallet: '0xeEFBbce954c10278bBE926B06bd5c1cF91661433',
+  },
 ];
