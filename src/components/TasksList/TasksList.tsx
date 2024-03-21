@@ -93,4 +93,6 @@ const collectionIcons = [
   ['file', 'world', 'thunder', 'world', 'interact'],
   ['thunder', 'world', 'wallet', 'wallet', 'thunder', 'world'],
   ['thunder', 'world', 'thunder', 'wallet', 'world', 'wallet'],
+  ['thunder', 'thunder', 'thunder', 'thunder', 'wallet', 'wallet', 'world', 'wallet'],
+  []
 ];
