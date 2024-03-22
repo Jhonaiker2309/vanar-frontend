@@ -40,7 +40,8 @@ const Home = () => {
           }
         })
         .catch(error => {
-          console.error('Error fetching username:', error);
+          const message = `Error fetching username: ${userName}`;
+          console.error(message, error);
         });
     }
   }, [account]);

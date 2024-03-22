@@ -1,15 +1,17 @@
 import { NavLink } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 import { Web3Context } from '../../web3';
-import { Icon } from '../Icon/Icon';
+// import { Icon } from '../Icon/Icon';
 
 const Navbar = ({ username }: { username?: string }) => {
   const { account, connectWeb3, disconnectWeb3 } = useContext(Web3Context);
+
   useEffect(() => {
     if (localStorage.getItem('logged') === 'yes') {
       connectWeb3();
     }
   }, []);
+
   return (
     <header className="w-screen h-[101px] bg-[#0a0810] fixed top-0 left-0 flex items-center justify-between px-8 md:px-14 gap-12 z-50">
       <div className="flex items-center gap-1">
@@ -36,13 +38,13 @@ const Navbar = ({ username }: { username?: string }) => {
         </NavLink>
       </div>
       <div className="flex items-center gap-4">
-        <div className="h-12 flex justify-center items-center text-xs md:text-[18px] min-w-fit w-fit bg-[#A08CFF] bg-opacity-20  text-white ring-1 ring-[#A08CFF] font-semibold py-2 md:py-3 px-2 md:px-6 rounded-full gap-2 button-light shadow-[#A08CFF]">
+        {/* <div className="h-12 flex justify-center items-center text-xs md:text-[18px] min-w-fit w-fit bg-[#A08CFF] bg-opacity-20  text-white ring-1 ring-[#A08CFF] font-semibold py-2 md:py-3 px-2 md:px-6 rounded-full gap-2 button-light shadow-[#A08CFF]">
           <Icon name="thunder" size={24} color="white" />
           <p className="text-nowrap">10VP</p>{' '}
         </div>
         <div className="h-12 flex justify-center items-center text-xs md:text-[18px] min-w-fit w-fit bg-[#A08CFF] bg-opacity-20  text-white ring-1 ring-[#A08CFF] font-semibold py-2 md:py-3 px-2 md:px-6 rounded-full gap-2 button-light shadow-[#A08CFF]">
           <p className="text-nowrap">100 VG Staked</p>{' '}
-        </div>
+        </div> */}
         {username && !!account && <div className="text-white mx-10">@{username}</div>}
         <button
           className="h-12 text-xs md:text-[18px] min-w-fit w-fit bg-white text-black font-semibold py-4 md:py-3 px-2 md:px-6 rounded-full opacity-100 "
