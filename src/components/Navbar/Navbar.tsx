@@ -14,7 +14,7 @@ const Navbar = ({ username }: { username?: string }) => {
     const options = {
       redirect_uri: `${import.meta.env.VITE_BACKEND_URL}/oauth/twitter`, // client url cannot be http://localhost:3000/ or http://127.0.0.1:3000/
       client_id: import.meta.env.VITE_CONTRACT_ADDRESS || '',
-      state: "state",
+      state: "my-state",
       response_type: "code",
       /*code_challenge: "y_SfRG4BmOES02uqWeIkIgLQAlTBggyf_G7uKT51ku8",
       code_challenge_method: "S256",*/
