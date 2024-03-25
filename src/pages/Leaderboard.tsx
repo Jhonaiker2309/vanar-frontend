@@ -73,7 +73,7 @@ const Leaderboard = () => {
                 <p className="w-full text-xs md:text-base text-center">POINTS / VP</p>
                 <p className="w-full text-xs md:text-base text-center">WALLET ADDRESS</p>
               </div>
-              <div className="w-full h-full flex flex-col gap-2 pb-44  md:pb-12 overflow-scroll">
+              <div className="w-full min-h-fit flex flex-col gap-2 mb-[485px] md:pb-12 overflow-scroll">
                 {top?.map(rank => {
                   const { position, experience, account } = rank;
                   const myRaking =
