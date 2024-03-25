@@ -16,7 +16,7 @@ const App = () => {
               element={<div className="w-full h-full bg-black opacity-95">Claim</div>}
             />
             <Route
-              path="/Leaderboard"
+              path="/leaderboard"
               element={
                 <div className="w-full h-full bg-black opacity-95 flex justify-center items-center">
                   <Leaderboard />
