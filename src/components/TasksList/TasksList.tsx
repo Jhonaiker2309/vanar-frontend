@@ -19,7 +19,7 @@ export const TasksList = ({ tasks, currentWeek }: TasksProps) => {
       .filter(task => task.isBonus === isBonus)
       .map((task, i) => (
         <TaskCard
-          logo={collectionIcons[taskIcons][i]}
+          logo={isBonus ? bonusCollectionIcons[taskIcons][i] : collectionIcons[taskIcons][i]}
           text={task.text}
           link={task.link}
           experience={task.experience}
@@ -94,5 +94,7 @@ const collectionIcons = [
   ['thunder', 'world', 'wallet', 'wallet', 'thunder', 'world'],
   ['thunder', 'world', 'thunder', 'wallet', 'world', 'wallet'],
   ['thunder', 'thunder', 'thunder', 'thunder', 'wallet', 'wallet', 'world', 'wallet'],
-  []
+  ['thunder', 'thunder', 'wallet', 'wallet', 'world', 'world'],
 ];
+
+const bonusCollectionIcons = [[], [], [], [], ['world', 'world', 'world', 'world', 'world']];
