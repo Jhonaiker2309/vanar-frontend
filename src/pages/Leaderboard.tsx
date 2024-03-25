@@ -76,8 +76,7 @@ const Leaderboard = () => {
               <div className="w-full min-h-fit flex flex-col gap-2 mb-[485px] md:pb-12 overflow-scroll">
                 {top?.map(rank => {
                   const { position, experience, account } = rank;
-                  const myRaking =
-                    myAccount?.toLowerCase() == account ? account?.toLowerCase() : '';
+                  const myRaking = myAccount?.toLowerCase() === account?.toLowerCase();
                   return (
                     <div
                       key={`ranking-${position}`}
