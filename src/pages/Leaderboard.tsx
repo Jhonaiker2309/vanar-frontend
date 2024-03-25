@@ -51,7 +51,7 @@ const Leaderboard = () => {
   useEffect(() => {
     getRankedData();
     getUserRank();
-  }, []);
+  }, [myRank]);
 
   return (
     <>
