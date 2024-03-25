@@ -94,7 +94,25 @@ const collectionIcons = [
   ['thunder', 'world', 'wallet', 'wallet', 'thunder', 'world'],
   ['thunder', 'world', 'thunder', 'wallet', 'world', 'wallet'],
   ['thunder', 'thunder', 'thunder', 'thunder', 'wallet', 'wallet', 'world', 'wallet'],
-  ['thunder', 'thunder', 'wallet', 'wallet', 'world', 'world'],
+  [
+    'thunder',
+    'thunder',
+    'wallet',
+    'wallet',
+    'world',
+    'world',
+    'wallet',
+    'world',
+    'world',
+    'world',
+    'world',
+  ],
 ];
 
-const bonusCollectionIcons = [[], [], [], [], ['world', 'world', 'world', 'world', 'world']];
+const bonusCollectionIcons = [
+  [],
+  [],
+  [],
+  [],
+  ['world', 'world', 'world', 'world', 'world', 'world', 'world'],
+];
