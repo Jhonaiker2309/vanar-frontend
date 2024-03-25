@@ -1,4 +1,4 @@
-import { useContext, useState, useCallback, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Web3Context } from '../web3';
 import axios from 'axios';
 
@@ -8,7 +8,7 @@ const Leaderboard = () => {
   const [myRank, setMyRank] = useState(0);
   const myAccount: string = account || '';
 
-  const getRankedData = useCallback(async () => {
+  const getRankedData = async () => {
     try {
       const urlRankedData: string = import.meta.env.VITE_BACKEND_URL + '/rankedList';
       const axiosData = await axios.get(urlRankedData);
@@ -16,9 +16,9 @@ const Leaderboard = () => {
     } catch (e) {
       setTop([]);
     }
-  }, []);
+  };
 
-  const getUserRank = useCallback(async () => {
+  const getUserRank = async () => {
     try {
       const previousRankStr = localStorage.getItem('myRank');
       const previousRank = previousRankStr ? parseInt(previousRankStr) : null;
@@ -46,12 +46,12 @@ const Leaderboard = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [account]);
+  };
 
   useEffect(() => {
     getRankedData();
     getUserRank();
-  }, [myRank]);
+  }, [myRank, account]);
 
   return (
     <>
