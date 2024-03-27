@@ -1,32 +1,27 @@
 import { NavLink } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 import { Web3Context } from '../../web3';
-// import { Icon } from '../Icon/Icon';
+import axios from "axios"
 
 const Navbar = ({ username }: { username?: string }) => {
   const { account, connectWeb3, disconnectWeb3 } = useContext(Web3Context);
+
+  const getTwitterEndpoint = async () => {
+    try {
+        const response = await axios.get(import.meta.env.VITE_TWITTER_ENDPOINT);
+        console.log('Respuesta de la llamada GET:', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Error al hacer la llamada GET:', error);
+        throw error;
+    }
+  }
 
   useEffect(() => {
     if (localStorage.getItem('logged') === 'yes') {
       connectWeb3();
     }
   }, []);
-
-/*  function getTwitterOauthUrl() {
-    const rootUrl = "https://twitter.com/i/oauth2/authorize";
-    const options = {
-      redirect_uri: `${import.meta.env.VITE_BACKEND_URL}/oauth/twitter`, // client url cannot be http://localhost:3000/ or http://127.0.0.1:3000/
-      client_id: import.meta.env.VITE_CONTRACT_ADDRESS || '',
-      state: "my-state",
-      response_type: "code",
-      /*code_challenge: "y_SfRG4BmOES02uqWeIkIgLQAlTBggyf_G7uKT51ku8",
-      code_challenge_method: "S256",
-      scope: ["users.read", "tweet.read", "follows.read", "follows.write"].join(" "),
-    };
-    const qs = new URLSearchParams(options).toString();
-    return `${rootUrl}?${qs}`;
-  }
-*/
 
   return (
     <header className="w-screen h-[101px] bg-[#0a0810] fixed top-0 left-0 flex items-center justify-between px-8 md:px-14 gap-12 z-50">
@@ -68,14 +63,14 @@ const Navbar = ({ username }: { username?: string }) => {
         >
           {!account ? 'Connect Wallet' : 'Disconnect'}
         </button>
-        {/*<a className="a-button" href={getTwitterOauthUrl()}>
+        <a className="a-button">
         <button
           className=" text-xs md:text-[18px] min-w-fit w-fit bg-white text-black font-semibold py-2 md:py-3 px-2 md:px-6 rounded-full opacity-100 "
-          onClick={() => (!account ? connectWeb3() : disconnectWeb3())}
+          onClick={() => getTwitterEndpoint()}
         >
           Twitter
         </button>
-      </a>*/}
+      </a>
       </div>
     </header>
   );
