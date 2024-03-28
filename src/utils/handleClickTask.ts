@@ -5,9 +5,13 @@ export const handleClickTask = async (
   setIsCompleted: (value: boolean) => void,
   externalEndpoint: boolean,
   link?: string,
+  isTwitterAPITask?: boolean
 ) => {
   try {
-    if (!externalEndpoint) {
+    if(isTwitterAPITask){
+
+    }
+    else if (!externalEndpoint) {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/visitLink`, {
         account: account,
         link: link,
