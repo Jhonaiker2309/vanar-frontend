@@ -54,7 +54,15 @@ export const TasksList = ({ tasks, currentWeek }: TasksProps) => {
   );
 };
 
-const TaskCard = ({ logo, text, experience, link, completed, externalEndpoint, isTwitterAPITask }: Task) => {
+const TaskCard = ({
+  logo,
+  text,
+  experience,
+  link,
+  completed,
+  externalEndpoint,
+  isTwitterAPITask,
+}: Task) => {
   const [isCompleted, setIsCompleted] = useState(completed);
   const { account } = useContext(Web3Context);
 
@@ -63,7 +71,11 @@ const TaskCard = ({ logo, text, experience, link, completed, externalEndpoint, i
       className={`w-full ring-1 ring-[#4b4b4b] bg-[#1a1a1a] py-6 px-4 md:px-12 flex items-center justify-between rounded-[20px] ${
         link && 'cursor-pointer'
       }`}
-      onClick={() => handleClickTask(account, setIsCompleted, externalEndpoint, link, isTwitterAPITask)}
+      onClick={() => {
+        if (!completed) {
+          handleClickTask(account, setIsCompleted, externalEndpoint, link, isTwitterAPITask);
+        }
+      }}
     >
       <div className="flex items-center justify-start gap-4">
         <img src={`/images/${logo}.svg`} alt="task-logo" />
