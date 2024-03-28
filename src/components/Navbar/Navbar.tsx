@@ -3,23 +3,20 @@ import { useContext, useEffect } from 'react';
 import { Web3Context } from '../../web3';
 import axios from 'axios';
 
-const Navbar = ({ username }: { username?: string }) => {
+const Navbar = ({
+  username,
+  twitterUsername,
+}: {
+  username?: string;
+  twitterUsername?: string | null;
+}) => {
   const { account, connectWeb3, disconnectWeb3 } = useContext(Web3Context);
 
   const getTwitterEndpoint = async () => {
-    try {
-        const response = await axios.get(import.meta.env.VITE_TWITTER_ENDPOINT);
-        const url = response.data.auth_url
-        window.location.href = url;
-    } catch (error) {
-        throw error;
-    }
+    const response = await axios.get(import.meta.env.VITE_TWITTER_ENDPOINT);
+    const url = response.data.auth_url;
+    window.location.href = url;
   };
-
-  const queryString = window.location.search;
-  const params = new URLSearchParams(queryString);
-  const twitterUsername = params.get('username');
-
 
   useEffect(() => {
     if (localStorage.getItem('logged') === 'yes') {
@@ -35,7 +32,6 @@ const Navbar = ({ username }: { username?: string }) => {
             account,
           )}&twitterUsername=${encodeURIComponent(twitterUsername)}`,
         );
-
       }
     };
     executeTwitterActions();

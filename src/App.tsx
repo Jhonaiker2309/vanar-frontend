@@ -2,12 +2,23 @@ import { Route, BrowserRouter as Router, Routes, Navigate } from 'react-router-d
 import Navbar from './components/Navbar/Navbar';
 import Home from './pages/Home';
 import Leaderboard from './pages/Leaderboard';
+import { useState, useEffect } from 'react';
 
 const App = () => {
+  const [twitterUsername, setTwitterUsername] = useState<string | null | undefined>();
+  useEffect(() => {
+    const queryString = window.location.search;
+    const params = new URLSearchParams(queryString);
+    const twitterUsernameFromParams = params.get('username');
+    if (twitterUsernameFromParams) {
+      localStorage.setItem('twitterUsername', twitterUsernameFromParams);
+    }
+    setTwitterUsername(twitterUsernameFromParams || localStorage.getItem('twitterUsername'));
+  }, []);
   return (
     <main>
       <Router>
-        <Navbar />
+        <Navbar twitterUsername={twitterUsername} />
         <div className="w-screen h-screen background overflow-scroll fixed">
           <Routes>
             <Route path="/" element={<Home />} />
