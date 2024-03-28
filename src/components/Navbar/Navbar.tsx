@@ -9,19 +9,30 @@ const Navbar = ({ username }: { username?: string }) => {
   const getTwitterEndpoint = async () => {
     try {
         const response = await axios.get(import.meta.env.VITE_TWITTER_ENDPOINT);
-        console.log('Respuesta de la llamada GET:', response.data);
-        return response.data;
+        const url = response.data.auth_url
+        window.location.href = url;;
     } catch (error) {
-        console.error('Error al hacer la llamada GET:', error);
         throw error;
     }
   }
+
+  const queryString = window.location.search;
+
+  const params = new URLSearchParams(queryString);
+
+  const twitterUsername = params.get('username');
 
   useEffect(() => {
     if (localStorage.getItem('logged') === 'yes') {
       connectWeb3();
     }
   }, []);
+
+  useEffect(()=> {
+    if(twitterUsername && account){
+
+    }
+  },[twitterUsername, account])
 
   return (
     <header className="w-screen h-[101px] bg-[#0a0810] fixed top-0 left-0 flex items-center justify-between px-8 md:px-14 gap-12 z-50">
@@ -49,13 +60,6 @@ const Navbar = ({ username }: { username?: string }) => {
         </NavLink>
       </div>
       <div className="flex items-center gap-4">
-        {/* <div className="h-12 flex justify-center items-center text-xs md:text-[18px] min-w-fit w-fit bg-[#A08CFF] bg-opacity-20  text-white ring-1 ring-[#A08CFF] font-semibold py-2 md:py-3 px-2 md:px-6 rounded-full gap-2 button-light shadow-[#A08CFF]">
-          <Icon name="thunder" size={24} color="white" />
-          <p className="text-nowrap">10VP</p>{' '}
-        </div>
-        <div className="h-12 flex justify-center items-center text-xs md:text-[18px] min-w-fit w-fit bg-[#A08CFF] bg-opacity-20  text-white ring-1 ring-[#A08CFF] font-semibold py-2 md:py-3 px-2 md:px-6 rounded-full gap-2 button-light shadow-[#A08CFF]">
-          <p className="text-nowrap">100 VG Staked</p>{' '}
-        </div> */}
         {username && !!account && <div className="text-white mx-10">@{username}</div>}
         <button
           className="h-12 text-xs md:text-[18px] min-w-fit w-fit bg-white text-black font-semibold py-4 md:py-3 px-2 md:px-6 rounded-full opacity-100 "
@@ -64,12 +68,12 @@ const Navbar = ({ username }: { username?: string }) => {
           {!account ? 'Connect Wallet' : 'Disconnect'}
         </button>
         <a className="a-button">
-        <button
-          className=" text-xs md:text-[18px] min-w-fit w-fit bg-white text-black font-semibold py-2 md:py-3 px-2 md:px-6 rounded-full opacity-100 "
+        {account && <button
+          className="h-12 text-xs md:text-[18px] min-w-fit w-fit bg-white text-black font-semibold py-4 md:py-3 px-2 md:px-6 rounded-full opacity-100 "
           onClick={() => getTwitterEndpoint()}
         >
-          Twitter
-        </button>
+          <img className="h-5 w-5" src="https://www.svgrepo.com/show/513008/twitter-154.svg"alt="" />
+        </button>}
       </a>
       </div>
     </header>
