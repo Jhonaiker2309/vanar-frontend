@@ -34,3 +34,11 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.button-light {
+  box-shadow: 1px 0px 5px 1px #a08cff;
+}
+
+.box-light {
+  box-shadow: inset 0px 0px 10px 2px #a08cff;
+}

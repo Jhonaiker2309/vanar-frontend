@@ -67,6 +67,7 @@ export interface Task {
   text: string;
   isBonus?: boolean;
   externalEndpoint: boolean;
+  isTwitterAPITask?: boolean;
 }
 
 export interface Week {
