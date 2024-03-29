@@ -21,33 +21,13 @@ const Leaderboard = () => {
 
   const getUserRank = async () => {
     try {
-      const previousRankStr = localStorage.getItem('myRank');
-      const previousVPStr = localStorage.getItem('myVP');
-      const previousRank = previousRankStr ? parseInt(previousRankStr) : null;
-      const previousVP = previousVPStr ? parseInt(previousVPStr) : null;
-      const previousTimestamp = localStorage.getItem('checkpoint');
-      const storedTimestamp = previousTimestamp ? new Date(previousTimestamp) : null;
-
       if (account) {
-        const currentTime = new Date();
-        const diffInMs = storedTimestamp ? currentTime.getTime() - storedTimestamp.getTime() : null;
-        const diffInHours = diffInMs !== null ? diffInMs / (1000 * 60 * 60) : null;
-
-        if (previousVP !== null && previousRank !== null && diffInHours !== null && diffInHours < 12) {
-          setMyRank(previousRank);
-          setMyVP(previousVP);
-        } else {
-          const response = await axios.get(
-            `https://staging-vanar-backend.vercel.app/individual-ranking/${account}`,
-          );
-          const rank = response.data;
-          const timestamp = new Date().toISOString();
-          localStorage.setItem('myRank', rank.rank.toString());
-          localStorage.setItem('myVP', rank.experience.toString());
-          localStorage.setItem('checkpoint', timestamp);
-          setMyRank(rank.rank);
-          setMyVP(rank.experience);
-        }
+        const response = await axios.get(
+          `https://staging-vanar-backend.vercel.app/individual-ranking/${account}`,
+        );
+        const rank = response.data;
+        setMyRank(rank.rank);
+        setMyVP(rank.experience);
       }
     } catch (error) {
       console.error(error);
