@@ -70,7 +70,7 @@ const Navbar = ({
         >
           {!account ? 'Connect Wallet' : 'Disconnect'}
         </button>
-        {account && !twitterUsername && (
+        {/* {account && !twitterUsername && (
           <a className="a-button">
             <button
               className="border-white text-xs md:text-[18px] min-w-fit w-fit bg-black text-white font-semibold py-2 md:py-3 px-2 md:px-6 rounded-full opacity-100 "
@@ -79,7 +79,7 @@ const Navbar = ({
               Connect <span className="text-xl">𝕏</span>
             </button>
           </a>
-        )}
+        )} */}
       </div>
     </header>
   );
