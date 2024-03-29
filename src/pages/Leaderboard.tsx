@@ -6,6 +6,7 @@ const Leaderboard = () => {
   const { account } = useContext(Web3Context);
   const [top, setTop] = useState<LeaderboardDataProps[]>([]);
   const [myRank, setMyRank] = useState(0);
+  const [myVP, setMyVP] = useState(0);
   const myAccount: string = account || '';
 
   const getRankedData = async () => {
@@ -21,7 +22,9 @@ const Leaderboard = () => {
   const getUserRank = async () => {
     try {
       const previousRankStr = localStorage.getItem('myRank');
+      const previousVPStr = localStorage.getItem('myVP');
       const previousRank = previousRankStr ? parseInt(previousRankStr) : null;
+      const previousVP = previousVPStr ? parseInt(previousVPStr) : null;
       const previousTimestamp = localStorage.getItem('checkpoint');
       const storedTimestamp = previousTimestamp ? new Date(previousTimestamp) : null;
 
@@ -30,8 +33,9 @@ const Leaderboard = () => {
         const diffInMs = storedTimestamp ? currentTime.getTime() - storedTimestamp.getTime() : null;
         const diffInHours = diffInMs !== null ? diffInMs / (1000 * 60 * 60) : null;
 
-        if (previousRank !== null && diffInHours !== null && diffInHours < 12) {
+        if (previousVP !== null && previousRank !== null && diffInHours !== null && diffInHours < 12) {
           setMyRank(previousRank);
+          setMyVP(previousVP);
         } else {
           const response = await axios.get(
             `https://staging-vanar-backend.vercel.app/individual-ranking/${account}`,
@@ -39,8 +43,10 @@ const Leaderboard = () => {
           const rank = response.data;
           const timestamp = new Date().toISOString();
           localStorage.setItem('myRank', rank.rank.toString());
+          localStorage.setItem('myVP', rank.experience.toString());
           localStorage.setItem('checkpoint', timestamp);
           setMyRank(rank.rank);
+          setMyVP(rank.experience);
         }
       }
     } catch (error) {
@@ -64,6 +70,10 @@ const Leaderboard = () => {
                 <div className="h-12 flex justify-center items-center text-xs md:text-[18px] min-w-fit w-full md:w-fit bg-[#A08CFF] bg-opacity-20 text-white ring-1 ring-[#A08CFF] py-2 md:py-3 px-2 md:px-6 rounded-full gap-2 button-light">
                   <p className="text-nowrap">Your Rank:</p>
                   <p className="text-nowrap text-2xl font-bold">{myRank}</p>
+                </div>
+                <div className="h-12 flex justify-center items-center text-xs md:text-[18px] min-w-fit w-full md:w-fit bg-[#A08CFF] bg-opacity-20 text-white ring-1 ring-[#A08CFF] py-2 md:py-3 px-2 md:px-6 rounded-full gap-2 button-light">
+                  <p className="text-nowrap">Your VP:</p>
+                  <p className="text-nowrap text-2xl font-bold">{myVP}</p>
                 </div>
               </div>
             </div>

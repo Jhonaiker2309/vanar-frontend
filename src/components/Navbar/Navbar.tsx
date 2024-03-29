@@ -12,11 +12,11 @@ const Navbar = ({
 }) => {
   const { account, connectWeb3, disconnectWeb3 } = useContext(Web3Context);
 
-  const getTwitterEndpoint = async () => {
-    const response = await axios.get(import.meta.env.VITE_TWITTER_ENDPOINT);
-    const url = response.data.auth_url;
-    window.location.href = url;
-  };
+  // const getTwitterEndpoint = async () => {
+  //   const response = await axios.get(import.meta.env.VITE_TWITTER_ENDPOINT);
+  //   const url = response.data.auth_url;
+  //   window.location.href = url;
+  // };
 
   useEffect(() => {
     if (localStorage.getItem('logged') === 'yes') {
