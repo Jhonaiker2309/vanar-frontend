@@ -23,7 +23,7 @@ const Leaderboard = () => {
     try {
       if (account) {
         const response = await axios.get(
-          `https://staging-vanar-backend.vercel.app/individual-ranking/${account}`,
+          import.meta.env.VITE_BACKEND_URL + `/individual-ranking/${account}`,
         );
         const rank = response.data;
         setMyRank(rank.rank);
