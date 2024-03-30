@@ -73,7 +73,7 @@ const TaskCard = ({
       }`}
       onClick={() => {
         if (!completed) {
-          handleClickTask(account, setIsCompleted, externalEndpoint, link, isTwitterAPITask);
+          handleClickTask(account, setIsCompleted, externalEndpoint, link, isTwitterAPITask, isCompleted);
         }
       }}
     >

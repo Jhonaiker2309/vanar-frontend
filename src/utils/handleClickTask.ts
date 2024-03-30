@@ -6,17 +6,24 @@ export const handleClickTask = async (
   externalEndpoint: boolean,
   link?: string,
   isTwitterAPITask?: boolean,
+  completed?: boolean
 ) => {
   try {
-    if (isTwitterAPITask && account) {
+
+    if(isTwitterAPITask && !account){
+      window.open(link, '_blank');
+    }
+    else if (isTwitterAPITask && account) {
       const twitterUsername = localStorage.getItem('twitterUsername');
-      if (!twitterUsername) {
-        // force user to connect twitter
+
+      if(completed){
+        window.open(link, '_blank');
+      } 
+      else if (!twitterUsername) {
         const response = await axios.get(import.meta.env.VITE_TWITTER_ENDPOINT);
         const url = response.data.auth_url;
         window.location.href = url;
       } else {
-        // we have username so user is connected.
         await axios.get(
           `${import.meta.env.VITE_BACKEND_URL}/addTweetsToAccount?wallet=${encodeURIComponent(
             account,
