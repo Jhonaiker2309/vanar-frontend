@@ -30,7 +30,7 @@ const Home = () => {
   useEffect(() => {
     if (account) {
       axios
-        .get(`https://staging-vanar-backend.vercel.app/getUsername/${account}`)
+        .get(`${import.meta.env.VITE_BACKEND_URL}/getUsername/${account}`)
         .then(response => {
           const fetchedUsername = response?.data?.username;
           if (fetchedUsername) {
