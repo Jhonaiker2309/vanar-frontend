@@ -127,5 +127,5 @@ const bonusCollectionIcons = [
   [],
   [],
   [],
-  ['world', 'world', 'world', 'world', 'world', 'world', 'world'],
+  ['world', 'world', 'world', 'world', 'world', 'world', 'world', 'world', 'world'],
 ];
