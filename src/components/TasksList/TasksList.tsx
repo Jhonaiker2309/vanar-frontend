@@ -73,7 +73,14 @@ const TaskCard = ({
       }`}
       onClick={() => {
         if (!completed) {
-          handleClickTask(account, setIsCompleted, externalEndpoint, link, isTwitterAPITask, isCompleted);
+          handleClickTask(
+            account,
+            setIsCompleted,
+            externalEndpoint,
+            link,
+            isTwitterAPITask,
+            isCompleted,
+          );
         }
       }}
     >
@@ -120,7 +127,27 @@ const collectionIcons = [
     'world',
     'world',
   ],
-  []
+  [
+    'wallet',
+    'wallet',
+    'world',
+    'thunder',
+    'world',
+    'world',
+    'thunder',
+    'thunder',
+    'world',
+    'world',
+    'world',
+    'world',
+    'world',
+    'world',
+    'world',
+    'world',
+    'world',
+    'world',
+    'world',
+  ],
 ];
 
 const bonusCollectionIcons = [
