@@ -12,11 +12,11 @@ const Navbar = ({
 }) => {
   const { account, connectWeb3, disconnectWeb3 } = useContext(Web3Context);
 
-  // const getTwitterEndpoint = async () => {
-  //   const response = await axios.get(import.meta.env.VITE_TWITTER_ENDPOINT);
-  //   const url = response.data.auth_url;
-  //   window.location.href = url;
-  // };
+    const getTwitterEndpoint = async () => {
+    const response = await axios.get(import.meta.env.VITE_TWITTER_ENDPOINT);
+    const url = response.data.auth_url;
+    window.location.href = url;
+  };
 
   useEffect(() => {
     if (localStorage.getItem('logged') === 'yes') {
@@ -67,6 +67,16 @@ const Navbar = ({
           </button>
         </div>
       </div>
+      {account && !twitterUsername && (
+          <a className="a-button">
+            <button
+              className="border-white text-xs md:text-[18px] min-w-fit w-fit bg-black text-white font-semibold py-2 md:py-3 px-2 md:px-6 rounded-full opacity-100 "
+              onClick={() => getTwitterEndpoint()}
+            >
+              Connect <span className="text-xl">𝕏</span>
+            </button>
+          </a>
+        )}
       <div className="w-full flex md:hidden items-center justify-evenly gap-4 text-lg">
         <NavLink
           to="/"
