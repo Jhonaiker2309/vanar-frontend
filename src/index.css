@@ -27,18 +27,114 @@
 }
 body {
   font-family: Brockmann Regular;
+  background-color: #020504;
 }
 
 .background {
-  background-image: url(/images/background.svg);
+  /* background-image: url(/images/background.svg); */
+  background-image: url(/images/V2/background-velocity.svg);
+  background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-.button-light {
-  box-shadow: 1px 0px 5px 1px #a08cff;
+.background-reward {
+  background: radial-gradient(circle, #03d9af1a 30%, black 70%);
 }
 
-.box-light {
-  box-shadow: inset 0px 0px 10px 2px #a08cff;
+.border-gradient {
+  position: relative;
+  border: 2px solid transparent;
+  background-image: linear-gradient(black, black), radial-gradient(circle, black 25%, #03d9af);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+
+.border-gradient-gold {
+  position: relative;
+}
+
+.border-gradient-gold::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(45deg, #ffd700, black, #ffd700, black, #ffd700);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.border-gradient-silver {
+  position: relative;
+}
+
+.border-gradient-silver::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(45deg, #c0c0c0, black, #c0c0c0, black, #c0c0c0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.border-gradient-bronze {
+  position: relative;
+}
+
+.border-gradient-bronze::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(45deg, #ff9f30, black, #ff9f30, black, #ff9f30);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.light {
+  box-shadow: 0px 0px 4px 2px #03d9af, inset 0px 0px 4px 2px #03d9af;
+}
+
+.light-timer {
+  box-shadow: inset 0px 0px 14px 2px #ffffff33;
+}
+
+.light-bar {
+  box-shadow: 1px 0px 10px 4px #03d9af, inset 0px 0px 4px 2px #03d9af;
+}
+
+.light-text {
+  text-shadow: 2px 2px 25px #03d9af, -2px 2px 25px #03d9af1a, 2px -2px 25px #03d9af;
+}
+
+.faq-modal {
+  background-image: url(/images/V2/background-modal.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+
+.spin-button {
+  background: linear-gradient(50deg, #141917, #303030);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(var(--final-degree, 360deg));
+  }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+  transform-origin: center center;
 }
