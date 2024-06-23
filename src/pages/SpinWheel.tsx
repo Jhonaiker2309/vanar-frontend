@@ -87,7 +87,7 @@ const SpinWheel = () => {
       {/* Modal */}
       {displayReward && (
         <RewardModal show={displayReward} onClose={handleHideReward}>
-          <Reward type={'silver'} video="vanar" spin={5} />
+          <Reward type={'gold'} video="vanar" spin={5} />
         </RewardModal>
       )}
 
