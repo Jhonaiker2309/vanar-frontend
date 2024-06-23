@@ -11,7 +11,7 @@ export interface IconProps {
 export const Icon = (props: IconProps) => {
   const { color, name, size, className, onClick } = props;
 
-  const url = `/images/${name}.svg`;
+  const url = `/images/V2/${name}.svg`;
 
   return (
     <div

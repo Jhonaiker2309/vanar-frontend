@@ -38,7 +38,7 @@ const Modal = ({ show, onClose, children }: ModalProps) => {
     show && (
       <div className="w-screen h-full fixed inset-0 flex items-start justify-center overflow-scroll z-50 ">
         <div
-          className="w-full bg-fndWhite rounded-lg shadow-lg relative z-20"
+          className="w-full bg-white rounded-lg shadow-lg relative z-20"
           onClick={handleContainerClick}
         >
           {children}
