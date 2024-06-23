@@ -1,4 +1,3 @@
-import React from 'react';
 import { Bar } from '../Bar/BarV2';
 
 const Tries = () => {
