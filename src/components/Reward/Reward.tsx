@@ -27,7 +27,6 @@ const Reward = ({ type, video, spin, prize, handleHideReward }: RewardProps) => 
   const claimReward = (): void => {
     if(prize && rouletteContract) {
       const {_userAddress, _transactionNumber, _tokenAddress, _nftId, signature } = prize
-      console.log(_userAddress, _tokenAddress, _nftId, _transactionNumber, signature)
       rouletteContract.transferERC721(_userAddress, _tokenAddress, _nftId, _transactionNumber, signature).then(()=> {
         setRewarded(true)
       }).catch(()=> {})
