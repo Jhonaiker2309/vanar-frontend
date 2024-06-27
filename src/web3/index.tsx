@@ -3,6 +3,7 @@ import React, { useReducer, useCallback, createContext, ReactNode } from 'react'
 import { Web3Reducer } from './reducer';
 import { ethers } from 'ethers';
 import contractABI from './abis/VanarNFTHandler.json';
+import rouletteContractABI from './abis/VanarRouletteHandler.json'
 import axios from 'axios';
 import toastr from 'toastr';
 import 'toastr/build/toastr.min.css';
@@ -19,6 +20,7 @@ interface Web3StateProps {
   networkId: number | null;
   contract: ethers.Contract | null;
   mintError: string | null;
+  rouletteContract: ethers.Contract | null;
 }
 interface Web3ContextValue extends Web3StateProps {
   connectWeb3: () => void;
@@ -39,6 +41,7 @@ const initialState: Web3StateProps = {
   networkId: null,
   contract: null,
   mintError: null,
+  rouletteContract: null,
 };
 
 export const Web3Context = createContext<Web3ContextValue>({} as Web3ContextValue);
@@ -76,6 +79,16 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
     [dispatch],
   );
 
+  const setRouletteContract = useCallback(
+    (roulette: ethers.Contract): void => {
+      dispatch({
+        type: 'SET_ROULETTE_CONTRACT',
+        payload: roulette,
+      });
+    },
+    [dispatch],
+  );  
+
   const setMintError = useCallback(
     (mintError: string): void => {
       dispatch({
@@ -103,7 +116,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
       const ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
       await ethersProvider.send('eth_requestAccounts', []);
 
-      if ((await ethersProvider.getNetwork()).chainId !== 78600) {
+      /*if ((await ethersProvider.getNetwork()).chainId !== 78600) {
         window.ethereum.request({
           method: 'wallet_addEthereumChain',
           params: [
@@ -120,10 +133,12 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
             },
           ],
         });
-      }
+      }*/
 
       const userAddress = await ethersProvider.getSigner().getAddress();
       const contractAddress: string = import.meta.env.VITE_CONTRACT_ADDRESS || '';
+      const rouletteContractAddress: string = import.meta.env.VITE_ROULETTE_CONTRACT_ADDRESS || '';
+      
 
       const contract = new ethers.Contract(
         contractAddress,
@@ -131,7 +146,14 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
         ethersProvider.getSigner(),
       );
 
+      const rouletteContract = new ethers.Contract(
+        rouletteContractAddress,
+        rouletteContractABI,
+        ethersProvider.getSigner(),
+      );
+
       setContract(contract);
+      setRouletteContract(rouletteContract)
       setAccount(userAddress);
       setNetworkId(78600);
 
@@ -195,7 +217,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
         mintNFT,
         setMintError,
         disconnectWeb3,
-        checkIfAlreadyMinted,
+        checkIfAlreadyMinted
       }}
     >
       {children}

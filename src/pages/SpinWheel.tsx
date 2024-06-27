@@ -8,12 +8,24 @@ import RewardModal from '../components/Modal/RewardModal';
 import Reward from '../components/Reward/Reward';
 import { Web3Context } from '../web3';
 
+interface Prize {
+  signature: string;
+  _amount: number;
+  _isNFT: boolean;
+  _nftId: number;
+  _tokenAddress: string;
+  _transactionNumber: number;
+  _userAddress: string;
+}
+
 const SpinWheel = () => {
-  const { account } = useContext(Web3Context);
+  const { account, connectWeb3 } = useContext(Web3Context);
   const [displayReward, setDisplayReward] = useState<boolean>(false);
   const [futureTime, setFutureTime] = useState<Date>(new Date());
   const targetDivRef = useRef<HTMLDivElement>(null);
   const spinnerRef = useRef<HTMLImageElement>(null);
+  const [lastSpinTime, setLastSpinTime] = useState(0);
+  const [prize, setPrize] = useState<Prize | null>(null)
 
   useEffect(() => {
     axios
@@ -33,14 +45,27 @@ const SpinWheel = () => {
   };
 
   const handleSpinWheelLogic = () => {
-    if (spinnerRef.current) {
-      spinnerRef.current.classList.add('spin');
-      setTimeout(() => {
-        setDisplayReward(true);
-        spinnerRef.current?.classList.remove('spin'); // Optional chaining here
-      }, 2000);
+    if (account) {
+      const currentTime = Date.now();
+      if (currentTime - lastSpinTime >= 10000) { // 10000 ms = 10 segs
+        if (spinnerRef.current) {
+          spinnerRef.current.classList.add('spin');
+          setTimeout(() => {
+            axios.post(`${import.meta.env.VITE_BACKEND_URL}/spinRoulette/${account}`).then(data => {
+              setPrize(data.data.prize);
+              setDisplayReward(true);
+            })
+            //setDisplayReward(true);
+            spinnerRef.current?.classList.remove('spin'); // Optional chaining here
+
+          }, 2000);
+        }
+        setLastSpinTime(currentTime);
+      }
+    } else {
+      connectWeb3();
     }
-  };
+  };  
 
   const handleHideReward = () => {
     setDisplayReward(false);
@@ -86,8 +111,8 @@ const SpinWheel = () => {
       </div>
       {/* Modal */}
       {displayReward && (
-        <RewardModal show={displayReward} onClose={handleHideReward}>
-          <Reward type={'gold'} video="vanar" spin={5} />
+        <RewardModal show={displayReward} /*onClose={handleHideReward}*/>
+          <Reward type={'gold'} video="vanar" spin={5} prize={prize} handleHideReward={handleHideReward}/>
         </RewardModal>
       )}
 

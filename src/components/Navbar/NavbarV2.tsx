@@ -20,6 +20,10 @@ const Navbar = () => {
     }
   }, [connectWeb3]);
 
+  useEffect(()=>{
+    setShouldBlur(false)
+  },[account])
+
   useEffect(() => {
     if (account) {
       axios
