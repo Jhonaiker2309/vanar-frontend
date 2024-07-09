@@ -82,17 +82,17 @@ body {
   mask-composite: exclude;
 }
 
-.border-gradient-bronze {
+.border-gradient-platinum {
   position: relative;
 }
 
-.border-gradient-bronze::before {
+.border-gradient-platinum::before {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: 16px;
   padding: 2px;
-  background: linear-gradient(45deg, #ff9f30, black, #ff9f30, black, #ff9f30);
+  background: linear-gradient(45deg, #ff9f30, black, #c0c0c0, black, #ff9f30);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;

@@ -72,11 +72,17 @@ const tiers = [
     color: 'text-[#FFD700]',
     outcome: '20%',
     rewards: [
-      { name: 'SpaceId', claimed: 0, total: 1000, video: 'spaceid' },
-      { name: 'Maians', claimed: 0, total: 1000, video: 'maians' },
       { name: 'Vanar', claimed: 0, total: 1000, video: 'vanar' },
+      { name: 'PVP', claimed: 0, total: 1000, video: 'pvp' },
       { name: 'Auriswap', claimed: 0, total: 1000, video: 'auriswap' },
+      { name: 'Bazaa', claimed: 0, total: 1000, video: 'bazaa' },
     ],
+  },
+  {
+    name: 'platinum',
+    color: 'text-[#FF9F30]',
+    outcome: '10%',
+    rewards: [{ name: 'Vanar Jackpot', claimed: 0, total: 1000, video: 'jackpot' }],
   },
   {
     name: 'silver',
@@ -84,17 +90,9 @@ const tiers = [
     outcome: '15%',
     rewards: [
       { name: 'Auriswap', claimed: 0, total: 1000, video: 'auriswap' },
+      { name: 'Bazaa', claimed: 0, total: 1000, video: 'bazaa' },
       { name: 'Maians', claimed: 0, total: 1000, video: 'maians' },
-      { name: 'Bazaa', claimed: 0, total: 1000, video: 'bazaa' },
-    ],
-  },
-  {
-    name: 'bronze',
-    color: 'text-[#FF9F30]',
-    outcome: '10%',
-    rewards: [
-      { name: 'Auriswap', claimed: 0, total: 1000, video: 'auriswap' },
-      { name: 'Bazaa', claimed: 0, total: 1000, video: 'bazaa' },
+      { name: 'Nitro Leage', claimed: 0, total: 1000, video: 'nitro' },
     ],
   },
 ];
