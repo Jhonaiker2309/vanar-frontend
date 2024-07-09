@@ -25,7 +25,7 @@ const SpinWheel = () => {
   const targetDivRef = useRef<HTMLDivElement>(null);
   const spinnerRef = useRef<HTMLImageElement>(null);
   const [lastSpinTime, setLastSpinTime] = useState(0);
-  const [prize, setPrize] = useState<Prize | null>(null)
+  const [prize, setPrize] = useState<Prize | null>(null);
 
   useEffect(() => {
     axios
@@ -47,17 +47,17 @@ const SpinWheel = () => {
   const handleSpinWheelLogic = () => {
     if (account) {
       const currentTime = Date.now();
-      if (currentTime - lastSpinTime >= 10000) { // 10000 ms = 10 segs
+      if (currentTime - lastSpinTime >= 10000) {
+        // 10000 ms = 10 segs
         if (spinnerRef.current) {
           spinnerRef.current.classList.add('spin');
           setTimeout(() => {
             axios.post(`${import.meta.env.VITE_BACKEND_URL}/spinRoulette/${account}`).then(data => {
               setPrize(data.data.prize);
               setDisplayReward(true);
-            })
-            //setDisplayReward(true);
+            });
+            setDisplayReward(true);
             spinnerRef.current?.classList.remove('spin'); // Optional chaining here
-
           }, 2000);
         }
         setLastSpinTime(currentTime);
@@ -65,7 +65,7 @@ const SpinWheel = () => {
     } else {
       connectWeb3();
     }
-  };  
+  };
 
   const handleHideReward = () => {
     setDisplayReward(false);
@@ -112,7 +112,13 @@ const SpinWheel = () => {
       {/* Modal */}
       {displayReward && (
         <RewardModal show={displayReward} /*onClose={handleHideReward}*/>
-          <Reward type={'gold'} video="vanar" spin={5} prize={prize} handleHideReward={handleHideReward}/>
+          <Reward
+            type={'gold'}
+            video="vanar"
+            spin={5}
+            prize={prize}
+            handleHideReward={handleHideReward}
+          />
         </RewardModal>
       )}
 

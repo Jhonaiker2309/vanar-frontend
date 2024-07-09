@@ -16,9 +16,9 @@ const RewardCard = ({ name, claimed = 0, total = 0, video, type }: RewardCardPro
   if (type === 0) {
     borderClass = 'border-gradient-gold';
   } else if (type === 1) {
-    borderClass = 'border-gradient-silver';
+    borderClass = 'border-gradient-platinum';
   } else {
-    borderClass = 'border-gradient-bronze';
+    borderClass = 'border-gradient-silver';
   }
 
   return (
