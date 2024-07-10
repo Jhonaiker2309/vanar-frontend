@@ -6,7 +6,11 @@ const RewardsBreakdown = () => {
   const [tierRewards, setTierRewards] = useState(0);
 
   return (
-    <div className="flex flex-col items-center justify-center gap-16 pb-32">
+    <div
+      className={`flex flex-col items-center justify-start gap-16 
+    ${currentTier === 'gold' && 'pb-36'}
+    `}
+    >
       <div className="flex items-center justify-center gap-2">
         <img src="/images/V2/icon-line.svg" />
         <h1 className="font-bold text-[38px] text-white">RewardsBreakdown</h1>
@@ -44,7 +48,7 @@ const RewardsBreakdown = () => {
         })}
       </div>
       {
-        <div className="flex gap-8">
+        <div className="flex gap-8 flex-wrap items-center justify-center">
           {tiers[tierRewards].rewards.map(reward => {
             const { name, claimed, total, video } = reward;
             return (
@@ -76,6 +80,9 @@ const tiers = [
       { name: 'PVP', claimed: 0, total: 1000, video: 'pvp' },
       { name: 'Auriswap', claimed: 0, total: 1000, video: 'auriswap' },
       { name: 'Bazaa', claimed: 0, total: 1000, video: 'bazaa' },
+      { name: 'Maians', claimed: 0, total: 1000, video: 'maians' },
+      { name: 'SpaceId', claimed: 0, total: 1000, video: 'spaceid' },
+      { name: 'Nitro Leage', claimed: 0, total: 1000, video: 'nitro' },
     ],
   },
   {

@@ -124,11 +124,10 @@ const SpinWheel = () => {
 
       {/* Second section: RewardsBreakdown and Footer */}
       <div
-        className="w-screen h-screen flex items-center justify-center px-[50px] relative"
+        className="w-screen h-screen flex items-start justify-center px-[50px]"
         ref={targetDivRef}
       >
         <RewardsBreakdown />
-        <Footer />
       </div>
     </>
   );

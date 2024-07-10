@@ -1,5 +1,6 @@
 import { Route, BrowserRouter as Router, Routes, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar/NavbarV2';
+import Footer from './components/Footer/Footer';
 import SpinWheel from './pages/SpinWheel';
 
 const App = () => {
@@ -70,6 +71,7 @@ const App = () => {
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </div>
+        <Footer />
       </Router>
     </main>
   );
