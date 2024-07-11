@@ -4,6 +4,7 @@ import { generateAvatarURL } from '@cfx-kit/wallet-avatar';
 import axios from 'axios';
 import LateralModal from '../Modal/LateralModal';
 import { FAQ } from '../FAQ/FAQV2';
+import { RewardHistory } from '../RewardHistory/RewardHistory';
 
 const Navbar = () => {
   const { account, connectWeb3, disconnectWeb3 } = useContext(Web3Context);
@@ -11,8 +12,10 @@ const Navbar = () => {
   const [username, setUserName] = useState<string>('');
   const [avatarURL, setAvatarURL] = useState<string>('');
   const [shouldBlur, setShouldBlur] = useState<boolean>(false);
-  const [shouldChangeColor, setShouldChangeColor] = useState<boolean>(false);
-  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [shouldChangeInfoColor, setShouldChangeInfoColor] = useState<boolean>(false);
+  const [shouldChangeClaimColor, setShouldChangeClaimColor] = useState<boolean>(false);
+  const [openInfoModal, setOpenInfoModal] = useState<boolean>(false);
+  const [openClaimModal, setOpenClaimModal] = useState<boolean>(false);
 
   useEffect(() => {
     if (localStorage.getItem('logged') === 'yes') {
@@ -20,9 +23,9 @@ const Navbar = () => {
     }
   }, [connectWeb3]);
 
-  useEffect(()=>{
-    setShouldBlur(false)
-  },[account])
+  useEffect(() => {
+    setShouldBlur(false);
+  }, [account]);
 
   useEffect(() => {
     if (account) {
@@ -57,16 +60,27 @@ const Navbar = () => {
     }
   }, []);
 
-  const handleChangeColor: React.MouseEventHandler<HTMLDivElement> = () => {
-    setShouldChangeColor(!shouldChangeColor);
+  const handleChangeInfoColor: React.MouseEventHandler<HTMLDivElement> = () => {
+    setShouldChangeInfoColor(!shouldChangeInfoColor);
   };
 
-  const handleOpenModal = () => {
-    setOpenModal(true);
+  const handleChangeClaimColor: React.MouseEventHandler<HTMLDivElement> = () => {
+    setShouldChangeClaimColor(!shouldChangeClaimColor);
   };
 
-  const handleCloseModal = () => {
-    setOpenModal(false);
+  const handleOpenInfoModal = () => {
+    setOpenInfoModal(true);
+  };
+
+  const handleCloseInfoModal = () => {
+    setOpenInfoModal(false);
+  };
+
+  const handleOpenClaimModal = () => {
+    setOpenClaimModal(true);
+  };
+  const handleCloseClaimModal = () => {
+    setOpenClaimModal(false);
   };
 
   return (
@@ -116,21 +130,47 @@ const Navbar = () => {
           )}
 
           <div
-            onMouseEnter={handleChangeColor}
-            onMouseLeave={handleChangeColor}
-            onClick={handleOpenModal}
+            onMouseEnter={handleChangeInfoColor}
+            onMouseLeave={handleChangeInfoColor}
+            onClick={handleOpenInfoModal}
           >
             <img
               className="cursor-pointer"
-              src={shouldChangeColor ? 'images/V2/icon-info-green.svg' : 'images/V2/icon-info.svg'}
+              src={
+                shouldChangeInfoColor ? 'images/V2/icon-info-green.svg' : 'images/V2/icon-info.svg'
+              }
+              alt="Logo"
+            />
+          </div>
+          <div
+            onMouseEnter={handleChangeClaimColor}
+            onMouseLeave={handleChangeClaimColor}
+            onClick={handleOpenClaimModal}
+            className="relative flex items-center justify-center"
+          >
+            <img className="cursor-pointer" src={'images/V2/icon-bg.svg'} alt="Logo" />
+            <img
+              className="cursor-pointer absolute"
+              src={
+                shouldChangeClaimColor
+                  ? 'images/V2/icon-claim-green.svg'
+                  : 'images/V2/icon-claim.svg'
+              }
               alt="Logo"
             />
           </div>
         </div>
       </div>
-      <LateralModal show={openModal} onClose={handleCloseModal}>
-        <FAQ />
-      </LateralModal>
+      {openInfoModal && (
+        <LateralModal show={openInfoModal} onClose={handleCloseInfoModal}>
+          <FAQ />
+        </LateralModal>
+      )}
+      {openClaimModal && (
+        <LateralModal show={openClaimModal} onClose={handleCloseClaimModal}>
+          <RewardHistory />
+        </LateralModal>
+      )}
     </header>
   );
 };
