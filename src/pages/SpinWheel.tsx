@@ -2,7 +2,6 @@ import { useRef, useEffect, useState, useContext } from 'react';
 import TimerAndTries from '../components/Timer-and-Tries/TimerAndTries';
 import Mechanics from '../components/Mechanics/Mechanics';
 import axios from 'axios';
-import Footer from '../components/Footer/Footer';
 import RewardsBreakdown from '../components/RewardsBreakdown/RewardsBreakdown';
 import RewardModal from '../components/Modal/RewardModal';
 import Reward from '../components/Reward/Reward';
