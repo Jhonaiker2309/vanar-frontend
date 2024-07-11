@@ -1,7 +1,7 @@
 import React, { useReducer, useCallback, createContext, ReactNode } from 'react';
 //import { MetaMaskInpageProvider } from '@metamask/providers';
 import { Web3Reducer } from './reducer';
-import { ethers } from 'ethers';
+import { ethers, utils } from 'ethers';
 import contractABI from './abis/VanarNFTHandler.json';
 import rouletteContractABI from './abis/VanarRouletteHandler.json'
 import axios from 'axios';
@@ -13,6 +13,20 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ethereum: any;
   }
+}
+
+
+interface Prize {
+  name: string;
+  prizeClass: 'Silver' | 'Gold' | 'Platinum';
+  tokenAddress?: string;
+  nftAddress?: string;
+  tokenAmount?: number;
+  tokenDecimals?: number;
+  prizeType: 'erc20' | 'erc721' | 'mix';
+  prizePartner: 'Vanar' | 'Jackpot' | 'PVP' | 'AuriSwap' | 'Bazaa' | 'Maians' | 'Nitro League' | 'SpaceID';
+  transactionRandomNumber: number;
+  signature: string;
 }
 
 interface Web3StateProps {
@@ -30,6 +44,7 @@ interface Web3ContextValue extends Web3StateProps {
   setMintError: (mintError: string) => void;
   mintNFT: (account: string | null) => void;
   checkIfAlreadyMinted: (timestamp: number) => Promise<boolean>;
+  claimPrize: (prize: Prize) => void
 }
 
 interface AppProviderProps {
@@ -169,6 +184,40 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
     }
   }, [setAccount, setNetworkId]);
 
+  const convertToNumberString = (value: number | string): string => {
+      return value.toString();
+  }
+  const claimPrize = async (prize: Prize) => {
+    try {
+      let tokenAmount;
+      if ((prize.prizeType == "erc20" || prize.prizeType == "mix") && prize.tokenAmount) {
+        tokenAmount = utils.parseUnits(convertToNumberString(prize.tokenAmount), prize.tokenDecimals);
+      }
+  
+      switch (prize.prizeType) {
+        case "erc721":
+          await state.rouletteContract.mintERC721(state.account, prize.nftAddress, prize.transactionRandomNumber, prize.signature);
+          break;
+  
+        case "erc20":
+          await state.rouletteContract.transferERC20(state.account, prize.tokenAddress, tokenAmount,prize.transactionRandomNumber, prize.signature);
+          break;
+  
+        case "mix":
+          await state.rouletteContract.mixTransaction(state.account, prize.tokenAddress, prize.nftAddress ,tokenAmount,prize.transactionRandomNumber, prize.signature);
+          break;
+  
+        default:
+          console.log("Unknown prize type");
+          break;
+      }
+    } catch (e) {
+        console.log("Error")
+    }
+  }
+  
+  
+
   const disconnectWeb3 = useCallback(async () => {
     localStorage.setItem('logged', 'no');
     setAccount(null);
@@ -217,7 +266,8 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
         mintNFT,
         setMintError,
         disconnectWeb3,
-        checkIfAlreadyMinted
+        checkIfAlreadyMinted,
+        claimPrize
       }}
     >
       {children}
