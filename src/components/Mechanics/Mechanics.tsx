@@ -49,6 +49,7 @@ const Mechanics = ({ spined }: MechanicsProps) => {
           <div className="flex items-center gap-2">
             <p className="text-white">4th Spin</p>
             {spined >= 3 ? (
+
               <span className="capitalize text-[#F0F000] text-xs md:text-base xl:text-xs 2xl:text-base">
                 (Bonus spin)
               </span>
@@ -75,6 +76,7 @@ const Mechanics = ({ spined }: MechanicsProps) => {
           <div className="flex items-center gap-2">
             <p className="text-white">5th Spin</p>
             {spined >= 4 ? (
+
               <span className="capitalize text-[#F0F000] text-xs md:text-base xl:text-xs 2xl:text-base">
                 (Social bonus)
               </span>
