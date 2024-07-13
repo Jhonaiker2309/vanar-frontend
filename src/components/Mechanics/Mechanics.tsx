@@ -1,9 +1,14 @@
 import { Hint } from '../Hint/Hint';
 
-const Mechanics = ({ spined = 2 }) => {
+interface MechanicsProps {
+  spined: number;
+}
+const Mechanics = ({ spined }: MechanicsProps) => {
   return (
-    <div className="w-[410px] p-4 flex flex-col items-center justify-center gap-4 border-[1px] border-[#F6F6F60A] rounded-2xl">
-      <h1 className="text-[26px] text-center text-white font-semibold">Spin Mechanics</h1>
+    <div className="w-full 2xl:w-fit p-4 flex flex-col items-center justify-center gap-4 border-[1px] bg-[#030605dd] xl:bg-transparent border-[#F6F6F60A] rounded-2xl">
+      <h1 className="text-[26px] text-center text-white font-semibold text-nowrap">
+        Spin Mechanics
+      </h1>
       <div className="w-full flex flex-col items-center bg-[#03D9AF0F] rounded-2xl py-4 px-4 gap-8">
         <div className="w-full flex items-center justify-between">
           <p className="text-white">1st Spin</p>
@@ -44,7 +49,9 @@ const Mechanics = ({ spined = 2 }) => {
           <div className="flex items-center gap-2">
             <p className="text-white">4th Spin</p>
             {spined >= 3 ? (
-              <span className="capitalize text-[#F0F000]">(Bonus spin)</span>
+              <span className="capitalize text-[#F0F000] text-xs md:text-base xl:text-xs 2xl:text-base">
+                (Bonus spin)
+              </span>
             ) : (
               <Hint hint='To use the "Spin 4" option, you need to spend 40 (Double) VP Points.' />
             )}
@@ -54,13 +61,13 @@ const Mechanics = ({ spined = 2 }) => {
               <p className="text-[#03D9AF] font-semibold">40 VP</p>
             </div>
           ) : spined >= 4 ? (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center md:gap-2">
               <img src="images/V2/icon-check.svg" alt="check icon" />
               <p className="text-[#FFA500] font-semibold">Used</p>
             </div>
           ) : (
-            <div className="w-[140px] text-center bg-[#F0F000] rounded-md py-1">
-              <p className="text-[#06080C] font-bold">BONUS SPIN</p>
+            <div className="md:w-[140px] px-2 md:px-0 text-center bg-[#F0F000] rounded-md py-1">
+              <p className="text-[#06080C] font-bold text-xs md:text-base">BONUS SPIN</p>
             </div>
           )}
         </div>
@@ -68,7 +75,9 @@ const Mechanics = ({ spined = 2 }) => {
           <div className="flex items-center gap-2">
             <p className="text-white">5th Spin</p>
             {spined >= 4 ? (
-              <span className="capitalize text-[#F0F000]">(Social bonus)</span>
+              <span className="capitalize text-[#F0F000] text-xs md:text-base xl:text-xs 2xl:text-base">
+                (Social bonus)
+              </span>
             ) : (
               <Hint hint="This option will be available when you share your winning moment or achievement on Twitter." />
             )}
@@ -78,13 +87,13 @@ const Mechanics = ({ spined = 2 }) => {
               <p className="text-[#03D9AF] font-semibold">Active</p>
             </div>
           ) : spined >= 5 ? (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center md:gap-2">
               <img src="images/V2/icon-check.svg" alt="check icon" />
               <p className="text-[#FFA500] font-semibold">Used</p>
             </div>
           ) : (
-            <div className="w-[140px] text-center bg-[#F0F000] rounded-md py-1">
-              <p className="text-[#06080C] font-bold">SOCIAL BONUS</p>
+            <div className="md:w-[140px] px-2 md:px-0 text-center bg-[#F0F000] rounded-md py-1">
+              <p className="text-[#06080C] font-bold text-xs md:text-base">SOCIAL BONUS</p>
             </div>
           )}
         </div>

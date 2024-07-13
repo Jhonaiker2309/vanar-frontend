@@ -37,7 +37,7 @@ const LateralModal = ({ show, onClose, children }: ModalProps) => {
     show && (
       <div className="w-screen h-screen fixed inset-0 flex items-start justify-end overflow-scroll z-50 ">
         <div
-          className="w-1/3 h-full bg-white rounded-l-[40px] shadow-lg relative z-40 faq-modal"
+          className="w-full md:w-1/3 h-full bg-white rounded-l-[40px] shadow-lg relative z-40 faq-modal"
           onClick={handleContainerClick}
         >
           {children}
