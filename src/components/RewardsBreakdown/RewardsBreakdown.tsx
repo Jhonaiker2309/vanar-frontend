@@ -8,15 +8,17 @@ const RewardsBreakdown = () => {
   return (
     <div
       className={`flex flex-col items-center justify-start gap-16 
-    ${currentTier === 'gold' && 'pb-36'}
+    ${(currentTier === 'gold' || currentTier === 'silver') && 'pb-36'}
     `}
     >
-      <div className="flex items-center justify-center gap-2">
+      <div className="flex items-center justify-center md:gap-2">
         <img src="/images/V2/icon-line.svg" />
-        <h1 className="font-bold text-[38px] text-white">RewardsBreakdown</h1>
+        <h1 className="font-bold text-center text-2xl md:text-[38px] text-white">
+          Rewards Breakdown
+        </h1>
         <img src="/images/V2/icon-line.svg" />
       </div>
-      <div className="flex items-center justify-center gap-16">
+      <div className="flex items-center justify-center gap-4  md:gap-16">
         {tiers.map((tier, index) => {
           const { name, color, outcome } = tier;
           return (
@@ -30,14 +32,14 @@ const RewardsBreakdown = () => {
               }}
             >
               <p
-                className={`text-[34px] capitalize ${
+                className={`text-xl md:text-[34px] capitalize ${
                   currentTier === name ? `${color} font-bold` : 'text-[#ADADAD]'
                 }`}
               >
                 {name}
               </p>
               <p
-                className={`${
+                className={`text-xs md:text-base ${
                   currentTier === name ? `text-white font-semibold` : 'text-[#ADADAD]'
                 }`}
               >
