@@ -84,10 +84,10 @@ const SpinWheel = () => {
   return (
     <>
       {/* First section: Mechanics and TimerAndTries */}
-      <div className="w-screen lg:h-screen flex flex-col lg:flex-row items-center justify-between pt-56 lg:pt-0 px-4 lg:px-[50px] relative">
+      <div className="w-screen lx:h-screen flex flex-col xl:flex-row items-center justify-between pt-56 lg:pt-40 xl:pt-10 px-4 lg:px-[50px] relative">
         <Mechanics spined={currentSpin} />
 
-        <div className="w-[300px] md:w-[500px] lg:w-[600px] ">
+        <div className="w-[300px] md:w-[500px] lg:w-[800px] xl:min-w-[450px] ">
           <Spinwheel
             handleSpinWheelLogic={handleSpinWheelLogic}
             spinnerRef={spinnerRef}
@@ -98,7 +98,7 @@ const SpinWheel = () => {
         <TimerAndTries futureTime={futureTime} currentSpin={currentSpin} />
         <div className="w-screen absolute flex justify-center bottom-5 left-0">
           <div
-            className="hidden w-screen lg:flex flex-col items-center justify-center gap-4 cursor-pointer"
+            className="hidden w-screen xl:flex flex-col items-center justify-center gap-4 cursor-pointer"
             onClick={scrollToRewards}
           >
             <img src="images/V2/icon-chevron-down.svg" alt="icon" />
