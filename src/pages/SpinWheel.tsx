@@ -8,7 +8,7 @@ import Reward from '../components/Reward/Reward';
 import { Web3Context } from '../web3';
 import Spinwheel from '../components/Spinwheel/Spinwheel';
 
-interface Prize {
+interface PrizeProps {
   signature: string;
   _amount: number;
   _isNFT: boolean;
@@ -16,6 +16,9 @@ interface Prize {
   _tokenAddress: string;
   _transactionNumber: number;
   _userAddress: string;
+  prizeWon: boolean;
+  prizeClass: 'Platinum' | 'Gold' | 'Silver';
+  prizePartner: string;
 }
 
 const SpinWheel = () => {
@@ -27,13 +30,14 @@ const SpinWheel = () => {
   const spinnerRef2 = useRef<HTMLImageElement>(null);
   const [currentSpin, setCurrentSpin] = useState<number>(0);
   const [lastSpinTime, setLastSpinTime] = useState<number>(0);
-  const [prize, setPrize] = useState<Prize | null>(null);
+  const [prize, setPrize] = useState<PrizeProps | null>(null);
 
   useEffect(() => {
     if (account) {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/getUserData/${account}`)
         .then(response => {
+          console.log(response);
           setCurrentSpin(response?.data?.amountOfSpinsOfToday);
           setFutureTime(new Date(response?.data?.nextRestart));
         })
@@ -52,14 +56,13 @@ const SpinWheel = () => {
   const handleSpinWheelLogic = () => {
     if (account) {
       const currentTime = Date.now();
-      if (currentTime - lastSpinTime >= 10000) {
-        // 10000 ms = 10 seconds
+      if (currentTime - lastSpinTime >= 2000) {
+        // 2000 ms = 2 seconds
         if (spinnerRef.current && spinnerRef2.current) {
           spinnerRef.current.classList.add('spin');
           spinnerRef2.current.classList.add('spin');
           setTimeout(() => {
             axios.post(`${import.meta.env.VITE_BACKEND_URL}/spinRoulette/${account}`).then(data => {
-              console.log('POST:', data.data);
               setPrize(data.data.prize);
               setDisplayReward(true);
               // Update currentSpin after spinning
@@ -110,11 +113,10 @@ const SpinWheel = () => {
       {displayReward && (
         <RewardModal show={displayReward} onClose={handleHideReward}>
           <Reward
-            type={'gold'}
-            video="vanar"
-            spin={currentSpin}
             prize={prize}
+            spin={currentSpin}
             handleHideReward={handleHideReward}
+            spinAgain={handleSpinWheelLogic}
           />
         </RewardModal>
       )}
