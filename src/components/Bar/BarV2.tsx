@@ -1,6 +1,9 @@
+import { useEffect } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 export const Bar = ({ percent, rounded = true, className }: BarProps) => {
+  useEffect(() => {}, [percent, rounded, className]);
+
   return (
     <div className={twMerge('w-full bg-[#4b4b4b] h-3', rounded ? 'rounded-lg' : 'rounded-none')}>
       <div
