@@ -3,7 +3,8 @@ import { useState } from 'react';
 interface RewardProps {
   index?: number;
   name: string;
-  tier: string;
+  prizePartner: string;
+  prizeClass: string;
   date: Date;
   claimed: boolean;
 }
@@ -14,7 +15,6 @@ interface RewardHistoryProps {
 
 export const RewardHistory = ({ rewards }: RewardHistoryProps) => {
   const [view, setView] = useState<'all' | 'available' | 'minted'>('all');
-
   const filteredRewards = rewards.filter(reward => {
     if (view === 'all') return true;
     if (view === 'available') return !reward.claimed;
@@ -63,7 +63,7 @@ export const RewardHistory = ({ rewards }: RewardHistoryProps) => {
   );
 };
 
-const Reward = ({ name, tier, date, claimed }: RewardProps) => {
+const Reward = ({ name, prizeClass, prizePartner, date, claimed }: RewardProps) => {
   const formatDate = (dateString: string | number | Date) => {
     const date = new Date(dateString);
 
@@ -84,10 +84,10 @@ const Reward = ({ name, tier, date, claimed }: RewardProps) => {
     console.log('Claiming reward');
   };
 
-  const backgroundTier: { [key: string]: string } = {
-    gold: 'bg-[#FFCE00]',
-    silver: 'bg-[#DCDCDC]',
-    platinum: 'bg-[#FF9F30]',
+  const backgroundprizeClass: { [key: string]: string } = {
+    Gold: 'bg-[#FFCE00]',
+    Silver: 'bg-[#DCDCDC]',
+    Platinum: 'bg-[#FF9F30]',
   };
 
   return (
@@ -95,10 +95,11 @@ const Reward = ({ name, tier, date, claimed }: RewardProps) => {
       <div className="w-full flex flex-col items-start gap-2 px-8">
         <div className="w-full flex justify-start items-center gap-2">
           <p className="font-bold text-[22px]">{name}</p>
-          <div className={`py-1 px-4 rounded-full ${backgroundTier[tier]}`}>
-            <p className="text-sm capitalize">{tier}</p>
+          <div className={`py-1 px-4 rounded-full ${backgroundprizeClass[prizeClass]}`}>
+            <p className="text-sm capitalize">{prizeClass}</p>
           </div>
         </div>
+        <p className="">{prizePartner}</p>
         <p className="">{formatDate(date)}</p>
       </div>
       <div className="w-1/4 flex justify-center items-center">
@@ -109,7 +110,7 @@ const Reward = ({ name, tier, date, claimed }: RewardProps) => {
           </div>
         ) : (
           <button className="flex items-center gap-2" onClick={handleClaimReward}>
-            <p>Claim now</p>
+            <p className="text-nowrap">Claim now</p>
             <img src="/images/V2/icon-go.svg" alt="claimed" />
           </button>
         )}
@@ -117,54 +118,3 @@ const Reward = ({ name, tier, date, claimed }: RewardProps) => {
     </div>
   );
 };
-
-// const EarnedRewards = [
-//   {
-//     name: 'Vanar',
-//     tier: 'gold',
-//     date: new Date(),
-//     claimed: false,
-//   },
-//   {
-//     name: 'Nitro League',
-//     tier: 'silver',
-//     date: new Date(),
-//     claimed: true,
-//   },
-//   {
-//     name: 'Vanar',
-//     tier: 'platinum',
-//     date: new Date(),
-//     claimed: true,
-//   },
-//   {
-//     name: 'Jackpot',
-//     tier: 'gold',
-//     date: new Date(),
-//     claimed: true,
-//   },
-//   {
-//     name: 'Vanar',
-//     tier: 'gold',
-//     date: new Date(),
-//     claimed: true,
-//   },
-//   {
-//     name: 'Nitro League',
-//     tier: 'silver',
-//     date: new Date(),
-//     claimed: true,
-//   },
-//   {
-//     name: 'Vanar',
-//     tier: 'platinum',
-//     date: new Date(),
-//     claimed: true,
-//   },
-//   {
-//     name: 'Jackpot',
-//     tier: 'gold',
-//     date: new Date(),
-//     claimed: true,
-//   },
-// ];
