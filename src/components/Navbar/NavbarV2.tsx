@@ -16,6 +16,7 @@ const Navbar = () => {
   const [shouldChangeClaimColor, setShouldChangeClaimColor] = useState<boolean>(false);
   const [openInfoModal, setOpenInfoModal] = useState<boolean>(false);
   const [openClaimModal, setOpenClaimModal] = useState<boolean>(false);
+  const [prizes, setPrizes] = useState<[]>([]);
 
   useEffect(() => {
     if (localStorage.getItem('logged') === 'yes') {
@@ -48,17 +49,16 @@ const Navbar = () => {
   useEffect(() => {
     if (account) {
       axios
-        .get(`${import.meta.env.VITE_BACKEND_URL}/roulette/${account}`)
+        .get(`${import.meta.env.VITE_BACKEND_URL}/getUserData/${account}`)
         .then(response => {
-          setPoints(response?.data?.todayExperience);
+          setPrizes(response?.data?.prizes);
+          setPoints(response?.data?.experience);
         })
         .catch(error => {
           console.error('Error fetching data:', error);
         });
-    } else {
-      setPoints(0);
     }
-  }, []);
+  }, [account]);
 
   const handleChangeInfoColor: React.MouseEventHandler<HTMLDivElement> = () => {
     setShouldChangeInfoColor(!shouldChangeInfoColor);
@@ -168,7 +168,7 @@ const Navbar = () => {
       )}
       {openClaimModal && (
         <LateralModal show={openClaimModal} onClose={handleCloseClaimModal}>
-          <RewardHistory />
+          <RewardHistory rewards={prizes} />
         </LateralModal>
       )}
     </header>

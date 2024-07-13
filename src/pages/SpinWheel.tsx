@@ -23,19 +23,24 @@ const SpinWheel = () => {
   const [futureTime, setFutureTime] = useState<Date>(new Date());
   const targetDivRef = useRef<HTMLDivElement>(null);
   const spinnerRef = useRef<HTMLImageElement>(null);
-  const [lastSpinTime, setLastSpinTime] = useState(0);
+  const [currentSpin, setCurrentSpin] = useState<number>(0);
+  const [lastSpinTime, setLastSpinTime] = useState<number>(0);
   const [prize, setPrize] = useState<Prize | null>(null);
 
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_BACKEND_URL}/roulette/${account}`)
-      .then(response => {
-        setFutureTime(response?.data?.futureTime);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
+    if (account) {
+      axios
+        .get(`${import.meta.env.VITE_BACKEND_URL}/getUserData/${account}`)
+        .then(response => {
+          console.log(response?.data);
+          setCurrentSpin(response?.data?.amountOfSpinsOfToday);
+          setFutureTime(new Date(response?.data?.nextRestart));
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    }
+  }, [account]);
 
   const scrollToRewards = () => {
     if (targetDivRef.current) {
@@ -47,16 +52,18 @@ const SpinWheel = () => {
     if (account) {
       const currentTime = Date.now();
       if (currentTime - lastSpinTime >= 10000) {
-        // 10000 ms = 10 segs
+        // 10000 ms = 10 seconds
         if (spinnerRef.current) {
           spinnerRef.current.classList.add('spin');
           setTimeout(() => {
             axios.post(`${import.meta.env.VITE_BACKEND_URL}/spinRoulette/${account}`).then(data => {
               setPrize(data.data.prize);
               setDisplayReward(true);
+              // Update currentSpin after spinning
+              setCurrentSpin(prevSpin => prevSpin + 1);
             });
             setDisplayReward(true);
-            spinnerRef.current?.classList.remove('spin'); // Optional chaining here
+            spinnerRef.current?.classList.remove('spin');
           }, 2000);
         }
         setLastSpinTime(currentTime);
@@ -74,7 +81,7 @@ const SpinWheel = () => {
     <>
       {/* First section: Mechanics and TimerAndTries */}
       <div className="w-screen h-screen flex items-center justify-between px-[50px] relative">
-        <Mechanics />
+        <Mechanics spined={currentSpin} />
 
         <div className="relative items-center justify-center flex">
           <img
@@ -97,7 +104,7 @@ const SpinWheel = () => {
           <img src="/images/V2/placeholder-spinwheel.svg" alt="placeholder" className="" />
         </div>
 
-        <TimerAndTries futureTime={futureTime} />
+        <TimerAndTries futureTime={futureTime} currentSpin={currentSpin} />
         <div className="w-screen absolute flex justify-center bottom-5 left-0">
           <div
             className="w-screen flex flex-col items-center justify-center gap-4 cursor-pointer"
@@ -110,7 +117,7 @@ const SpinWheel = () => {
       </div>
       {/* Modal */}
       {displayReward && (
-        <RewardModal show={displayReward} /*onClose={handleHideReward}*/>
+        <RewardModal show={displayReward} onClose={handleHideReward}>
           <Reward
             type={'gold'}
             video="vanar"

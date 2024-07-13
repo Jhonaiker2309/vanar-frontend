@@ -1,9 +1,21 @@
 import { useState } from 'react';
 
-export const RewardHistory = () => {
+interface RewardProps {
+  index?: number;
+  name: string;
+  tier: string;
+  date: Date;
+  claimed: boolean;
+}
+
+interface RewardHistoryProps {
+  rewards: RewardProps[];
+}
+
+export const RewardHistory = ({ rewards }: RewardHistoryProps) => {
   const [view, setView] = useState<'all' | 'available' | 'minted'>('all');
 
-  const filteredRewards = EarnedRewards.filter(reward => {
+  const filteredRewards = rewards.filter(reward => {
     if (view === 'all') return true;
     if (view === 'available') return !reward.claimed;
     if (view === 'minted') return reward.claimed;
@@ -106,61 +118,53 @@ const Reward = ({ name, tier, date, claimed }: RewardProps) => {
   );
 };
 
-interface RewardProps {
-  index: number;
-  name: string;
-  tier: string;
-  date: Date;
-  claimed: boolean;
-}
-
-const EarnedRewards = [
-  {
-    name: 'Vanar',
-    tier: 'gold',
-    date: new Date(),
-    claimed: false,
-  },
-  {
-    name: 'Nitro League',
-    tier: 'silver',
-    date: new Date(),
-    claimed: true,
-  },
-  {
-    name: 'Vanar',
-    tier: 'platinum',
-    date: new Date(),
-    claimed: true,
-  },
-  {
-    name: 'Jackpot',
-    tier: 'gold',
-    date: new Date(),
-    claimed: true,
-  },
-  {
-    name: 'Vanar',
-    tier: 'gold',
-    date: new Date(),
-    claimed: true,
-  },
-  {
-    name: 'Nitro League',
-    tier: 'silver',
-    date: new Date(),
-    claimed: true,
-  },
-  {
-    name: 'Vanar',
-    tier: 'platinum',
-    date: new Date(),
-    claimed: true,
-  },
-  {
-    name: 'Jackpot',
-    tier: 'gold',
-    date: new Date(),
-    claimed: true,
-  },
-];
+// const EarnedRewards = [
+//   {
+//     name: 'Vanar',
+//     tier: 'gold',
+//     date: new Date(),
+//     claimed: false,
+//   },
+//   {
+//     name: 'Nitro League',
+//     tier: 'silver',
+//     date: new Date(),
+//     claimed: true,
+//   },
+//   {
+//     name: 'Vanar',
+//     tier: 'platinum',
+//     date: new Date(),
+//     claimed: true,
+//   },
+//   {
+//     name: 'Jackpot',
+//     tier: 'gold',
+//     date: new Date(),
+//     claimed: true,
+//   },
+//   {
+//     name: 'Vanar',
+//     tier: 'gold',
+//     date: new Date(),
+//     claimed: true,
+//   },
+//   {
+//     name: 'Nitro League',
+//     tier: 'silver',
+//     date: new Date(),
+//     claimed: true,
+//   },
+//   {
+//     name: 'Vanar',
+//     tier: 'platinum',
+//     date: new Date(),
+//     claimed: true,
+//   },
+//   {
+//     name: 'Jackpot',
+//     tier: 'gold',
+//     date: new Date(),
+//     claimed: true,
+//   },
+// ];
