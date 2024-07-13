@@ -5,7 +5,7 @@ interface MechanicsProps {
 }
 const Mechanics = ({ spined }: MechanicsProps) => {
   return (
-    <div className="w-full 2xl:w-[320px] p-4 flex flex-col items-center justify-center gap-4 border-[1px] bg-[#030605dd] xl:bg-transparent border-[#F6F6F60A] rounded-2xl">
+    <div className="w-full 2xl:w-[410px] p-4 flex flex-col items-center justify-center gap-4 border-[1px] bg-[#030605dd] xl:bg-transparent border-[#F6F6F60A] rounded-2xl">
       <h1 className="text-[26px] text-center text-white font-semibold text-nowrap">
         Spin Mechanics
       </h1>

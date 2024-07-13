@@ -45,7 +45,7 @@ export const RewardHistory = ({ rewards }: RewardHistoryProps) => {
           </button>
           <button
             onClick={() => setView('minted')}
-            className={`py-2 md:px-8 w-full md:w-fit rounded-xl text-xs md:text-base${
+            className={`py-2 md:px-8 w-full md:w-fit rounded-xl text-xs md:text-base ${
               view === 'minted' ? 'bg-black text-white' : 'text-black bg-[#EDEDEE]'
             }`}
           >
