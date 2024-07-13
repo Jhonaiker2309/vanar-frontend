@@ -6,6 +6,7 @@ import RewardsBreakdown from '../components/RewardsBreakdown/RewardsBreakdown';
 import RewardModal from '../components/Modal/RewardModal';
 import Reward from '../components/Reward/Reward';
 import { Web3Context } from '../web3';
+import Spinwheel from '../components/Spinwheel/Spinwheel';
 
 interface Prize {
   signature: string;
@@ -23,6 +24,7 @@ const SpinWheel = () => {
   const [futureTime, setFutureTime] = useState<Date>(new Date());
   const targetDivRef = useRef<HTMLDivElement>(null);
   const spinnerRef = useRef<HTMLImageElement>(null);
+  const spinnerRef2 = useRef<HTMLImageElement>(null);
   const [currentSpin, setCurrentSpin] = useState<number>(0);
   const [lastSpinTime, setLastSpinTime] = useState<number>(0);
   const [prize, setPrize] = useState<Prize | null>(null);
@@ -52,8 +54,9 @@ const SpinWheel = () => {
       const currentTime = Date.now();
       if (currentTime - lastSpinTime >= 10000) {
         // 10000 ms = 10 seconds
-        if (spinnerRef.current) {
+        if (spinnerRef.current && spinnerRef2.current) {
           spinnerRef.current.classList.add('spin');
+          spinnerRef2.current.classList.add('spin');
           setTimeout(() => {
             axios.post(`${import.meta.env.VITE_BACKEND_URL}/spinRoulette/${account}`).then(data => {
               console.log('POST:', data.data);
@@ -64,6 +67,7 @@ const SpinWheel = () => {
             });
             setDisplayReward(true);
             spinnerRef.current?.classList.remove('spin');
+            spinnerRef2.current?.classList.remove('spin');
           }, 2000);
         }
         setLastSpinTime(currentTime);
@@ -83,26 +87,11 @@ const SpinWheel = () => {
       <div className="w-screen md:h-screen flex flex-col md:flex-row items-center justify-between pt-56 md:pt-0  px-4 md:px-[50px] relative">
         <Mechanics spined={currentSpin} />
 
-        <div className="relative items-center justify-center flex">
-          <img
-            src="/images/V2/spinwheel-center.svg"
-            alt="spinner"
-            className="absolute -mt-[70px]"
-            ref={spinnerRef}
-          />
-          <img
-            src="/images/V2/icon-polygon.svg"
-            alt="placeholder"
-            className="absolute top-[140px]"
-          />
-          <button
-            className="-mt-[75px] ml-[6px] absolute rounded-full spin-button w-[120px] aspect-square"
-            onClick={handleSpinWheelLogic}
-          >
-            <p className="text-white text-[26px] font-bold uppercase light-text">Spin Now</p>
-          </button>
-          <img src="/images/V2/placeholder-spinwheel.svg" alt="placeholder" className="" />
-        </div>
+        <Spinwheel
+          handleSpinWheelLogic={handleSpinWheelLogic}
+          spinnerRef={spinnerRef}
+          spinnerRef2={spinnerRef2}
+        />
 
         <TimerAndTries futureTime={futureTime} currentSpin={currentSpin} />
         <div className="w-screen absolute flex justify-center bottom-5 left-0">
