@@ -84,19 +84,21 @@ const SpinWheel = () => {
   return (
     <>
       {/* First section: Mechanics and TimerAndTries */}
-      <div className="w-screen md:h-screen flex flex-col md:flex-row items-center justify-between pt-56 md:pt-0  px-4 md:px-[50px] relative">
+      <div className="w-screen lg:h-screen flex flex-col lg:flex-row items-center justify-between pt-56 lg:pt-0 px-4 lg:px-[50px] relative">
         <Mechanics spined={currentSpin} />
 
-        <Spinwheel
-          handleSpinWheelLogic={handleSpinWheelLogic}
-          spinnerRef={spinnerRef}
-          spinnerRef2={spinnerRef2}
-        />
+        <div className="w-[300px] md:w-[500px] lg:w-[600px] ">
+          <Spinwheel
+            handleSpinWheelLogic={handleSpinWheelLogic}
+            spinnerRef={spinnerRef}
+            spinnerRef2={spinnerRef2}
+          />
+        </div>
 
         <TimerAndTries futureTime={futureTime} currentSpin={currentSpin} />
         <div className="w-screen absolute flex justify-center bottom-5 left-0">
           <div
-            className="hidden w-screen md:flex flex-col items-center justify-center gap-4 cursor-pointer"
+            className="hidden w-screen lg:flex flex-col items-center justify-center gap-4 cursor-pointer"
             onClick={scrollToRewards}
           >
             <img src="images/V2/icon-chevron-down.svg" alt="icon" />
@@ -119,7 +121,7 @@ const SpinWheel = () => {
 
       {/* Second section: RewardsBreakdown and Footer */}
       <div
-        className="w-screen h-screen flex items-start justify-center px-[50px] pt-8 md:pt-0"
+        className="w-screen h-screen flex items-start justify-center px-[50px] pt-8 lg:pt-0"
         ref={targetDivRef}
       >
         <RewardsBreakdown />
