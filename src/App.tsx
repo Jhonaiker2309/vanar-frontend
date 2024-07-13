@@ -26,7 +26,7 @@ const App = () => {
     <main>
       <Router>
         <Navbar />
-        <div className="w-full h-full overflow-scroll background">
+        <div className="w-full h-full overflow-scroll bg-[#030605] background">
           <Routes>
             <Route path="/" element={<SpinWheel />} />
             {/* -------------------------------------------------------------------------- */

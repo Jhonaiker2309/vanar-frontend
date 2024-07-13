@@ -3,7 +3,7 @@ import { Accordion } from '../Accordion/AccordionV2';
 export const FAQ = () => {
   return (
     <div className="w-full h-full pt-20 flex flex-col items-center gap-8 ">
-      <h1 className="text-[34px] font-bold">Frequently Ask Questions</h1>
+      <h1 className="text-center md:text-left text-[34px] font-bold">Frequently Ask Questions</h1>
       <div className="w-full h-3/5 pb-8 flex flex-col gap-4 overflow-scroll z-50">
         {FAQs.map((section, index) => (
           <Question key={`question-${index}`} index={index} {...section} />

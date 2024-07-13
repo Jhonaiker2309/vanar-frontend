@@ -32,7 +32,6 @@ const SpinWheel = () => {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/getUserData/${account}`)
         .then(response => {
-          console.log(response?.data);
           setCurrentSpin(response?.data?.amountOfSpinsOfToday);
           setFutureTime(new Date(response?.data?.nextRestart));
         })
@@ -57,6 +56,7 @@ const SpinWheel = () => {
           spinnerRef.current.classList.add('spin');
           setTimeout(() => {
             axios.post(`${import.meta.env.VITE_BACKEND_URL}/spinRoulette/${account}`).then(data => {
+              console.log('POST:', data.data);
               setPrize(data.data.prize);
               setDisplayReward(true);
               // Update currentSpin after spinning
@@ -80,7 +80,7 @@ const SpinWheel = () => {
   return (
     <>
       {/* First section: Mechanics and TimerAndTries */}
-      <div className="w-screen h-screen flex items-center justify-between px-[50px] relative">
+      <div className="w-screen md:h-screen flex flex-col md:flex-row items-center justify-between pt-56 md:pt-0  px-4 md:px-[50px] relative">
         <Mechanics spined={currentSpin} />
 
         <div className="relative items-center justify-center flex">
@@ -107,7 +107,7 @@ const SpinWheel = () => {
         <TimerAndTries futureTime={futureTime} currentSpin={currentSpin} />
         <div className="w-screen absolute flex justify-center bottom-5 left-0">
           <div
-            className="w-screen flex flex-col items-center justify-center gap-4 cursor-pointer"
+            className="hidden w-screen md:flex flex-col items-center justify-center gap-4 cursor-pointer"
             onClick={scrollToRewards}
           >
             <img src="images/V2/icon-chevron-down.svg" alt="icon" />
@@ -121,7 +121,7 @@ const SpinWheel = () => {
           <Reward
             type={'gold'}
             video="vanar"
-            spin={5}
+            spin={currentSpin}
             prize={prize}
             handleHideReward={handleHideReward}
           />
@@ -130,7 +130,7 @@ const SpinWheel = () => {
 
       {/* Second section: RewardsBreakdown and Footer */}
       <div
-        className="w-screen h-screen flex items-start justify-center px-[50px]"
+        className="w-screen h-screen flex items-start justify-center px-[50px] pt-8 md:pt-0"
         ref={targetDivRef}
       >
         <RewardsBreakdown />

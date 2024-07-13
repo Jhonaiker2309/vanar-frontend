@@ -85,13 +85,13 @@ const Navbar = () => {
 
   return (
     <header className="w-screen fixed top-0 left-0 flex items-center justify-between z-50">
-      <div className="w-screen flex h-[54px] p-[50px] items-center justify-between gap-12">
-        <div className="flex items-center gap-1">
+      <div className="w-screen flex flex-col md:flex-row md:h-[54px] p-4 md:p-[50px] items-center justify-between gap-8 md:gap-12">
+        <div className="flex items-center">
           <img src="images/V2/logo-velocity.svg" alt="Logo" />
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="h-12 flex items-center justify-center text-[18px] min-w-[107px] bg-[#03D9AF3D] rounded-full gap-2 border-2 border-white box-light light">
+          <div className="h-12 flex items-center justify-center text-xs  md:text-[18px] min-w-[107px] bg-[#03D9AF3D] rounded-full gap-2 border-2 border-white box-light light">
             <img src="images/V2/icon-thunder.svg" alt="Logo" />
             <p className="text-white">{points}VP</p>
           </div>
@@ -129,6 +129,39 @@ const Navbar = () => {
             </button>
           )}
 
+          <div
+            onMouseEnter={handleChangeInfoColor}
+            onMouseLeave={handleChangeInfoColor}
+            onClick={handleOpenInfoModal}
+            className="hidden md:block"
+          >
+            <img
+              className="cursor-pointer"
+              src={
+                shouldChangeInfoColor ? 'images/V2/icon-info-green.svg' : 'images/V2/icon-info.svg'
+              }
+              alt="Logo"
+            />
+          </div>
+          <div
+            onMouseEnter={handleChangeClaimColor}
+            onMouseLeave={handleChangeClaimColor}
+            onClick={handleOpenClaimModal}
+            className="hidden relative md:flex items-center justify-center"
+          >
+            <img className="cursor-pointer" src={'images/V2/icon-bg.svg'} alt="Logo" />
+            <img
+              className="cursor-pointer absolute"
+              src={
+                shouldChangeClaimColor
+                  ? 'images/V2/icon-claim-green.svg'
+                  : 'images/V2/icon-claim.svg'
+              }
+              alt="Logo"
+            />
+          </div>
+        </div>
+        <div className="flex gap-8 md:hidden -mt-6">
           <div
             onMouseEnter={handleChangeInfoColor}
             onMouseLeave={handleChangeInfoColor}

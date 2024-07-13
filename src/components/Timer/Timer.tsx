@@ -36,26 +36,32 @@ const Timer = ({ futureTime }: TimerProps) => {
   return (
     <div className="w-full flex flex-col items-center bg-[#03D9AF0F] rounded-2xl px-16 py-8 gap-8">
       <h1 className="text-[26px] text-center text-white font-semibold">Time Left</h1>
-      <div className="flex items-center justify-center gap-4">
+      <div className="flex items-center justify-center gap-2 md:gap-4">
         <div className="flex flex-col items-center justify-center gap-2">
-          <div className="w-[70px] py-4 rounded-2xl flex items-center justify-center bg-[#03D9AF1A] border-[#03D9AF24] border-[1px] timer-light">
-            <p className="text-[28px] text-white font-bold">{String(hours).padStart(2, '0')}</p>
+          <div className="w-[50px] md:w-[70px] py-2 md:py-4 rounded-2xl flex items-center justify-center bg-[#03D9AF1A] border-[#03D9AF24] border-[1px] timer-light">
+            <p className="text-xl md:text-[28px] text-white font-bold">
+              {String(hours).padStart(2, '0')}
+            </p>
           </div>
-          <p className="text-sm text-[#ADADAD]">Hours</p>
+          <p className="text-xs md:text-sm text-[#ADADAD]">Hours</p>
         </div>
-        <p className="text-4xl text-white font-black pb-8">:</p>
+        <p className="md:text-4xl text-xl text-white font-black pb-8">:</p>
         <div className="flex flex-col items-center justify-center gap-2">
-          <div className="w-[70px] py-4 rounded-2xl flex items-center justify-center bg-[#03D9AF1A] border-[#03D9AF24] border-[1px] timer-light">
-            <p className="text-[28px] text-white font-bold">{String(minutes).padStart(2, '0')}</p>
+          <div className="w-[50px] md:w-[70px] py-2 md:py-4 rounded-2xl flex items-center justify-center bg-[#03D9AF1A] border-[#03D9AF24] border-[1px] timer-light">
+            <p className="text-xl md:text-[28px] text-white font-bold">
+              {String(minutes).padStart(2, '0')}
+            </p>
           </div>
-          <p className="text-sm text-[#ADADAD]">Mins</p>
+          <p className="text-xs md:text-sm text-[#ADADAD]">Mins</p>
         </div>
-        <p className="text-4xl text-white font-black pb-8">:</p>
+        <p className="md:text-4xl text-xl text-white font-black pb-8">:</p>
         <div className="flex flex-col items-center justify-center gap-2">
-          <div className="w-[70px] py-4 rounded-2xl flex items-center justify-center bg-[#03D9AF1A] border-[#03D9AF24] border-[1px] timer-light">
-            <p className="text-[28px] text-white font-bold">{String(seconds).padStart(2, '0')}</p>
+          <div className="w-[50px] md:w-[70px] py-2 md:py-4 rounded-2xl flex items-center justify-center bg-[#03D9AF1A] border-[#03D9AF24] border-[1px] timer-light">
+            <p className="text-xl md:text-[28px] text-white font-bold">
+              {String(seconds).padStart(2, '0')}
+            </p>
           </div>
-          <p className="text-sm text-[#ADADAD]">Secs</p>
+          <p className="text-xs md:text-sm text-[#ADADAD]">Secs</p>
         </div>
       </div>
     </div>

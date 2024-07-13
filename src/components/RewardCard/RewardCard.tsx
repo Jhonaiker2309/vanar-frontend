@@ -22,14 +22,16 @@ const RewardCard = ({ name, claimed = 0, total = 0, video, type }: RewardCardPro
   }
 
   return (
-    <div className={`w-[400px] p-2 rounded-2xl ${borderClass}`}>
+    <div
+      className={`w-full md:w-[400px] p-2 rounded-2xl ${borderClass} bg-black  md:bg-transparent`}
+    >
       <div className="w-full h-[260px] rounded-[14px] overflow-hidden">
         <video
           ref={videoRef}
           loop
           muted={true}
           autoPlay
-          className="w-[384px] rounded-[14px] relative z-0 -mt-16"
+          className="w-full md:w-[384px] rounded-[14px] relative z-0 -mt-16"
         >
           <source src={`videos/video-${video}.mp4`} type="video/mp4" />
         </video>
