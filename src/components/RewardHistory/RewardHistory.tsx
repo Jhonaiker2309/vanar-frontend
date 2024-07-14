@@ -88,7 +88,7 @@ export const RewardHistory = ({ rewards }: RewardHistoryProps) => {
   );
 };
 
-const Reward = ({ name, prizeType, prizeClass, prizePartner, date, claimed, tokenDecimals, nftAddress, transactionRandomNumber, signature, tokenAddress }: Prize) => {
+const Reward = ({ name, prizeType, prizeClass, prizePartner, date, claimed, tokenAmount,tokenDecimals, nftAddress, transactionRandomNumber, signature, tokenAddress }: Prize) => {
   const { rouletteContract, account, convertToNumberString } = useContext(Web3Context);
   const formatDate = (dateString: string | number | Date) => {
     const date = new Date(dateString);
@@ -109,9 +109,9 @@ const Reward = ({ name, prizeType, prizeClass, prizePartner, date, claimed, toke
   const claimPrize = async () => {
     if(!(rouletteContract && account && !claimed)) return
     try {
-      let tokenAmount;
+      let currentTokenAmount;
       if ((prizeType == "erc20" || prizeType == "mix") && tokenAmount) {
-        tokenAmount = utils.parseUnits(convertToNumberString(tokenAmount), tokenDecimals);
+        currentTokenAmount = utils.parseUnits(convertToNumberString(tokenAmount), tokenDecimals);
       }
   
       switch (prizeType) {
@@ -120,11 +120,11 @@ const Reward = ({ name, prizeType, prizeClass, prizePartner, date, claimed, toke
           break;
   
         case "erc20":
-          await rouletteContract.transferERC20(account, tokenAddress, tokenAmount, transactionRandomNumber, signature);
+          await rouletteContract.transferERC20(account, tokenAddress, currentTokenAmount, transactionRandomNumber, signature);
           break;
   
         case "mix":
-          await rouletteContract.mixTransaction(account, tokenAddress, nftAddress, tokenAmount, transactionRandomNumber, signature);
+          await rouletteContract.mixTransaction(account, tokenAddress, nftAddress, currentTokenAmount, transactionRandomNumber, signature);
           break;
   
         default:

@@ -49,7 +49,6 @@ const Reward = ({ spin, prize, handleHideReward, spinAgain }: RewardProps) => {
       if ((prize.prizeType == "erc20" || prize.prizeType == "mix") && prize.tokenAmount) {
         tokenAmount = utils.parseUnits(convertToNumberString(prize.tokenAmount), prize.tokenDecimals);
       }
-  
       switch (prize.prizeType) {
         case "erc721":
           await rouletteContract.mintERC721(account, prize.nftAddress, prize.transactionRandomNumber, prize.signature);
