@@ -148,7 +148,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
       const ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
       await ethersProvider.send('eth_requestAccounts', []);
 
-      /*if ((await ethersProvider.getNetwork()).chainId !== 78600) {
+      if ((await ethersProvider.getNetwork()).chainId !== 78600) {
         window.ethereum.request({
           method: 'wallet_addEthereumChain',
           params: [
@@ -165,7 +165,7 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
             },
           ],
         });
-      }*/
+      }
 
       const userAddress = await ethersProvider.getSigner().getAddress();
       const contractAddress: string = import.meta.env.VITE_CONTRACT_ADDRESS || '';
