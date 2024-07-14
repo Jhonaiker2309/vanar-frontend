@@ -1,18 +1,23 @@
 import { useRef, useContext, useState } from 'react';
 import { Web3Context } from '../../web3';
+import { utils } from 'ethers';
+import toastr from 'toastr';
+import 'toastr/build/toastr.min.css';
 
 interface Prize {
-  signature: string;
-  _amount: number;
-  _isNFT: boolean;
-  _nftId: number;
-  _tokenAddress: string;
-  _transactionNumber: number;
-  _userAddress: string;
   prizeWon: boolean;
-  prizeClass: 'Platinum' | 'Gold' | 'Silver';
-  prizePartner: string;
+  name?: string;
+  prizeClass?: 'Platinum' | 'Gold' | 'Silver';
+  tokenAddress?: string;
+  nftAddress?: string;
+  tokenAmount?: number;
+  tokenDecimals?: number;
+  prizeType?:string;
+  prizePartner?: string;  
+  transactionRandomNumber?: number;
+  signature?: string;
 }
+
 
 interface RewardProps {
   spin: number;
@@ -22,7 +27,7 @@ interface RewardProps {
 }
 
 const Reward = ({ spin, prize, handleHideReward, spinAgain }: RewardProps) => {
-  const { rouletteContract } = useContext(Web3Context);
+  const { rouletteContract, account, convertToNumberString } = useContext(Web3Context);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [currentPrize, setCurrentPrize] = useState<Prize | null>(prize);
 
@@ -31,23 +36,45 @@ const Reward = ({ spin, prize, handleHideReward, spinAgain }: RewardProps) => {
   const video = currentPrize?.prizePartner;
 
   const tryAgain = () => {
-    setCurrentPrize(null); // Clear the current prize
+    setCurrentPrize(null);
     handleHideReward();
     spinAgain();
     setCurrentPrize(prize);
   };
 
-  const claimReward = (): void => {
-    if (currentPrize && rouletteContract) {
-      const { _userAddress, _transactionNumber, _tokenAddress, _nftId, signature } = currentPrize;
-      rouletteContract
-        .transferERC721(_userAddress, _tokenAddress, _nftId, _transactionNumber, signature)
-        .then(() => {
-          console.log(currentPrize);
-        })
-        .catch(() => {});
+  const claimPrize = async (prize: Prize | null) => {
+    if(!(rouletteContract && account && prize)) return
+    try {
+      let tokenAmount;
+      if ((prize.prizeType == "erc20" || prize.prizeType == "mix") && prize.tokenAmount) {
+        tokenAmount = utils.parseUnits(convertToNumberString(prize.tokenAmount), prize.tokenDecimals);
+      }
+  
+      switch (prize.prizeType) {
+        case "erc721":
+          await rouletteContract.mintERC721(account, prize.nftAddress, prize.transactionRandomNumber, prize.signature);
+          break;
+  
+        case "erc20":
+          await rouletteContract.transferERC20(account, prize.tokenAddress, tokenAmount,prize.transactionRandomNumber, prize.signature);
+          break;
+  
+        case "mix":
+          await rouletteContract.mixTransaction(account, prize.tokenAddress, prize.nftAddress ,tokenAmount,prize.transactionRandomNumber, prize.signature);
+          break;
+  
+        default:
+          console.log("Unknown prize type");
+          break;
+      }
+      handleHideReward()
+    } catch (e:any) {
+      const errorMessage = e.reason || e.message || "Unknown error occurred";
+      toastr.error(errorMessage.charAt(0).toUpperCase()
+      + errorMessage.slice(1));
+      handleHideReward()
     }
-  };
+  }
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-between py-10 relative md:gap-20">
@@ -103,14 +130,14 @@ const Reward = ({ spin, prize, handleHideReward, spinAgain }: RewardProps) => {
               Spin Again
             </button>
           </div>
-          <div className="w-[174px] h-[50px] rounded-full border-gradient-white flex items-center justify-center">
+          {win && <div className="w-[174px] h-[50px] rounded-full border-gradient-white flex items-center justify-center">
             <button
               className="w-full h-[90%] bg-white rounded-full font-bold text-[18px] flex items-center justify-center m-1 hover:bg-[#03d9af1a] hover:text-white transition-all duration-300"
-              onClick={claimReward}
+              onClick={() => claimPrize(currentPrize)}
             >
               Mint now
             </button>
-          </div>
+          </div>}
         </div>
         {spin >= 5 && (
           <p className="w-5/6 md:w-1/3 bottom-0 text-center text-xs text-white absolute">

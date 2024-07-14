@@ -1,6 +1,31 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import toastr from 'toastr';
+import 'toastr/build/toastr.min.css';
+import { Web3Context } from '../../web3';
+import { utils } from 'ethers';
 
-interface RewardProps {
+interface Prize {
+  prizeWon: boolean;
+  name: string;
+  prizeClass: 'Platinum' | 'Gold' | 'Silver';
+  tokenAddress?: string;
+  nftAddress?: string;
+  tokenAmount?: number;
+  tokenDecimals?: number;
+  prizeType:string;
+  prizePartner: string;  
+  transactionRandomNumber?: number;
+  date: string;
+  signature: string;
+  claimed?: boolean;
+  index?: any;
+}
+
+interface RewardHistoryProps {
+  rewards: Prize[];
+}
+
+/*interface RewardProps {
   index?: number;
   name: string;
   prizePartner: string;
@@ -11,7 +36,7 @@ interface RewardProps {
 
 interface RewardHistoryProps {
   rewards: RewardProps[];
-}
+}*/
 
 export const RewardHistory = ({ rewards }: RewardHistoryProps) => {
   const [view, setView] = useState<'all' | 'available' | 'minted'>('all');
@@ -63,7 +88,8 @@ export const RewardHistory = ({ rewards }: RewardHistoryProps) => {
   );
 };
 
-const Reward = ({ name, prizeClass, prizePartner, date, claimed }: RewardProps) => {
+const Reward = ({ name, prizeType, prizeClass, prizePartner, date, claimed, tokenDecimals, nftAddress, transactionRandomNumber, signature, tokenAddress }: Prize) => {
+  const { rouletteContract, account, convertToNumberString } = useContext(Web3Context);
   const formatDate = (dateString: string | number | Date) => {
     const date = new Date(dateString);
 
@@ -80,9 +106,37 @@ const Reward = ({ name, prizeClass, prizePartner, date, claimed }: RewardProps) 
     return `${month} ${day}${suffix}, ${year}, ${hours}:${minutes}${ampm}`;
   };
 
-  const handleClaimReward = () => {
-    console.log('Claiming reward');
-  };
+  const claimPrize = async () => {
+    if(!(rouletteContract && account && !claimed)) return
+    try {
+      let tokenAmount;
+      if ((prizeType == "erc20" || prizeType == "mix") && tokenAmount) {
+        tokenAmount = utils.parseUnits(convertToNumberString(tokenAmount), tokenDecimals);
+      }
+  
+      switch (prizeType) {
+        case "erc721":
+          await rouletteContract.mintERC721(account, nftAddress, transactionRandomNumber, signature);
+          break;
+  
+        case "erc20":
+          await rouletteContract.transferERC20(account, tokenAddress, tokenAmount, transactionRandomNumber, signature);
+          break;
+  
+        case "mix":
+          await rouletteContract.mixTransaction(account, tokenAddress, nftAddress, tokenAmount, transactionRandomNumber, signature);
+          break;
+  
+        default:
+          console.log("Unknown prize type");
+          break;
+      }
+    } catch (e:any) {
+      const errorMessage = e.reason || e.message || "Unknown error occurred";
+      toastr.error(errorMessage.charAt(0).toUpperCase()
+      + errorMessage.slice(1));
+    }
+  }
 
   const backgroundprizeClass: { [key: string]: string } = {
     Gold: 'bg-[#FFCE00]',
@@ -109,8 +163,8 @@ const Reward = ({ name, prizeClass, prizePartner, date, claimed }: RewardProps) 
             <p className="text-[#01604D]">Claimed</p>
           </div>
         ) : (
-          <button className="flex items-center gap-2" onClick={handleClaimReward}>
-            <p className="text-nowrap">Claim now</p>
+          <button className="flex items-center gap-2" onClick={()=> claimPrize()}>
+            <p className="text-nowrap" >Claim now</p>
             <img src="/images/V2/icon-go.svg" alt="claimed" />
           </button>
         )}

@@ -6,8 +6,25 @@ import LateralModal from '../Modal/LateralModal';
 import { FAQ } from '../FAQ/FAQV2';
 import { RewardHistory } from '../RewardHistory/RewardHistory';
 
+interface Prize {
+  prizeWon: boolean;
+  name: string;
+  prizeClass: 'Platinum' | 'Gold' | 'Silver';
+  tokenAddress?: string;
+  nftAddress?: string;
+  tokenAmount?: number;
+  tokenDecimals?: number;
+  prizeType:string;
+  prizePartner: string;  
+  transactionRandomNumber?: number;
+  date: string;
+  signature: string;
+  claimed?: boolean
+}
+
+
 const Navbar = () => {
-  const { account, connectWeb3, disconnectWeb3 } = useContext(Web3Context);
+  const { account, connectWeb3, disconnectWeb3, rouletteContract } = useContext(Web3Context);
   const [points, setPoints] = useState<number>(0);
   const [username, setUserName] = useState<string>('');
   const [avatarURL, setAvatarURL] = useState<string>('');
@@ -16,7 +33,29 @@ const Navbar = () => {
   const [shouldChangeClaimColor, setShouldChangeClaimColor] = useState<boolean>(false);
   const [openInfoModal, setOpenInfoModal] = useState<boolean>(false);
   const [openClaimModal, setOpenClaimModal] = useState<boolean>(false);
-  const [prizes, setPrizes] = useState<[]>([]);
+  const [prizes, setPrizes] = useState<Prize[]>([]);
+
+  const checkIfPrizeWasMinted = async (listOfPrizes: Prize[]) => {
+    try {
+      // Map over the list of prizes and create an array of promises
+      const prizesCheckedPromises = listOfPrizes.map(async (currentPrize: Prize) => {
+        if(!rouletteContract) return currentPrize
+        const claimed = await rouletteContract.isSignatureUseed(currentPrize.signature);
+        return {
+          ...currentPrize,
+          claimed
+        };
+      });
+  
+      // Wait for all promises to resolve
+      const prizesChecked = await Promise.all(prizesCheckedPromises);
+  
+      return prizesChecked;
+    } catch (error) {
+      console.error("Error checking if prizes were minted:", error);
+      return []; // Return an empty array in case of an error
+    }
+  };
 
   useEffect(() => {
     if (localStorage.getItem('logged') === 'yes') {
@@ -50,8 +89,9 @@ const Navbar = () => {
     if (account) {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/getUserData/${account}`)
-        .then(response => {
-          setPrizes(response?.data?.prizes);
+        .then(async response => {
+          const prizes = await checkIfPrizeWasMinted(response?.data?.prizes)
+          setPrizes(prizes);
           setPoints(response?.data?.experience);
         })
         .catch(error => {

@@ -37,7 +37,6 @@ const SpinWheel = () => {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/getUserData/${account}`)
         .then(response => {
-          console.log(response);
           setCurrentSpin(response?.data?.amountOfSpinsOfToday);
           setFutureTime(new Date(response?.data?.nextRestart));
         })
