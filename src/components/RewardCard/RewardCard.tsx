@@ -1,21 +1,21 @@
 import { useRef } from 'react';
 
 interface RewardCardProps {
-  name: string;
-  claimed: number;
-  total: number;
-  video: string;
-  type: number;
+  name: string | undefined;
+  claimed: number | undefined;
+  total: number | undefined;
+  video: string | undefined;
+  type: string | undefined;
 }
 
-const RewardCard = ({ name, claimed = 0, total = 0, video, type }: RewardCardProps) => {
+const RewardCard = ({ name, claimed, total, video, type }: RewardCardProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // Determine the border gradient class based on type
   let borderClass = '';
-  if (type === 0) {
+  if (type === 'gold') {
     borderClass = 'border-gradient-gold';
-  } else if (type === 1) {
+  } else if (type === 'platinum') {
     borderClass = 'border-gradient-platinum';
   } else {
     borderClass = 'border-gradient-silver';
