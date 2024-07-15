@@ -29,14 +29,19 @@ const SpinWheel = () => {
   const spinnerRef = useRef<HTMLImageElement>(null);
   const spinnerRef2 = useRef<HTMLImageElement>(null);
   const [currentSpin, setCurrentSpin] = useState<number>(0);
+  const [experience, setExperience] = useState<number>(0);
   const [lastSpinTime, setLastSpinTime] = useState<number>(0);
   const [prize, setPrize] = useState<PrizeProps | null>(null);
+  const [cardPrizes, setCardPrizes] = useState([]);
 
   useEffect(() => {
     if (account) {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/getUserData/${account}`)
         .then(response => {
+          console.log(response?.data);
+          setExperience(response?.data?.experience);
+          setCardPrizes(response?.data?.prizesDelivered);
           setCurrentSpin(response?.data?.amountOfSpinsOfToday);
           setFutureTime(new Date(response?.data?.nextRestart));
         })
@@ -116,6 +121,7 @@ const SpinWheel = () => {
             spin={currentSpin}
             handleHideReward={handleHideReward}
             spinAgain={handleSpinWheelLogic}
+            experience={experience}
           />
         </RewardModal>
       )}
@@ -125,7 +131,7 @@ const SpinWheel = () => {
         className="w-screen h-screen flex items-start justify-center px-[50px] pt-8 lg:pt-0"
         ref={targetDivRef}
       >
-        <RewardsBreakdown />
+        <RewardsBreakdown prizesInfo={cardPrizes} />
       </div>
     </>
   );
