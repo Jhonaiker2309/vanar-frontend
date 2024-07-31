@@ -1,7 +1,7 @@
-import { useRef, useContext, useState } from 'react';
-import { Web3Context } from '../../web3';
-import { utils } from 'ethers';
-import toastr from 'toastr';
+import { useRef, useState } from 'react';
+// import { Web3Context } from '../../web3';
+// import { utils } from 'ethers';
+// import toastr from 'toastr';
 import 'toastr/build/toastr.min.css';
 
 interface Prize {
@@ -27,7 +27,7 @@ interface RewardProps {
 }
 
 const Reward = ({ spin, prize, handleHideReward, spinAgain, experience }: RewardProps) => {
-  const { rouletteContract, account, convertToNumberString } = useContext(Web3Context);
+  // const { rouletteContract, account, convertToNumberString } = useContext(Web3Context);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [currentPrize, setCurrentPrize] = useState<Prize | null>(prize);
 
@@ -43,59 +43,64 @@ const Reward = ({ spin, prize, handleHideReward, spinAgain, experience }: Reward
     setCurrentPrize(prize);
   };
 
-  const claimPrize = async (prize: Prize | null) => {
-    if (!(rouletteContract && account && prize)) return;
-    try {
-      let tokenAmount;
-      if ((prize.prizeType == 'erc20' || prize.prizeType == 'mix') && prize.tokenAmount) {
-        tokenAmount = utils.parseUnits(
-          convertToNumberString(prize.tokenAmount),
-          prize.tokenDecimals,
-        );
-      }
-      switch (prize.prizeType) {
-        case 'erc721':
-          await rouletteContract.mintERC721(
-            account,
-            prize.nftAddress,
-            prize.transactionRandomNumber,
-            prize.signature,
-          );
-          break;
-
-        case 'erc20':
-          await rouletteContract.transferERC20(
-            account,
-            prize.tokenAddress,
-            tokenAmount,
-            prize.transactionRandomNumber,
-            prize.signature,
-          );
-          break;
-
-        case 'mix':
-          await rouletteContract.mixTransaction(
-            account,
-            prize.tokenAddress,
-            prize.nftAddress,
-            tokenAmount,
-            prize.transactionRandomNumber,
-            prize.signature,
-          );
-          break;
-
-        default:
-          console.log('Unknown prize type');
-          break;
-      }
-      handleHideReward();
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (e: any) {
-      const errorMessage = e.reason || e.message || 'Unknown error occurred';
-      toastr.error(errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1));
-      handleHideReward();
-    }
+  const closeModal = () => {
+    handleHideReward();
+    setCurrentPrize(null);
   };
+
+  // const claimPrize = async (prize: Prize | null) => {
+  //   if (!(rouletteContract && account && prize)) return;
+  //   try {
+  //     let tokenAmount;
+  //     if ((prize.prizeType == 'erc20' || prize.prizeType == 'mix') && prize.tokenAmount) {
+  //       tokenAmount = utils.parseUnits(
+  //         convertToNumberString(prize.tokenAmount),
+  //         prize.tokenDecimals,
+  //       );
+  //     }
+  //     switch (prize.prizeType) {
+  //       case 'erc721':
+  //         await rouletteContract.mintERC721(
+  //           account,
+  //           prize.nftAddress,
+  //           prize.transactionRandomNumber,
+  //           prize.signature,
+  //         );
+  //         break;
+
+  //       case 'erc20':
+  //         await rouletteContract.transferERC20(
+  //           account,
+  //           prize.tokenAddress,
+  //           tokenAmount,
+  //           prize.transactionRandomNumber,
+  //           prize.signature,
+  //         );
+  //         break;
+
+  //       case 'mix':
+  //         await rouletteContract.mixTransaction(
+  //           account,
+  //           prize.tokenAddress,
+  //           prize.nftAddress,
+  //           tokenAmount,
+  //           prize.transactionRandomNumber,
+  //           prize.signature,
+  //         );
+  //         break;
+
+  //       default:
+  //         console.log('Unknown prize type');
+  //         break;
+  //     }
+  //     handleHideReward();
+  //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //   } catch (e: any) {
+  //     const errorMessage = e.reason || e.message || 'Unknown error occurred';
+  //     toastr.error(errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1));
+  //     handleHideReward();
+  //   }
+  // };
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-between py-10 relative md:gap-20">
@@ -158,22 +163,41 @@ const Reward = ({ spin, prize, handleHideReward, spinAgain, experience }: Reward
                 Spin Again
               </button>
             </div>
-            {win && (
-              <div className="w-[174px] h-[50px] rounded-full border-gradient-white flex items-center justify-center">
-                <button
-                  className="w-full h-[90%] bg-white rounded-full font-bold text-[18px] flex items-center justify-center m-1 hover:bg-[#03d9af1a] hover:text-white transition-all duration-300"
-                  onClick={() => claimPrize(currentPrize)}
-                >
-                  Mint now
-                </button>
-              </div>
-            )}
+            <div className="w-[174px] h-[50px] rounded-full border-gradient-white flex items-center justify-center">
+              <button
+                className="w-full h-[90%] bg-white rounded-full font-bold text-[18px] flex items-center justify-center m-1 hover:bg-[#03d9af1a] hover:text-white transition-all duration-300"
+                onClick={() => closeModal()}
+              >
+                Go back
+              </button>
+            </div>
           </div>
+          {win && (
+            <p className="text-white text-xs">Your rewards will soon be sent to your wallet.</p>
+            // <div className="w-[174px] h-[50px] rounded-full border-gradient-white flex items-center justify-center">
+            //   <button
+            //     className="w-full h-[90%] bg-white rounded-full font-bold text-[18px] flex items-center justify-center m-1 hover:bg-[#03d9af1a] hover:text-white transition-all duration-300"
+            //     onClick={() => claimPrize(currentPrize)}
+            //   >
+            //     Mint now
+            //   </button>
+            // </div>
+          )}
           {spin >= 5 && (
             <p className="w-5/6 md:w-1/3 bottom-0 text-center text-xs text-white absolute">
               Get 5th Spin today by sharing your reward on twitter
             </p>
           )}
+        </div>
+      )}
+      {dontHaveExperience && (
+        <div className="w-[174px] h-[50px] rounded-full border-gradient-white flex items-center justify-center">
+          <button
+            className="w-full h-[90%] bg-white rounded-full font-bold text-[18px] flex items-center justify-center m-1 hover:bg-[#03d9af1a] hover:text-white transition-all duration-300"
+            onClick={() => closeModal()}
+          >
+            Go back
+          </button>
         </div>
       )}
     </div>

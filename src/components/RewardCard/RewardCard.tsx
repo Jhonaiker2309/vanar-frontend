@@ -33,10 +33,10 @@ const RewardCard = ({ name, claimed, total, video, type }: RewardCardProps) => {
           autoPlay
           className="w-full md:w-[384px] rounded-[14px] relative z-0 -mt-16"
         >
-          <source src={`videos/video-${video}.mp4`} type="video/mp4" />
+          <source src={video} type="video/mp4" />
         </video>
       </div>
-      <h1 className="text-white font-semibold text-[32px] px-4">{name}</h1>
+      <h1 className="text-white font-semibold text-[20px] px-4">{name}</h1>
       <div className="flex justify-between items-center px-4 pb-4">
         <div className="flex items-center gap-4">
           <p className="text-[#ADADAD]">Remaining Rewards</p>
