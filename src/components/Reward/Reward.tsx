@@ -43,6 +43,11 @@ const Reward = ({ spin, prize, handleHideReward, spinAgain, experience }: Reward
     setCurrentPrize(prize);
   };
 
+  const closeModal = () => {
+    handleHideReward();
+    setCurrentPrize(null);
+  };
+
   const claimPrize = async (prize: Prize | null) => {
     if (!(rouletteContract && account && prize)) return;
     try {
@@ -174,6 +179,16 @@ const Reward = ({ spin, prize, handleHideReward, spinAgain, experience }: Reward
               Get 5th Spin today by sharing your reward on twitter
             </p>
           )}
+        </div>
+      )}
+      {dontHaveExperience && (
+        <div className="w-[174px] h-[50px] rounded-full border-gradient-white flex items-center justify-center">
+          <button
+            className="w-full h-[90%] bg-white rounded-full font-bold text-[18px] flex items-center justify-center m-1 hover:bg-[#03d9af1a] hover:text-white transition-all duration-300"
+            onClick={() => closeModal()}
+          >
+            Go back
+          </button>
         </div>
       )}
     </div>

@@ -14,14 +14,13 @@ interface Prize {
   nftAddress?: string;
   tokenAmount?: number;
   tokenDecimals?: number;
-  prizeType:string;
-  prizePartner: string;  
+  prizeType: string;
+  prizePartner: string;
   transactionRandomNumber?: number;
   date: string;
   signature: string;
-  claimed?: boolean
+  claimed?: boolean;
 }
-
 
 const Navbar = () => {
   const { account, connectWeb3, disconnectWeb3, rouletteContract } = useContext(Web3Context);
@@ -39,20 +38,20 @@ const Navbar = () => {
     try {
       // Map over the list of prizes and create an array of promises
       const prizesCheckedPromises = listOfPrizes.map(async (currentPrize: Prize) => {
-        if(!rouletteContract) return currentPrize
+        if (!rouletteContract) return currentPrize;
         const claimed = await rouletteContract.isSignatureUseed(currentPrize.signature);
         return {
           ...currentPrize,
-          claimed
+          claimed,
         };
       });
-  
+
       // Wait for all promises to resolve
       const prizesChecked = await Promise.all(prizesCheckedPromises);
-  
+
       return prizesChecked;
     } catch (error) {
-      console.error("Error checking if prizes were minted:", error);
+      console.error('Error checking if prizes were minted:', error);
       return []; // Return an empty array in case of an error
     }
   };
@@ -90,7 +89,8 @@ const Navbar = () => {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/getUserData/${account}`)
         .then(async response => {
-          const prizes = await checkIfPrizeWasMinted(response?.data?.prizes)
+          const prizes = await checkIfPrizeWasMinted(response?.data?.prizes);
+          console.log(prizes);
           setPrizes(prizes);
           setPoints(response?.data?.experience);
         })

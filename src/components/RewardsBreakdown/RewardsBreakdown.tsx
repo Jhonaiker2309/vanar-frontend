@@ -33,7 +33,8 @@ const RewardsBreakdown = ({ prizesInfo }: RewardsBreakdownProps) => {
           name: 'Vanar',
           claimed: prizesInfo[13]?.deliveredCount,
           total: prizesInfo[13]?.total,
-          video: 'Vanar',
+          video:
+            'https://drive.google.com/file/d/1DQg1mkLncqSu2Wst33zFlB-iZmNkuVO0/view?usp=drive_link',
         },
         {
           name: 'PVP',
@@ -66,15 +67,9 @@ const RewardsBreakdown = ({ prizesInfo }: RewardsBreakdownProps) => {
           video: 'SpaceID',
         },
         {
-          name: 'Nitro Leage',
+          name: 'Nitroleage',
           claimed: prizesInfo[0]?.deliveredCount,
           total: prizesInfo[0]?.total,
-          video: 'Nitro League',
-        },
-        {
-          name: 'Nitro Leage',
-          claimed: prizesInfo[12]?.deliveredCount,
-          total: prizesInfo[12]?.total,
           video: 'Nitro League',
         },
       ],
@@ -122,7 +117,7 @@ const RewardsBreakdown = ({ prizesInfo }: RewardsBreakdownProps) => {
           video: 'Maians',
         },
         {
-          name: 'Nitro Leage',
+          name: 'Nitroleage',
           claimed: prizesInfo[7]?.deliveredCount,
           total: prizesInfo[7]?.total,
           video: 'Nitro League',
