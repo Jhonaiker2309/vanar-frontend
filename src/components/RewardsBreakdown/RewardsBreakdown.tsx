@@ -15,8 +15,15 @@ interface Tier {
   rewards: Reward[];
 }
 
+interface PrizeInfo {
+  deliveredCount: number;
+  total: number;
+  name: string;
+  video: string;
+}
+
 interface RewardsBreakdownProps {
-  prizesInfo: { deliveredCount: number; total: number }[];
+  prizesInfo: PrizeInfo[];
 }
 
 const RewardsBreakdown = ({ prizesInfo }: RewardsBreakdownProps) => {
@@ -30,47 +37,46 @@ const RewardsBreakdown = ({ prizesInfo }: RewardsBreakdownProps) => {
       outcome: '20%',
       rewards: [
         {
-          name: 'Vanar',
-          claimed: prizesInfo[13]?.deliveredCount,
-          total: prizesInfo[13]?.total,
-          video:
-            'https://drive.google.com/file/d/1DQg1mkLncqSu2Wst33zFlB-iZmNkuVO0/view?usp=drive_link',
-        },
-        {
-          name: 'PVP',
-          claimed: prizesInfo[2]?.deliveredCount,
-          total: prizesInfo[2]?.total,
-          video: 'PVP',
-        },
-        {
-          name: 'Auriswap',
-          claimed: prizesInfo[1]?.deliveredCount,
-          total: prizesInfo[1]?.total,
-          video: 'AuriSwap',
-        },
-        {
-          name: 'Bazaa',
-          claimed: prizesInfo[3]?.deliveredCount,
-          total: prizesInfo[3]?.total,
-          video: 'Bazaa',
-        },
-        {
-          name: 'Maians',
-          claimed: prizesInfo[5]?.deliveredCount,
-          total: prizesInfo[5]?.total,
-          video: 'Maians',
-        },
-        {
-          name: 'Space ID',
-          claimed: prizesInfo[4]?.deliveredCount,
-          total: prizesInfo[4]?.total,
-          video: 'SpaceID',
-        },
-        {
-          name: 'Nitroleage',
+          name: prizesInfo[0]?.name,
           claimed: prizesInfo[0]?.deliveredCount,
           total: prizesInfo[0]?.total,
-          video: 'Nitro League',
+          video: prizesInfo[0]?.video,
+        },
+        {
+          name: prizesInfo[3]?.name,
+          claimed: prizesInfo[3]?.deliveredCount,
+          total: prizesInfo[3]?.total,
+          video: prizesInfo[3]?.video,
+        },
+        {
+          name: prizesInfo[4]?.name,
+          claimed: prizesInfo[4]?.deliveredCount,
+          total: prizesInfo[4]?.total,
+          video: prizesInfo[4]?.video,
+        },
+        {
+          name: prizesInfo[6]?.name,
+          claimed: prizesInfo[6]?.deliveredCount,
+          total: prizesInfo[6]?.total,
+          video: prizesInfo[6]?.video,
+        },
+        {
+          name: prizesInfo[10]?.name,
+          claimed: prizesInfo[10]?.deliveredCount,
+          total: prizesInfo[10]?.total,
+          video: prizesInfo[10]?.video,
+        },
+        {
+          name: prizesInfo[12]?.name,
+          claimed: prizesInfo[12]?.deliveredCount,
+          total: prizesInfo[12]?.total,
+          video: prizesInfo[12]?.video,
+        },
+        {
+          name: prizesInfo[13]?.name,
+          claimed: prizesInfo[13]?.deliveredCount,
+          total: prizesInfo[13]?.total,
+          video: prizesInfo[13]?.video,
         },
       ],
     },
@@ -80,16 +86,16 @@ const RewardsBreakdown = ({ prizesInfo }: RewardsBreakdownProps) => {
       outcome: '10%',
       rewards: [
         {
-          name: 'Vanar Jackpot',
-          claimed: prizesInfo[10]?.deliveredCount,
-          total: prizesInfo[10]?.total,
-          video: 'Jackpot',
+          name: prizesInfo[1]?.name,
+          claimed: prizesInfo[1]?.deliveredCount,
+          total: prizesInfo[1]?.total,
+          video: prizesInfo[1]?.video,
         },
         {
-          name: 'Vanar Jackpot',
-          claimed: prizesInfo[11]?.deliveredCount,
-          total: prizesInfo[11]?.total,
-          video: 'Jackpot',
+          name: prizesInfo[2]?.name,
+          claimed: prizesInfo[2]?.deliveredCount,
+          total: prizesInfo[2]?.total,
+          video: prizesInfo[2]?.video,
         },
       ],
     },
@@ -99,28 +105,34 @@ const RewardsBreakdown = ({ prizesInfo }: RewardsBreakdownProps) => {
       outcome: '15%',
       rewards: [
         {
-          name: 'Auriswap',
-          claimed: prizesInfo[9]?.deliveredCount,
-          total: prizesInfo[9]?.total,
-          video: 'AuriSwap',
+          name: prizesInfo[5]?.name,
+          claimed: prizesInfo[5]?.deliveredCount,
+          total: prizesInfo[5]?.total,
+          video: prizesInfo[5]?.video,
         },
         {
-          name: 'Bazaa',
-          claimed: prizesInfo[8]?.deliveredCount,
-          total: prizesInfo[8]?.total,
-          video: 'Bazaa',
-        },
-        {
-          name: 'Maians',
-          claimed: prizesInfo[6]?.deliveredCount,
-          total: prizesInfo[6]?.total,
-          video: 'Maians',
-        },
-        {
-          name: 'Nitroleage',
+          name: prizesInfo[7]?.name,
           claimed: prizesInfo[7]?.deliveredCount,
           total: prizesInfo[7]?.total,
-          video: 'Nitro League',
+          video: prizesInfo[7]?.video,
+        },
+        {
+          name: prizesInfo[8]?.name,
+          claimed: prizesInfo[8]?.deliveredCount,
+          total: prizesInfo[8]?.total,
+          video: prizesInfo[8]?.video,
+        },
+        {
+          name: prizesInfo[9]?.name,
+          claimed: prizesInfo[9]?.deliveredCount,
+          total: prizesInfo[9]?.total,
+          video: prizesInfo[9]?.video,
+        },
+        {
+          name: prizesInfo[11]?.name,
+          claimed: prizesInfo[11]?.deliveredCount,
+          total: prizesInfo[11]?.total,
+          video: prizesInfo[11]?.video,
         },
       ],
     },

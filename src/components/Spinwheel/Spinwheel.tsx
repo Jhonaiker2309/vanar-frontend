@@ -2,6 +2,7 @@ interface SpinwheelProps {
   spinnerRef: React.RefObject<HTMLImageElement>;
   spinnerRef2: React.RefObject<HTMLImageElement>;
   handleSpinWheelLogic: () => void;
+  currentSpin: number;
 }
 
 const Spinwheel = ({ spinnerRef, spinnerRef2, handleSpinWheelLogic }: SpinwheelProps) => {

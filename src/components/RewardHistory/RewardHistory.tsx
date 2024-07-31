@@ -1,8 +1,5 @@
-import { useState, useContext } from 'react';
-import toastr from 'toastr';
+import { useState } from 'react';
 import 'toastr/build/toastr.min.css';
-import { Web3Context } from '../../web3';
-import { utils } from 'ethers';
 
 interface Prize {
   prizeWon: boolean;
@@ -12,12 +9,13 @@ interface Prize {
   nftAddress?: string;
   tokenAmount?: number;
   tokenDecimals?: number;
-  prizeType:string;
-  prizePartner: string;  
+  prizeType: string;
+  prizePartner: string;
   transactionRandomNumber?: number;
   date: string;
   signature: string;
   claimed?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   index?: any;
 }
 
@@ -58,23 +56,7 @@ export const RewardHistory = ({ rewards }: RewardHistoryProps) => {
               view === 'all' ? 'bg-black text-white' : 'text-black bg-[#EDEDEE]'
             }`}
           >
-            All
-          </button>
-          <button
-            onClick={() => setView('available')}
-            className={`py-2 md:px-8 w-full md:w-fit rounded-xl text-xs md:text-base ${
-              view === 'available' ? 'bg-black text-white' : 'text-black bg-[#EDEDEE]'
-            }`}
-          >
-            Available Rewards
-          </button>
-          <button
-            onClick={() => setView('minted')}
-            className={`py-2 md:px-8 w-full md:w-fit rounded-xl text-xs md:text-base ${
-              view === 'minted' ? 'bg-black text-white' : 'text-black bg-[#EDEDEE]'
-            }`}
-          >
-            Minted Rewards
+            Earned Rewards
           </button>
         </div>
       </div>
@@ -88,8 +70,7 @@ export const RewardHistory = ({ rewards }: RewardHistoryProps) => {
   );
 };
 
-const Reward = ({ name, prizeType, prizeClass, prizePartner, date, claimed, tokenAmount,tokenDecimals, nftAddress, transactionRandomNumber, signature, tokenAddress }: Prize) => {
-  const { rouletteContract, account, convertToNumberString } = useContext(Web3Context);
+const Reward = ({ name, prizeClass, prizePartner, date, claimed }: Prize) => {
   const formatDate = (dateString: string | number | Date) => {
     const date = new Date(dateString);
 
@@ -105,38 +86,6 @@ const Reward = ({ name, prizeType, prizeClass, prizePartner, date, claimed, toke
 
     return `${month} ${day}${suffix}, ${year}, ${hours}:${minutes}${ampm}`;
   };
-
-  const claimPrize = async () => {
-    if(!(rouletteContract && account && !claimed)) return
-    try {
-      let currentTokenAmount;
-      if ((prizeType == "erc20" || prizeType == "mix") && tokenAmount) {
-        currentTokenAmount = utils.parseUnits(convertToNumberString(tokenAmount), tokenDecimals);
-      }
-  
-      switch (prizeType) {
-        case "erc721":
-          await rouletteContract.mintERC721(account, nftAddress, transactionRandomNumber, signature);
-          break;
-  
-        case "erc20":
-          await rouletteContract.transferERC20(account, tokenAddress, currentTokenAmount, transactionRandomNumber, signature);
-          break;
-  
-        case "mix":
-          await rouletteContract.mixTransaction(account, tokenAddress, nftAddress, currentTokenAmount, transactionRandomNumber, signature);
-          break;
-  
-        default:
-          console.log("Unknown prize type");
-          break;
-      }
-    } catch (e:any) {
-      const errorMessage = e.reason || e.message || "Unknown error occurred";
-      toastr.error(errorMessage.charAt(0).toUpperCase()
-      + errorMessage.slice(1));
-    }
-  }
 
   const backgroundprizeClass: { [key: string]: string } = {
     Gold: 'bg-[#FFCE00]',
@@ -157,16 +106,11 @@ const Reward = ({ name, prizeType, prizeClass, prizePartner, date, claimed, toke
         <p className="">{formatDate(date)}</p>
       </div>
       <div className="w-1/4 flex justify-center items-center">
-        {claimed ? (
+        {claimed && (
           <div className="flex items-center gap-2">
             <img src="/images/V2/icon-check-green.svg" alt="claimed" />
             <p className="text-[#01604D]">Claimed</p>
           </div>
-        ) : (
-          <button className="flex items-center gap-2" onClick={()=> claimPrize()}>
-            <p className="text-nowrap" >Claim now</p>
-            <img src="/images/V2/icon-go.svg" alt="claimed" />
-          </button>
         )}
       </div>
     </div>

@@ -39,7 +39,7 @@ const SpinWheel = () => {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/getUserData/${account}`)
         .then(response => {
-          console.log(response?.data);
+          console.log(response?.data?.prizesDelivered);
           setExperience(response?.data?.experience);
           setCardPrizes(response?.data?.prizesDelivered);
           setCurrentSpin(response?.data?.amountOfSpinsOfToday);
@@ -58,7 +58,7 @@ const SpinWheel = () => {
   };
 
   const handleSpinWheelLogic = () => {
-    if (account) {
+    if (account && currentSpin < 4) {
       const currentTime = Date.now();
       if (currentTime - lastSpinTime >= 2000) {
         // 2000 ms = 2 seconds
@@ -99,6 +99,7 @@ const SpinWheel = () => {
             handleSpinWheelLogic={handleSpinWheelLogic}
             spinnerRef={spinnerRef}
             spinnerRef2={spinnerRef2}
+            currentSpin={currentSpin}
           />
         </div>
 
