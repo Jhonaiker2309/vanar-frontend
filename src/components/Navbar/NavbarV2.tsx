@@ -23,7 +23,7 @@ interface Prize {
 }
 
 const Navbar = () => {
-  const { account, connectWeb3, disconnectWeb3, rouletteContract } = useContext(Web3Context);
+  const { account, connectWeb3, disconnectWeb3 /*, rouletteContract*/ } = useContext(Web3Context);
   const [points, setPoints] = useState<number>(0);
   const [username, setUserName] = useState<string>('');
   const [avatarURL, setAvatarURL] = useState<string>('');
@@ -34,7 +34,7 @@ const Navbar = () => {
   const [openClaimModal, setOpenClaimModal] = useState<boolean>(false);
   const [prizes, setPrizes] = useState<Prize[]>([]);
 
-  const checkIfPrizeWasMinted = async (listOfPrizes: Prize[]) => {
+  /*const checkIfPrizeWasMinted = async (listOfPrizes: Prize[]) => {
     try {
       // Map over the list of prizes and create an array of promises
       const prizesCheckedPromises = listOfPrizes.map(async (currentPrize: Prize) => {
@@ -54,7 +54,7 @@ const Navbar = () => {
       console.error('Error checking if prizes were minted:', error);
       return []; // Return an empty array in case of an error
     }
-  };
+  };*/
 
   useEffect(() => {
     if (localStorage.getItem('logged') === 'yes') {
