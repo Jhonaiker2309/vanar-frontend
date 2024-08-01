@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 // import { Web3Context } from '../../web3';
 // import { utils } from 'ethers';
 // import toastr from 'toastr';
@@ -15,6 +15,7 @@ interface Prize {
   prizeType?: string;
   prizePartner?: string;
   transactionRandomNumber?: number;
+  video: string;
   signature?: string;
 }
 
@@ -30,11 +31,14 @@ const Reward = ({ spin, prize, handleHideReward, spinAgain, experience }: Reward
   // const { rouletteContract, account, convertToNumberString } = useContext(Web3Context);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [currentPrize, setCurrentPrize] = useState<Prize | null>(prize);
-
-  const win = currentPrize?.prizeWon;
-  const tier = currentPrize?.prizeClass;
-  const video = currentPrize?.prizePartner;
+  const [currentVideo, setCurrentVideo] = useState<string | undefined>('');
+  console.log(prize);
   const dontHaveExperience = experience < 20;
+
+  useEffect(() => {
+    setCurrentPrize(prize);
+    setCurrentVideo(prize?.video);
+  }, [prize]);
 
   const tryAgain = () => {
     setCurrentPrize(null);
@@ -106,17 +110,21 @@ const Reward = ({ spin, prize, handleHideReward, spinAgain, experience }: Reward
     <div className="w-full h-full flex flex-col items-center justify-between py-10 relative md:gap-20">
       <div className="flex flex-col items-center gap-3">
         <h1 className="text-white text-3xl md:text-[46px] font-bold uppercase light-text">
-          {dontHaveExperience ? 'Thanks for playing' : win ? 'Congratulations' : 'Try Again'}
+          {dontHaveExperience
+            ? 'Thanks for playing'
+            : currentPrize?.prizeWon
+            ? 'Congratulations'
+            : 'Try Again'}
         </h1>
         <div className={`px-10 text-center ${dontHaveExperience && 'pt-8'}`}>
           <p className="text-white text-lg">
             {dontHaveExperience
               ? 'Your VP points are over, thanks for taking part in our even, we hope you enjoy your rewards.'
-              : !win
+              : !currentPrize?.prizeWon
               ? 'Sorry! You haven’t won any reward. Please try another spin to win the Rewards'
-              : tier === 'Platinum'
+              : currentPrize?.prizeClass === 'Platinum'
               ? 'You have won Platinum Reward.'
-              : tier === 'Silver'
+              : currentPrize?.prizeClass === 'Silver'
               ? 'You have won Silver Reward.'
               : 'You have won Gold Reward.'}
           </p>
@@ -124,7 +132,7 @@ const Reward = ({ spin, prize, handleHideReward, spinAgain, experience }: Reward
             <p className="text-white text-sm md:text-lg">
               Don't forget to claim your rewards and follow us for future events
             </p>
-          ) : tier === 'Silver' ? (
+          ) : currentPrize?.prizeClass === 'Silver' ? (
             <p className="text-white text-sm md:text-lg">
               Try more spins to get High tier rewards (Gold, Platinum).
             </p>
@@ -136,19 +144,19 @@ const Reward = ({ spin, prize, handleHideReward, spinAgain, experience }: Reward
         </div>
       </div>
 
-      {(!win || dontHaveExperience) && (
+      {(!currentPrize?.prizeWon || dontHaveExperience) && (
         <img
           className="pt-24 absolute z-0 grayscale"
           src={`images/V2/image-spinwheel.svg`}
           alt="icon"
         />
       )}
-      {tier && (
+      {currentPrize?.prizeClass && (
         <div
-          className={`border-gradient-${tier.toLowerCase()} w-[288px] md:w-[320px] md:overflow-hidden md:-mt-24`}
+          className={`border-gradient-${currentPrize?.prizeClass?.toLowerCase()} w-[288px] md:w-[320px] md:overflow-hidden md:-mt-24`}
         >
           <video ref={videoRef} loop muted={true} autoPlay className="rounded-[14px]">
-            <source src={`videos/video-${video}.mp4`} type="video/mp4" />
+            <source src={currentVideo} type="video/mp4" />
           </video>
         </div>
       )}
@@ -172,8 +180,11 @@ const Reward = ({ spin, prize, handleHideReward, spinAgain, experience }: Reward
               </button>
             </div>
           </div>
-          {win && (
-            <p className="text-white text-xs">Your rewards will soon be sent to your wallet.</p>
+          {currentPrize?.prizeWon && (
+            <>
+              <p className="text-white text-xs">Your rewards will soon be sent to your wallet.</p>
+              <p className="text-white text-xs">Your rewards will soon be sent to your wallet.</p>
+            </>
             // <div className="w-[174px] h-[50px] rounded-full border-gradient-white flex items-center justify-center">
             //   <button
             //     className="w-full h-[90%] bg-white rounded-full font-bold text-[18px] flex items-center justify-center m-1 hover:bg-[#03d9af1a] hover:text-white transition-all duration-300"

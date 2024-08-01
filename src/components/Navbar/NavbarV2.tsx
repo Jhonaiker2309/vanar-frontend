@@ -89,16 +89,15 @@ const Navbar = () => {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/getUserData/${account}`)
         .then(async response => {
-          const prizes = await checkIfPrizeWasMinted(response?.data?.prizes);
-          console.log(prizes);
-          setPrizes(prizes);
           setPoints(response?.data?.experience);
+          await setPrizes(prizes);
+          console.log(prizes);
         })
         .catch(error => {
           console.error('Error fetching data:', error);
         });
     }
-  }, [account]);
+  }, [account, prizes]);
 
   const handleChangeInfoColor: React.MouseEventHandler<HTMLDivElement> = () => {
     setShouldChangeInfoColor(!shouldChangeInfoColor);

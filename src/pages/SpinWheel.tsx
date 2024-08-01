@@ -19,6 +19,7 @@ interface PrizeProps {
   prizeWon: boolean;
   prizeClass: 'Platinum' | 'Gold' | 'Silver';
   prizePartner: string;
+  video: string;
 }
 
 const SpinWheel = () => {
@@ -39,7 +40,6 @@ const SpinWheel = () => {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/getUserData/${account}`)
         .then(response => {
-          console.log(response?.data?.prizesDelivered);
           setExperience(response?.data?.experience);
           setCardPrizes(response?.data?.prizesDelivered);
           setCurrentSpin(response?.data?.amountOfSpinsOfToday);
@@ -58,7 +58,7 @@ const SpinWheel = () => {
   };
 
   const handleSpinWheelLogic = () => {
-    if (account && currentSpin < 4) {
+    if (account && currentSpin) {
       const currentTime = Date.now();
       if (currentTime - lastSpinTime >= 2000) {
         // 2000 ms = 2 seconds
