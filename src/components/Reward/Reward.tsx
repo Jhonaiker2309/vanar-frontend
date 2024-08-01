@@ -32,7 +32,6 @@ const Reward = ({ spin, prize, handleHideReward, spinAgain, experience }: Reward
   const videoRef = useRef<HTMLVideoElement>(null);
   const [currentPrize, setCurrentPrize] = useState<Prize | null>(prize);
   const [currentVideo, setCurrentVideo] = useState<string | undefined>('');
-  console.log(prize);
   const dontHaveExperience = experience < 20;
 
   useEffect(() => {
@@ -182,7 +181,6 @@ const Reward = ({ spin, prize, handleHideReward, spinAgain, experience }: Reward
           </div>
           {currentPrize?.prizeWon && (
             <>
-              <p className="text-white text-xs">Your rewards will soon be sent to your wallet.</p>
               <p className="text-white text-xs">Your rewards will soon be sent to your wallet.</p>
             </>
             // <div className="w-[174px] h-[50px] rounded-full border-gradient-white flex items-center justify-center">

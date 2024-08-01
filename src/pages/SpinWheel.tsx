@@ -58,9 +58,9 @@ const SpinWheel = () => {
   };
 
   const handleSpinWheelLogic = () => {
-    if (account && currentSpin) {
+    if (account /*&& (currentSpin < 4)*/) {
       const currentTime = Date.now();
-      if (currentTime - lastSpinTime >= 2000) {
+      if (currentTime - lastSpinTime >= 4000) {
         // 2000 ms = 2 seconds
         if (spinnerRef.current && spinnerRef2.current) {
           spinnerRef.current.classList.add('spin');
@@ -72,10 +72,10 @@ const SpinWheel = () => {
               // Update currentSpin after spinning
               setCurrentSpin(prevSpin => prevSpin + 1);
             });
-            setDisplayReward(true);
+            //setDisplayReward(true);
             spinnerRef.current?.classList.remove('spin');
             spinnerRef2.current?.classList.remove('spin');
-          }, 2000);
+          }, 4000);
         }
         setLastSpinTime(currentTime);
       }

@@ -96,7 +96,7 @@ const Navbar = () => {
           console.error('Error fetching data:', error);
         });
     }
-  }, [account, prizes]);
+  }, [account]);
 
   const handleChangeInfoColor: React.MouseEventHandler<HTMLDivElement> = () => {
     setShouldChangeInfoColor(!shouldChangeInfoColor);
