@@ -90,8 +90,7 @@ const Navbar = () => {
         .get(`${import.meta.env.VITE_BACKEND_URL}/getUserData/${account}`)
         .then(async response => {
           setPoints(response?.data?.experience);
-          await setPrizes(prizes);
-          console.log(prizes);
+          setPrizes(response?.data?.prizes);
         })
         .catch(error => {
           console.error('Error fetching data:', error);
