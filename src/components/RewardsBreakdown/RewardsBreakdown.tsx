@@ -173,13 +173,13 @@ const RewardsBreakdown = ({ prizesInfo }: RewardsBreakdownProps) => {
             >
               {tier.name}
             </p>
-            <p
+            {/*<p
               className={`text-xs md:text-base ${
                 currentTier === tier.name ? `text-white font-semibold` : 'text-[#ADADAD]'
               }`}
             >
               {tier.outcome} Outcome
-            </p>
+            </p>*/}
           </button>
         ))}
       </div>
