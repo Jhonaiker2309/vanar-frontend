@@ -34,6 +34,7 @@ const SpinWheel = () => {
   const [lastSpinTime, setLastSpinTime] = useState<number>(0);
   const [prize, setPrize] = useState<PrizeProps | null>(null);
   const [cardPrizes, setCardPrizes] = useState([]);
+  const [rewardsOverForToday, setRewardsOverForToday] = useState(false);
 
   useEffect(() => {
     if (account) {
@@ -48,6 +49,15 @@ const SpinWheel = () => {
         .catch(error => {
           console.error('Error fetching data:', error);
         });
+    }
+  }, [account]);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username');
+    const state = urlParams.get('state');
+    if (account && username && state) {
+      axios.post(`${import.meta.env.VITE_BACKEND_URL}/tweetAdded/${account}`);
     }
   }, [account]);
 
@@ -68,6 +78,9 @@ const SpinWheel = () => {
             axios.post(`${import.meta.env.VITE_BACKEND_URL}/spinRoulette/${account}`).then(data => {
               setPrize(data.data.prize);
               setDisplayReward(true);
+              if (data.data.message === 'You dont have more spin tries') {
+                setRewardsOverForToday(true);
+              }
               // Update currentSpin after spinning
               setCurrentSpin(prevSpin => prevSpin + 1);
             });
@@ -122,6 +135,7 @@ const SpinWheel = () => {
             handleHideReward={handleHideReward}
             spinAgain={handleSpinWheelLogic}
             experience={experience}
+            rewardsOverForToday={rewardsOverForToday}
           />
         </RewardModal>
       )}

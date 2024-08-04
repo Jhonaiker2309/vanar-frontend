@@ -25,9 +25,17 @@ interface RewardProps {
   handleHideReward: () => void;
   spinAgain: () => void;
   experience: number;
+  rewardsOverForToday: boolean;
 }
 
-const Reward = ({ spin, prize, handleHideReward, spinAgain, experience }: RewardProps) => {
+const Reward = ({
+  spin,
+  prize,
+  handleHideReward,
+  spinAgain,
+  experience,
+  rewardsOverForToday,
+}: RewardProps) => {
   // const { rouletteContract, account, convertToNumberString } = useContext(Web3Context);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [currentPrize, setCurrentPrize] = useState<Prize | null>(prize);
@@ -105,41 +113,52 @@ const Reward = ({ spin, prize, handleHideReward, spinAgain, experience }: Reward
   //   }
   // };
 
+  const twitterShare = async () => {
+    const twitterReq = await fetch('https://fastapi-jorgezavala4.replit.app/auth_url');
+    const twitterRes = await twitterReq.json();
+    window.location.href = twitterRes.auth_url;
+  };
+
   return (
     <div className="w-full h-full flex flex-col items-center justify-between py-10 relative md:gap-20">
       <div className="flex flex-col items-center gap-3">
         <h1 className="text-white text-3xl md:text-[46px] font-bold uppercase light-text">
-          {dontHaveExperience
-            ? 'Thanks for playing'
-            : currentPrize?.prizeWon
-            ? 'Congratulations'
-            : 'Try Again'}
+          {!rewardsOverForToday &&
+            (dontHaveExperience
+              ? 'Thanks for playing'
+              : currentPrize?.prizeWon
+              ? 'Congratulations'
+              : 'Try Again')}
+          {rewardsOverForToday && 'Rewards over for today'}
         </h1>
         <div className={`px-10 text-center ${dontHaveExperience && 'pt-8'}`}>
           <p className="text-white text-lg">
-            {dontHaveExperience
-              ? 'Your VP points have been fully utilized. Thank you for participating in our testnet campaign! The minting happens automatically and we hope you enjoy your rewards. Follow us on Twitter for updates on when and how the rewards will be activated.'
-              : !currentPrize?.prizeWon
-              ? 'Sorry! You haven’t won any reward. Please try another spin to win the Rewards'
-              : currentPrize?.prizeClass === 'Platinum'
-              ? 'You have won Platinum Reward.'
-              : currentPrize?.prizeClass === 'Silver'
-              ? 'You have won Silver Reward.'
-              : 'You have won Gold Reward.'}
+            {!rewardsOverForToday &&
+              (dontHaveExperience
+                ? 'Your VP points have been fully utilized. Thank you for participating in our testnet campaign! The minting happens automatically and we hope you enjoy your rewards. Follow us on Twitter for updates on when and how the rewards will be activated.'
+                : !currentPrize?.prizeWon
+                ? 'Sorry! You haven’t won any reward. Please try another spin to win the Rewards'
+                : currentPrize?.prizeClass === 'Platinum'
+                ? 'You have won Platinum Reward.'
+                : currentPrize?.prizeClass === 'Silver'
+                ? 'You have won Silver Reward.'
+                : 'You have won Gold Reward.')}
+            {rewardsOverForToday && 'Come back tomorrow to spend your VP points'}
           </p>
-          {dontHaveExperience ? (
-            <p className="text-white text-sm md:text-lg">
-              Don't forget to claim your rewards and follow us for future events
-            </p>
-          ) : currentPrize?.prizeClass === 'Silver' ? (
-            <p className="text-white text-sm md:text-lg">
-              Try more spins to get High tier rewards (Gold, Platinum).
-            </p>
-          ) : (
-            <p className="text-white text-sm md:text-lg">
-              Try more spins to get High tier rewards (Platinum).
-            </p>
-          )}
+          {!rewardsOverForToday &&
+            (dontHaveExperience ? (
+              <p className="text-white text-sm md:text-lg">
+                Don't forget to claim your rewards and follow us for future events
+              </p>
+            ) : currentPrize?.prizeClass === 'Silver' ? (
+              <p className="text-white text-sm md:text-lg">
+                Try more spins to get High tier rewards (Gold, Platinum).
+              </p>
+            ) : (
+              <p className="text-white text-sm md:text-lg">
+                Try more spins to get High tier rewards (Platinum).
+              </p>
+            ))}
         </div>
       </div>
 
@@ -162,14 +181,16 @@ const Reward = ({ spin, prize, handleHideReward, spinAgain, experience }: Reward
       {!dontHaveExperience && (
         <div className="w-full flex flex-col items-center justify-center gap-4 relative pb-12">
           <div className="flex flex-col md:flex-row gap-2  md:gap-8">
-            <div className="w-[174px] h-[50px] rounded-full border-gradient flex items-center justify-center">
-              <button
-                className="w-full h-[90%] bg-[#03D9AF] rounded-full font-bold text-[18px] flex items-center justify-center m-1 hover:bg-[#03d9af1a] hover:text-white transition-all duration-300"
-                onClick={tryAgain}
-              >
-                Spin Again
-              </button>
-            </div>
+            {!rewardsOverForToday && (
+              <div className="w-[174px] h-[50px] rounded-full border-gradient flex items-center justify-center">
+                <button
+                  className="w-full h-[90%] bg-[#03D9AF] rounded-full font-bold text-[18px] flex items-center justify-center m-1 hover:bg-[#03d9af1a] hover:text-white transition-all duration-300"
+                  onClick={tryAgain}
+                >
+                  Spin Again
+                </button>
+              </div>
+            )}
             <div className="w-[174px] h-[50px] rounded-full border-gradient-white flex items-center justify-center">
               <button
                 className="w-full h-[90%] bg-white rounded-full font-bold text-[18px] flex items-center justify-center m-1 hover:bg-[#03d9af1a] hover:text-white transition-all duration-300"
@@ -178,6 +199,16 @@ const Reward = ({ spin, prize, handleHideReward, spinAgain, experience }: Reward
                 Go back
               </button>
             </div>
+            {!rewardsOverForToday && (
+              <div className="w-[174px] h-[50px] rounded-full border-gradient-white flex items-center justify-center">
+                <button
+                  className="w-full h-[90%] bg-white rounded-full font-bold text-[18px] flex items-center justify-center m-1 hover:bg-[#03d9af1a] hover:text-white transition-all duration-300"
+                  onClick={twitterShare}
+                >
+                  Share on 𝕏
+                </button>
+              </div>
+            )}
           </div>
           {currentPrize?.prizeWon && (
             <>
