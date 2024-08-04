@@ -5,6 +5,7 @@ import axios from 'axios';
 import LateralModal from '../Modal/LateralModal';
 import { FAQ } from '../FAQ/FAQV2';
 import { RewardHistory } from '../RewardHistory/RewardHistory';
+import toastr from 'toastr';
 
 interface Prize {
   prizeWon: boolean;
@@ -23,7 +24,7 @@ interface Prize {
 }
 
 const Navbar = () => {
-  const { account, connectWeb3, disconnectWeb3 /*, rouletteContract*/ } = useContext(Web3Context);
+  const { account, connectWeb3, disconnectWeb3 } = useContext(Web3Context);
   const [points, setPoints] = useState<number>(0);
   const [username, setUserName] = useState<string>('');
   const [avatarURL, setAvatarURL] = useState<string>('');
@@ -33,28 +34,6 @@ const Navbar = () => {
   const [openInfoModal, setOpenInfoModal] = useState<boolean>(false);
   const [openClaimModal, setOpenClaimModal] = useState<boolean>(false);
   const [prizes, setPrizes] = useState<Prize[]>([]);
-
-  /*const checkIfPrizeWasMinted = async (listOfPrizes: Prize[]) => {
-    try {
-      // Map over the list of prizes and create an array of promises
-      const prizesCheckedPromises = listOfPrizes.map(async (currentPrize: Prize) => {
-        if (!rouletteContract) return currentPrize;
-        const claimed = await rouletteContract.isSignatureUseed(currentPrize.signature);
-        return {
-          ...currentPrize,
-          claimed,
-        };
-      });
-
-      // Wait for all promises to resolve
-      const prizesChecked = await Promise.all(prizesCheckedPromises);
-
-      return prizesChecked;
-    } catch (error) {
-      console.error('Error checking if prizes were minted:', error);
-      return []; // Return an empty array in case of an error
-    }
-  };*/
 
   useEffect(() => {
     if (localStorage.getItem('logged') === 'yes') {
@@ -85,18 +64,26 @@ const Navbar = () => {
   }, [account]);
 
   useEffect(() => {
-    if (account) {
-      axios
-        .get(`${import.meta.env.VITE_BACKEND_URL}/getUserData/${account}`)
-        .then(async response => {
+    const fetchUserData = async () => {
+      if (account) {
+        try {
+          const response = await axios.get(
+            `${import.meta.env.VITE_BACKEND_URL}/getUserData/${account}`,
+          );
           setPoints(response?.data?.experience);
           setPrizes(response?.data?.prizes);
-        })
-        .catch(error => {
+        } catch (error) {
           console.error('Error fetching data:', error);
-        });
-    }
-  }, [account]);
+        }
+      }
+    };
+
+    fetchUserData();
+
+    const intervalId = setInterval(fetchUserData, 2000);
+
+    return () => clearInterval(intervalId);
+  }, [account, points]);
 
   const handleChangeInfoColor: React.MouseEventHandler<HTMLDivElement> = () => {
     setShouldChangeInfoColor(!shouldChangeInfoColor);
@@ -119,6 +106,14 @@ const Navbar = () => {
   };
   const handleCloseClaimModal = () => {
     setOpenClaimModal(false);
+  };
+
+  const handleConnectWeb3 = () => {
+    if (typeof window.ethereum !== 'undefined') {
+      connectWeb3();
+    } else {
+      toastr.error('MetaMask is not installed. Please install it or use another browser.');
+    }
   };
 
   return (
@@ -161,7 +156,7 @@ const Navbar = () => {
           ) : (
             <button
               className=" md:h-12 text-xs md:text-[18px] w-[174px] bg-white text-black font-semibold py-1 md:py-3 px-2 md:px-6 text-nowrap rounded-full opacity-100 "
-              onClick={connectWeb3}
+              onClick={handleConnectWeb3}
             >
               {'Connect Wallet'}
             </button>

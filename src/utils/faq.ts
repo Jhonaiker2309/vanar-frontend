@@ -2,12 +2,12 @@ export const QAndA = [
   {
     question: 'What is Velocity?',
     answer:
-      "The VELOCITY Campaign is an immersive testnet experience on the Vanar Chain, starting with foundational knowledge and expanding into areas like DeFi, NFTs, and gaming. It combines learning with action through phases quests and challenges, offering rewards for participation and engagement. This initiative aims to deepen users' blockchain understanding while fostering innovation within the Vanar ecosystem.",
+      "The VELOCITY Campaign is an immersive testnet experience on the Vanar Chain, starting with foundational knowledge and expanding into areas like DeFi, NFTs, and gaming. It combines learning with action through phases, quests and challenges, offering rewards for participation and engagement. This initiative aims to deepen users' blockchain understanding while fostering innovation within the Vanar ecosystem.",
   },
   {
     question: 'What is VP?',
     answer:
-      'VP is velocity points, partake in tasks and bonus tasks to rank up in the leader boards and for the chance to win goodies across select campaigns.',
+      'VP stands for Velocity Points. Participate in tasks and bonus tasks to rank up on the leaderboards and have a chance to win goodies across select campaigns.',
   },
   {
     question: 'How do I get the NFT for each phase?',

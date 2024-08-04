@@ -13,10 +13,13 @@ export const FAQ = () => {
   );
 };
 
-const Question = ({ question, answer }: QuestionProps) => {
+const Question = ({ question, answer, index }: QuestionProps) => {
   return (
     <div className="w-full flex flex-col items-start gap-2 px-8">
-      <Accordion title={<h1 className="text-[22px] font-semibold">{question}</h1>}>
+      <Accordion
+        expanded={index === 0}
+        title={<h1 className="text-[22px] font-semibold">{question}</h1>}
+      >
         <p className="text-[#2b2b2b] md:text-lg">{answer}</p>
       </Accordion>
     </div>
@@ -33,16 +36,16 @@ const FAQs = [
   {
     question: 'What is Velocity?',
     answer:
-      "The VELOCITY Campaign is an immersive testnet experience on the Vanar Chain, starting with foundational knowledge and expanding into areas like DeFi, NFTs, and gaming. It combines learning with action through phases quests and challenges, offering rewards for participation and engagement. This initiative aims to deepen users' blockchain understanding while fostering innovation within the Vanar ecosystem.",
+      "The VELOCITY Campaign is an immersive testnet experience on the Vanar Chain, starting with foundational knowledge and expanding into areas like DeFi, NFTs, and gaming. It combines learning with action through phases, quests and challenges, offering rewards for participation and engagement. This initiative aims to deepen users' blockchain understanding while fostering innovation within the Vanar ecosystem.",
   },
   {
     question: 'What is VP?',
     answer:
-      'VP is velocity points, partake in tasks and bonus tasks to rank up in the leader boards and for the chance to win goodies across select campaigns.',
+      'VP stands for Velocity Points. Participate in tasks and bonus tasks to rank up on the leaderboards and have a chance to win goodies across select campaigns.',
   },
   {
     question: 'How do I get the NFT for each phase?',
     answer:
-      'By completing all the tasks for the phase you become eligible for minting the NFT for the specific phases. Once the phase is over the NFT will no longer be mintable. ',
+      'How do I get the NFT for each phase? By completing all the tasks for a phase, you become eligible to mint the NFT for that specific phase. The minting happens automatically. Once the phase is over, the NFT will no longer be mintable. ',
   },
 ];

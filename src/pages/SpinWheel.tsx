@@ -61,7 +61,6 @@ const SpinWheel = () => {
     if (account /*&& (currentSpin < 4)*/) {
       const currentTime = Date.now();
       if (currentTime - lastSpinTime >= 4000) {
-        // 2000 ms = 2 seconds
         if (spinnerRef.current && spinnerRef2.current) {
           spinnerRef.current.classList.add('spin');
           spinnerRef2.current.classList.add('spin');

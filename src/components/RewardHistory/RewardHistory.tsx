@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import 'toastr/build/toastr.min.css';
 
 interface Prize {
@@ -23,26 +23,18 @@ interface RewardHistoryProps {
   rewards: Prize[];
 }
 
-/*interface RewardProps {
-  index?: number;
-  name: string;
-  prizePartner: string;
-  prizeClass: string;
-  date: Date;
-  claimed: boolean;
-}
-
-interface RewardHistoryProps {
-  rewards: RewardProps[];
-}*/
-
 export const RewardHistory = ({ rewards }: RewardHistoryProps) => {
   const [view, setView] = useState<'all' | 'available' | 'minted'>('all');
-  const filteredRewards = rewards.filter(reward => {
-    if (view === 'all') return true;
-    if (view === 'available') return !reward.claimed;
-    if (view === 'minted') return reward.claimed;
-  });
+  const [filteredRewards, setFilteredRewards] = useState<Prize[]>([]);
+
+  useEffect(() => {
+    const newFilteredRewards = rewards.filter(reward => {
+      if (view === 'all') return true;
+      if (view === 'available') return !reward.claimed;
+      if (view === 'minted') return reward.claimed;
+    });
+    setFilteredRewards(newFilteredRewards);
+  }, [rewards, view]);
 
   return (
     <div className="w-full h-full pt-20 flex flex-col items-center gap-8 px-8">
@@ -58,6 +50,22 @@ export const RewardHistory = ({ rewards }: RewardHistoryProps) => {
           >
             Earned Rewards
           </button>
+          {/* <button
+            onClick={() => setView('available')}
+            className={`py-2 px-8  rounded-xl text-xs md:text-base ${
+              view === 'available' ? 'bg-black text-white' : 'text-black bg-[#EDEDEE]'
+            }`}
+          >
+            Available Rewards
+          </button>
+          <button
+            onClick={() => setView('minted')}
+            className={`py-2 px-8  rounded-xl text-xs md:text-base ${
+              view === 'minted' ? 'bg-black text-white' : 'text-black bg-[#EDEDEE]'
+            }`}
+          >
+            Minted Rewards
+          </button> */}
         </div>
       </div>
 

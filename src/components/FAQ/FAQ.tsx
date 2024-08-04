@@ -19,7 +19,7 @@ const Header = () => {
     <div className="w-full relative flex justify-center items-center">
       <div className="absolute w-full h-full bg-black opacity-85 z-40" />
       <img src="/images/background-faq.svg" />
-      <h1 className="text-2xl md:text-[56px] text-white z-50 absolute leading-10	">
+      <h1 className="text-2xl md:text-[56px] text-white z-50 absolute leading-10">
         Frequently Asked Questions
       </h1>
     </div>
@@ -30,6 +30,7 @@ const Question = ({ index, question, answer }: QuestionProps) => {
   return (
     <div className="w-full text-white flex flex-col items-start gap-2">
       <Accordion
+        isOpen={index === 0}
         title={
           <h1 className="text-lg md:text-3xl">
             {index + 1}. {question}

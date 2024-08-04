@@ -118,7 +118,7 @@ const Reward = ({ spin, prize, handleHideReward, spinAgain, experience }: Reward
         <div className={`px-10 text-center ${dontHaveExperience && 'pt-8'}`}>
           <p className="text-white text-lg">
             {dontHaveExperience
-              ? 'Your VP points are over, thanks for taking part in our even, we hope you enjoy your rewards.'
+              ? 'Your VP points have been fully utilized. Thank you for participating in our testnet campaign! The minting happens automatically and we hope you enjoy your rewards. Follow us on Twitter for updates on when and how the rewards will be activated.'
               : !currentPrize?.prizeWon
               ? 'Sorry! You haven’t won any reward. Please try another spin to win the Rewards'
               : currentPrize?.prizeClass === 'Platinum'
@@ -194,7 +194,7 @@ const Reward = ({ spin, prize, handleHideReward, spinAgain, experience }: Reward
           )}
           {spin >= 5 && (
             <p className="w-5/6 md:w-1/3 bottom-0 text-center text-xs text-white absolute">
-              Get 5th Spin today by sharing your reward on twitter
+              Get a 5th spin today by sharing your reward on Twitter.
             </p>
           )}
         </div>
