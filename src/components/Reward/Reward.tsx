@@ -122,14 +122,14 @@ const Reward = ({
   return (
     <div className="w-full h-full flex flex-col items-center justify-between py-10 relative md:gap-20">
       <div className="flex flex-col items-center gap-3">
-        <h1 className="text-white text-3xl md:text-[46px] font-bold uppercase light-text">
+        <h1 className="text-white text-3xl md:text-[46px] font-bold uppercase light-text text-center">
           {!rewardsOverForToday &&
             (dontHaveExperience
               ? 'Thanks for playing'
               : currentPrize?.prizeWon
               ? 'Congratulations'
               : 'Try Again')}
-          {rewardsOverForToday && 'Rewards over for today'}
+          {rewardsOverForToday && "YOU'VE USED ALL YOUR SPINS FOR TODAY"}
         </h1>
         <div className={`px-10 text-center ${dontHaveExperience && 'pt-8'}`}>
           <p className="text-white text-lg">
@@ -143,7 +143,8 @@ const Reward = ({
                 : currentPrize?.prizeClass === 'Silver'
                 ? 'You have won Silver Reward.'
                 : 'You have won Gold Reward.')}
-            {rewardsOverForToday && 'Come back tomorrow to spend your VP points'}
+            {rewardsOverForToday &&
+              'Please come back tomorrow to spend your VP points for more spins. Check the homepage for the time until new spins are available'}
           </p>
           {!rewardsOverForToday &&
             (dontHaveExperience ? (
@@ -162,7 +163,14 @@ const Reward = ({
         </div>
       </div>
 
-      {(!currentPrize?.prizeWon || dontHaveExperience) && (
+      {(!currentPrize?.prizeWon || dontHaveExperience) && !rewardsOverForToday && (
+        <img
+          className="pt-40 absolute z-0 grayscale"
+          src={`images/V2/image-spinwheel.svg`}
+          alt="icon"
+        />
+      )}
+      {rewardsOverForToday && (
         <img
           className="pt-24 absolute z-0 grayscale"
           src={`images/V2/image-spinwheel.svg`}

@@ -30,6 +30,7 @@ const RewardsBreakdown = ({ prizesInfo }: RewardsBreakdownProps) => {
   const [currentTier, setCurrentTier] = useState('gold');
   const [tierRewards, setTierRewards] = useState<Reward[]>([]);
 
+  console.log(prizesInfo);
   const tiers: Tier[] = [
     {
       name: 'gold',

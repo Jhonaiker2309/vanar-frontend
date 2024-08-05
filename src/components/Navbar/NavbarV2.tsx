@@ -155,7 +155,7 @@ const Navbar = () => {
             </button>
           ) : (
             <button
-              className=" md:h-12 text-xs md:text-[18px] w-[174px] bg-white text-black font-semibold py-1 md:py-3 px-2 md:px-6 text-nowrap rounded-full opacity-100 "
+              className=" h-12 text-xs md:text-[18px] w-[174px] bg-white text-black font-semibold py-1 md:py-3 px-2 md:px-6 text-nowrap rounded-full opacity-100 "
               onClick={handleConnectWeb3}
             >
               {'Connect Wallet'}
