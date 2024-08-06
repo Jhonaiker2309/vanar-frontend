@@ -9,6 +9,10 @@ const Mechanics = ({ spined }: MechanicsProps) => {
       <h1 className="text-[26px] text-center text-white font-semibold text-nowrap">
         Spin Mechanics
       </h1>
+      <p className="text-center text-white text-sm">
+        You get 3 spins each day for 20VP per spin. A bonus 4th spin costs 40VP. To get a 5th spin,
+        share your winnings on Twitter! The time until new spins is shown on the right side.
+      </p>
       <div className="w-full flex flex-col items-center bg-[#03D9AF0F] rounded-2xl py-4 px-4 gap-8">
         <div className="w-full flex items-center justify-between">
           <p className="text-white">1st Spin</p>

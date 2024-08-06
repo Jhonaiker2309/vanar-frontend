@@ -68,7 +68,11 @@ const SpinWheel = () => {
   };
 
   const handleSpinWheelLogic = () => {
-    if (account /*&& (currentSpin < 4)*/) {
+    if (
+      account &&
+      currentSpin < 4 &&
+      (experience === 40 || (experience >= 20 && currentSpin !== 4))
+    ) {
       const currentTime = Date.now();
       if (currentTime - lastSpinTime >= 4000) {
         if (spinnerRef.current && spinnerRef2.current) {

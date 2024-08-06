@@ -5,13 +5,13 @@ const Navbar = () => {
       <p className="text-[#F9F9F9BD] text-xs md:text-sm">Copyright © 2024 Vanar Chain</p>
       <img src="public/images/V2/logo-vanar.svg" alt="Vanar Chain Logo" />
       <div className="flex items-center justify-end gap-4">
-        <Link to="/terms">
+        <Link to="https://x.com/Vanarchain" target="_blank">
           <img src="images/V2/logo-x.svg" alt="logo x" />
         </Link>
-        <Link to="/terms">
+        <Link to="https://t.me/vanarofficial" target="_blank">
           <img src="images/V2/logo-telegram.svg" alt="logo telegram" />
         </Link>
-        <Link to="/terms">
+        <Link to="https://vanarchain.medium.com/" target="_blank">
           <img src="images/V2/logo-medium.svg" alt="logo medium" />
         </Link>
       </div>

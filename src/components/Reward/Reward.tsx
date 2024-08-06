@@ -163,7 +163,15 @@ const Reward = ({
         </div>
       </div>
 
-      {(!currentPrize?.prizeWon || dontHaveExperience) && !rewardsOverForToday && (
+      {!currentPrize?.prizeWon && !rewardsOverForToday && !dontHaveExperience && (
+        <img
+          className="pt-24 absolute z-0 grayscale"
+          src={`images/V2/image-spinwheel.svg`}
+          alt="icon"
+        />
+      )}
+
+      {dontHaveExperience && !rewardsOverForToday && (
         <img
           className="pt-40 absolute z-0 grayscale"
           src={`images/V2/image-spinwheel.svg`}
@@ -207,7 +215,7 @@ const Reward = ({
                 Go back
               </button>
             </div>
-            {!rewardsOverForToday && (
+            {currentPrize?.prizeWon && (
               <div className="w-[174px] h-[50px] rounded-full border-gradient-white flex items-center justify-center">
                 <button
                   className="w-full h-[90%] bg-white rounded-full font-bold text-[18px] flex items-center justify-center m-1 hover:bg-[#03d9af1a] hover:text-white transition-all duration-300"
