@@ -2,8 +2,9 @@ import { Hint } from '../Hint/Hint';
 
 interface MechanicsProps {
   spined: number;
+  todayTweetAdded: boolean;
 }
-const Mechanics = ({ spined }: MechanicsProps) => {
+const Mechanics = ({ spined, todayTweetAdded }: MechanicsProps) => {
   return (
     <div className="w-full 2xl:w-[410px] p-4 flex flex-col items-center justify-center gap-4 border-[1px] bg-[#030605dd] xl:bg-transparent border-[#F6F6F60A] rounded-2xl">
       <h1 className="text-[26px] text-center text-white font-semibold text-nowrap">
@@ -86,11 +87,12 @@ const Mechanics = ({ spined }: MechanicsProps) => {
               <Hint hint="This option will be available when you share your winning moment or achievement on Twitter." />
             )}
           </div>
-          {spined === 4 ? (
+          {spined === 4 && todayTweetAdded ? (
             <div className="flex items-center py-2 px-4 bg-[#014135] gap-2 rounded-md">
               <p className="text-[#03D9AF] font-semibold">Active</p>
             </div>
-          ) : spined >= 5 ? (
+          ) 
+          : spined >= 5 ? (
             <div className="flex items-center md:gap-2">
               <img src="images/V2/icon-check.svg" alt="check icon" />
               <p className="text-[#FFA500] font-semibold">Used</p>

@@ -80,7 +80,7 @@ const Navbar = () => {
 
     fetchUserData();
 
-    const intervalId = setInterval(fetchUserData, 2000);
+    const intervalId = setInterval(fetchUserData, 15000);
 
     return () => clearInterval(intervalId);
   }, [account, points]);

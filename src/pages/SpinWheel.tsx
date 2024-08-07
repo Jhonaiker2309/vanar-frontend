@@ -31,6 +31,7 @@ const SpinWheel = () => {
   const spinnerRef2 = useRef<HTMLImageElement>(null);
   const [currentSpin, setCurrentSpin] = useState<number>(0);
   const [experience, setExperience] = useState<number>(0);
+  const [todayTweetAdded, setTodayTweetAdded] = useState<boolean>(false)
   const [lastSpinTime, setLastSpinTime] = useState<number>(0);
   const [prize, setPrize] = useState<PrizeProps | null>(null);
   const [cardPrizes, setCardPrizes] = useState([]);
@@ -44,6 +45,7 @@ const SpinWheel = () => {
           setExperience(response?.data?.experience);
           setCardPrizes(response?.data?.prizesDelivered);
           setCurrentSpin(response?.data?.amountOfSpinsOfToday);
+          setTodayTweetAdded(response?.data?.todayTweetAdded);
           setFutureTime(new Date(response?.data?.nextRestart));
         })
         .catch(error => {
@@ -70,8 +72,8 @@ const SpinWheel = () => {
   const handleSpinWheelLogic = () => {
     if (
       account &&
-      currentSpin < 4 &&
-      (experience === 40 || (experience >= 20 && currentSpin !== 4))
+      (currentSpin < 4 || (currentSpin == 4 && todayTweetAdded)) &&
+      (experience >= 40 || (experience >= 20 && currentSpin !== 4))
     ) {
       const currentTime = Date.now();
       if (currentTime - lastSpinTime >= 4000) {
@@ -108,7 +110,7 @@ const SpinWheel = () => {
     <>
       {/* First section: Mechanics and TimerAndTries */}
       <div className="w-screen lx:h-screen flex flex-col xl:flex-row items-center justify-between pt-56 lg:pt-40 xl:pt-10 px-4 lg:px-[50px] relative">
-        <Mechanics spined={currentSpin} />
+        <Mechanics spined={currentSpin} todayTweetAdded={todayTweetAdded}/>
 
         <div className="w-[300px] md:w-[500px] lg:w-[800px] xl:min-w-[450px] ">
           <Spinwheel
