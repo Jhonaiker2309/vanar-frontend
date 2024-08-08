@@ -28,7 +28,7 @@ const Spinwheel = ({ spinnerRef, spinnerRef2, handleSpinWheelLogic }: SpinwheelP
       />
       <button
         className="md:-mt-[75px] ml-[6px] absolute rounded-full spin-button w-[80px] md:w-[120px] aspect-square"
-        onClick={handleSpinWheelLogic}
+        onClick={()=>handleSpinWheelLogic()}
       >
         <p className="text-white text-base md:text-[26px] font-bold uppercase light-text">
           Spin Now
