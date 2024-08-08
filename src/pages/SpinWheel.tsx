@@ -49,6 +49,11 @@ const SpinWheel = () => {
         .catch(error => {
           console.error('Error fetching data:', error);
         });
+    } else {
+      axios.get(`${import.meta.env.VITE_BACKEND_URL}/getUserData`).then(response => {
+        setCardPrizes(response?.data?.prizesDelivered);
+        setFutureTime(new Date(response?.data?.nextRestart));
+      });
     }
   }, [account]);
 
