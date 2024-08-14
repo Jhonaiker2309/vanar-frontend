@@ -143,25 +143,29 @@ export const Web3Provider: React.FC<AppProviderProps> = ({ children }) => {
   );
 
   const connectWeb3 = useCallback(async () => {
+    const isMainnet = import.meta.env.VITE_IS_MAINNET
+    const idOfCurrentNetwork = isMainnet ? 2040 : 78600
     try {
       localStorage.setItem('logged', 'yes');
       const ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
       await ethersProvider.send('eth_requestAccounts', []);
 
-      if ((await ethersProvider.getNetwork()).chainId !== 78600) {
+      console.log()
+
+      if ((await ethersProvider.getNetwork()).chainId !== idOfCurrentNetwork) {
         window.ethereum.request({
           method: 'wallet_addEthereumChain',
           params: [
             {
-              chainId: '0x13308',
-              rpcUrls: ['https://rpc-vanguard.vanarchain.com/'],
-              chainName: 'Vanguard Testnet',
+              chainId: isMainnet ? '0x7F8' : '0x13308',
+              rpcUrls:  isMainnet ? ['https://rpc.vanarchain.com'] : ['https://rpc-vanguard.vanarchain.com/'],
+              chainName: isMainnet ? 'Vanar Mainnet' : 'Vanguard Testnet',
               nativeCurrency: {
-                name: 'VG',
-                symbol: 'VG',
+                name: isMainnet ? 'VANRY' : 'VG',
+                symbol: isMainnet ? 'VANRY' : 'VG',
                 decimals: 18,
               },
-              blockExplorerUrls: ['https://explorer-vanguard.vanarchain.com/'],
+              blockExplorerUrls: isMainnet ? ['https://explorer.vanarchain.com'] : ['https://explorer-vanguard.vanarchain.com/'],
             },
           ],
         });
