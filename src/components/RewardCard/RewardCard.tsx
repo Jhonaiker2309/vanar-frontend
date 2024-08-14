@@ -44,7 +44,7 @@ const RewardCard = ({ name, claimed, total, video, type }: RewardCardProps) => {
             {claimed}/{total}
           </p>
         </div>
-        <img src="/images/V2/icon-increase.svg" alt="Icon increase" className="cursor-pointer" />
+        <img src="images/V2/icon-increase.svg" alt="Icon increase" className="cursor-pointer" />
       </div>
     </div>
   );
