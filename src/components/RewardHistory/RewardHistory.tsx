@@ -82,17 +82,17 @@ const Reward = ({ name, prizeClass, prizePartner, date, claimed }: Prize) => {
   const formatDate = (dateString: string | number | Date) => {
     const date = new Date(dateString);
 
-    const month = date.toLocaleString('default', { month: 'long' });
+    const month = date.toLocaleString('en-US', { month: 'long' });
     const day = date.getDate();
     const year = date.getFullYear();
-    const hours = date.getHours() % 12 || 12;
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    const ampm = date.getHours() >= 12 ? 'PM' : 'AM';
+    //const hours = date.getHours() % 12 || 12;
+    //const minutes = date.getMinutes().toString().padStart(2, '0');
+    //const ampm = date.getHours() >= 12 ? 'PM' : 'AM';
 
     const suffixes = ['th', 'st', 'nd', 'rd'];
     const suffix = suffixes[day % 10 > 3 || (day % 100 >= 11 && day % 100 <= 13) ? 0 : day % 10];
 
-    return `${month} ${day}${suffix}, ${year}, ${hours}:${minutes}${ampm}`;
+    return `${month} ${day}${suffix}, ${year}`;
   };
 
   const backgroundprizeClass: { [key: string]: string } = {
