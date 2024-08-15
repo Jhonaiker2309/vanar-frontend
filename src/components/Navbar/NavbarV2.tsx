@@ -116,8 +116,22 @@ const Navbar = () => {
     }
   };
 
+  const stickyHeader = () => {
+    const header = document.getElementById("header");
+    const sticky = header?.offsetTop;
+    if (sticky !== undefined && window.scrollY > sticky) {
+      header?.classList.add("active");
+    } else {
+      header?.classList.remove("active");
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", stickyHeader);
+  }, []);
+
   return (
-    <header className="w-screen fixed top-0 left-0 flex items-center justify-between z-50">
+    <header id="header" className="w-screen fixed top-0 left-0 flex items-center justify-between z-50">
       <div className="w-screen flex flex-col md:flex-row md:h-[54px] p-4 md:p-[50px] items-center justify-between gap-8 md:gap-12">
         <div className="flex items-center">
           <img src="images/V2/logo-velocity.svg" alt="Logo" />

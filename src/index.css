@@ -146,3 +146,13 @@ body {
   animation: spin 1s linear infinite;
   transform-origin: center center;
 }
+
+#header.active {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+#header {
+  transition: 0.4s linear;
+}
