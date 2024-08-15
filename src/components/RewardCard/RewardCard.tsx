@@ -31,6 +31,7 @@ const RewardCard = ({ name, claimed, total, video, type }: RewardCardProps) => {
           loop
           muted={true}
           autoPlay
+          playsInline
           className="w-full md:w-[384px] rounded-[14px] relative z-0 -mt-16"
         >
           <source src={video} type="video/mp4" />
